@@ -1,0 +1,11 @@
+<res>
+   <item name="hp/img_hp1.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="hp/img_hp2.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="hp/img_hp3.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="hp/img_hp4.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="hp/img_hp5.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="hp/img_hp6.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="hp/img_hp7.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="hp/img_hp_gray.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="hp/img_hp_gray1.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+</res>
