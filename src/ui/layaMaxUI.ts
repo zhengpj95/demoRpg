@@ -3,15 +3,21 @@ import View=Laya.View;
 import Dialog=Laya.Dialog;
 import Scene=Laya.Scene;
 var REG: Function = Laya.ClassUtils.regClass;
-export module ui.test {
+export module ui.hp {
     export class MainHpUI extends Scene {
+		public imgHpNext:Laya.Image;
+		public imgHpTween:Laya.Image;
+		public imgHp:Laya.Image;
+		public labHp:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
-            this.loadScene("test/MainHp");
+            this.loadScene("hp/MainHp");
         }
     }
-    REG("ui.test.MainHpUI",MainHpUI);
+    REG("ui.hp.MainHpUI",MainHpUI);
+}
+export module ui.test {
     export class TestSceneUI extends Scene {
 		public scoreLbl:Laya.Label;
 		public tipLbll:Laya.Label;

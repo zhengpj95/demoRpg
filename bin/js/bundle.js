@@ -5,17 +5,22 @@
     var REG = Laya.ClassUtils.regClass;
     var ui;
     (function (ui) {
-        var test;
-        (function (test) {
+        var hp;
+        (function (hp) {
             class MainHpUI extends Scene {
                 constructor() { super(); }
                 createChildren() {
                     super.createChildren();
-                    this.loadScene("test/MainHp");
+                    this.loadScene("hp/MainHp");
                 }
             }
-            test.MainHpUI = MainHpUI;
-            REG("ui.test.MainHpUI", MainHpUI);
+            hp.MainHpUI = MainHpUI;
+            REG("ui.hp.MainHpUI", MainHpUI);
+        })(hp = ui.hp || (ui.hp = {}));
+    })(ui || (ui = {}));
+    (function (ui) {
+        var test;
+        (function (test) {
             class TestSceneUI extends Scene {
                 constructor() { super(); }
                 createChildren() {
@@ -27,6 +32,67 @@
             REG("ui.test.TestSceneUI", TestSceneUI);
         })(test = ui.test || (ui.test = {}));
     })(ui || (ui = {}));
+
+    const HP_RES_ARY = [
+        "hp/img_hp1.png",
+        "hp/img_hp2.png",
+        "hp/img_hp3.png",
+        "hp/img_hp4.png",
+        "hp/img_hp5.png",
+        "hp/img_hp6.png"
+    ];
+    const HP_RES_END = "hp/img_hp7.png";
+    const HP_SINGLE = 1000;
+    function getRandom(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+    function createMaxHp() {
+        return getRandom(10, 15) * 1000;
+    }
+    function createSubHp() {
+        return getRandom(0, 1000);
+    }
+    class MainHp extends ui.hp.MainHpUI {
+        constructor() {
+            super();
+            this._radio = 0;
+            this._hpResIdx = 0;
+        }
+        onAwake() {
+            super.onAwake();
+        }
+        onEnable() {
+            super.onEnable();
+            this._maxHp = createMaxHp();
+            this._leftHp = this._maxHp;
+            this._radio = 1;
+            this.timerLoop(500, this, this.onUpdateHp);
+        }
+        onUpdateHp() {
+            this._leftHp -= createSubHp();
+            if (this._leftHp < 0) {
+                this._leftHp = this._maxHp = createMaxHp();
+            }
+            const radio = this._leftHp / this._maxHp;
+            if (radio === this._radio) {
+                return;
+            }
+            this._radio = radio;
+            console.log(this._radio);
+            this.updateLabHp();
+            this.updateHpSkin();
+        }
+        updateLabHp() {
+            const num = this._leftHp / this._maxHp * 100;
+            this.labHp.text = "x" + Math.ceil(this._leftHp / HP_SINGLE) + "    " + num.toFixed(2) + "%";
+        }
+        updateHpSkin() {
+            if (this._hpResIdx >= HP_RES_ARY.length) {
+                this._hpResIdx = 0;
+            }
+            this.imgHp.skin = HP_RES_ARY[this._hpResIdx++];
+        }
+    }
 
     class GameControl extends Laya.Script {
         constructor() {
@@ -179,6 +245,7 @@
         }
         static init() {
             var reg = Laya.ClassUtils.regClass;
+            reg("script/MainHp.ts", MainHp);
             reg("script/GameUI.ts", GameUI);
             reg("script/GameControl.ts", GameControl);
             reg("script/Bullet.ts", Bullet);
@@ -187,11 +254,11 @@
     }
     GameConfig.width = 640;
     GameConfig.height = 1136;
-    GameConfig.scaleMode = "fixedheight";
+    GameConfig.scaleMode = "noscale";
     GameConfig.screenMode = "none";
-    GameConfig.alignV = "top";
-    GameConfig.alignH = "left";
-    GameConfig.startScene = "test/MainHp.scene";
+    GameConfig.alignV = "middle";
+    GameConfig.alignH = "center";
+    GameConfig.startScene = "hp/MainHp.scene";
     GameConfig.sceneRoot = "";
     GameConfig.debug = false;
     GameConfig.stat = false;

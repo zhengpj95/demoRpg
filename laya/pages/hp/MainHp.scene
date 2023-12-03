@@ -2,11 +2,11 @@
     "x":0,
     "type":"Scene",
     "selectedBox":2,
-    "selecteID":12,
+    "selecteID":13,
     "searchKey":"Scene",
-    "props":{"width":640,"sceneColor":"#774444","height":1136},
+    "props":{"width":640,"sceneColor":"#774444","runtime":"script/MainHp.ts","height":1136},
     "nodeParent":-1,
-    "maxID":13,
+    "maxID":14,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -35,17 +35,16 @@
             "props":{"y":204,"width":500,"name":"boxHp","centerX":0},
             "nodeParent":2,
             "label":"boxHp",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":8,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
-                    "searchKey":"Image,imgHpNext",
-                    "props":{"x":0,"width":500,"skin":"hp/img_hp1.png","name":"imgHpNext"},
+                    "searchKey":"Image,imgHpNext,imgHpNext",
+                    "props":{"x":0,"width":500,"var":"imgHpNext","skin":"hp/img_hp1.png","name":"imgHpNext"},
                     "nodeParent":8,
                     "label":"imgHpNext",
                     "isDirectory":false,
@@ -56,10 +55,9 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Image",
-                    "searchKey":"Image,imgHpTween",
-                    "props":{"y":0,"x":0,"width":367,"skin":"hp/img_hp_gray1.png","name":"imgHpTween"},
+                    "searchKey":"Image,imgHpTween,imgHpTween",
+                    "props":{"y":0,"x":0,"width":367,"var":"imgHpTween","skin":"hp/img_hp_gray1.png","name":"imgHpTween"},
                     "nodeParent":8,
                     "label":"imgHpTween",
                     "isDirectory":false,
@@ -70,10 +68,9 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Image",
-                    "searchKey":"Image,imgHp",
-                    "props":{"y":0,"x":0,"width":316,"skin":"hp/img_hp3.png","name":"imgHp"},
+                    "searchKey":"Image,imgHp,imgHp",
+                    "props":{"y":0,"x":0,"width":316,"var":"imgHp","skin":"hp/img_hp3.png","name":"imgHp"},
                     "nodeParent":8,
                     "label":"imgHp",
                     "isDirectory":false,
@@ -83,6 +80,20 @@
                     "child":[
                         ]
                 }]
+        },
+        {
+            "x":15,
+            "type":"Label",
+            "searchKey":"Label,labHp",
+            "props":{"y":180,"x":78,"var":"labHp","text":"x10","fontSize":20,"color":"#0aff0a","bold":true},
+            "nodeParent":2,
+            "label":"labHp",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":13,
+            "child":[
+                ]
         }],
     "animations":[
         {
