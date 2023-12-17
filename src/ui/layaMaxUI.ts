@@ -18,6 +18,15 @@ export module ui.hp {
     REG("ui.hp.MainHpUI",MainHpUI);
 }
 export module ui.test {
+    export class TestPanelUI extends View {
+		public panel:Laya.Panel;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("test/TestPanel");
+        }
+    }
+    REG("ui.test.TestPanelUI",TestPanelUI);
     export class TestSceneUI extends Scene {
 		public scoreLbl:Laya.Label;
 		public tipLbll:Laya.Label;

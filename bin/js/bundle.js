@@ -1,6 +1,7 @@
 (function () {
     'use strict';
 
+    var View = Laya.View;
     var Scene = Laya.Scene;
     var REG = Laya.ClassUtils.regClass;
     var ui;
@@ -21,6 +22,15 @@
     (function (ui) {
         var test;
         (function (test) {
+            class TestPanelUI extends View {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("test/TestPanel");
+                }
+            }
+            test.TestPanelUI = TestPanelUI;
+            REG("ui.test.TestPanelUI", TestPanelUI);
             class TestSceneUI extends Scene {
                 constructor() { super(); }
                 createChildren() {
@@ -91,6 +101,18 @@
                 this._hpResIdx = 0;
             }
             this.imgHp.skin = HP_RES_ARY[this._hpResIdx++];
+        }
+    }
+
+    class TestPanel extends ui.test.TestPanelUI {
+        constructor() {
+            super();
+        }
+        onEnable() {
+            super.onEnable();
+            const panel = this.panel;
+            panel.hScrollBarSkin = "";
+            panel.vScrollBarSkin = "";
         }
     }
 
@@ -246,6 +268,7 @@
         static init() {
             var reg = Laya.ClassUtils.regClass;
             reg("script/MainHp.ts", MainHp);
+            reg("test/TestPanel.ts", TestPanel);
             reg("script/GameUI.ts", GameUI);
             reg("script/GameControl.ts", GameControl);
             reg("script/Bullet.ts", Bullet);
@@ -258,7 +281,7 @@
     GameConfig.screenMode = "none";
     GameConfig.alignV = "middle";
     GameConfig.alignH = "center";
-    GameConfig.startScene = "hp/MainHp.scene";
+    GameConfig.startScene = "test/TestPanel.scene";
     GameConfig.sceneRoot = "";
     GameConfig.debug = false;
     GameConfig.stat = false;
