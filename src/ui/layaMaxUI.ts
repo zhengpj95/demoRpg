@@ -4,6 +4,15 @@ import Dialog=Laya.Dialog;
 import Scene=Laya.Scene;
 var REG: Function = Laya.ClassUtils.regClass;
 export module ui.hp {
+    export class HpSingleUI extends Scene {
+		public imgHp:Laya.Image;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("hp/HpSingle");
+        }
+    }
+    REG("ui.hp.HpSingleUI",HpSingleUI);
     export class MainHpUI extends Scene {
 		public imgHpNext:Laya.Image;
 		public imgHpTween:Laya.Image;

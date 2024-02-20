@@ -8,6 +8,15 @@
     (function (ui) {
         var hp;
         (function (hp) {
+            class HpSingleUI extends Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("hp/HpSingle");
+                }
+            }
+            hp.HpSingleUI = HpSingleUI;
+            REG("ui.hp.HpSingleUI", HpSingleUI);
             class MainHpUI extends Scene {
                 constructor() { super(); }
                 createChildren() {
@@ -42,6 +51,37 @@
             REG("ui.test.TestSceneUI", TestSceneUI);
         })(test = ui.test || (ui.test = {}));
     })(ui || (ui = {}));
+
+    class MathUtils {
+        static getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+    }
+
+    var Handler = Laya.Handler;
+    class HpSingle extends ui.hp.HpSingleUI {
+        constructor() {
+            super();
+            this._maxHp = 0;
+            this._maxHp1 = 0;
+        }
+        onEnable() {
+            super.onEnable();
+            this._maxHp = this._maxHp1 = 100000;
+            this.timer.loop(500, this, this.onUpdateHp);
+        }
+        onUpdateHp() {
+            const subHp = MathUtils.getRandom(0, 5000);
+            this._maxHp1 = this._maxHp1 - subHp;
+            console.log(`11111 ${this._maxHp1}, ${this._maxHp1 / this._maxHp}`);
+            const w = 500 * (this._maxHp1 / this._maxHp);
+            Laya.Tween.to(this.imgHp, { width: w }, 500, null, Handler.create(this, () => {
+                if (w <= 0) {
+                    this.timer.clearAll(this);
+                }
+            }));
+        }
+    }
 
     const HP_RES_ARY = [
         "hp/img_hp1.png",
@@ -110,6 +150,7 @@
         }
         onEnable() {
             super.onEnable();
+            this.autoDestroyAtClosed = true;
             const panel = this.panel;
             panel.hScrollBarSkin = "";
             panel.vScrollBarSkin = "";
@@ -267,6 +308,7 @@
         }
         static init() {
             var reg = Laya.ClassUtils.regClass;
+            reg("hp/HpSingle.ts", HpSingle);
             reg("script/MainHp.ts", MainHp);
             reg("test/TestPanel.ts", TestPanel);
             reg("script/GameUI.ts", GameUI);
@@ -281,7 +323,7 @@
     GameConfig.screenMode = "none";
     GameConfig.alignV = "middle";
     GameConfig.alignH = "center";
-    GameConfig.startScene = "test/TestPanel.scene";
+    GameConfig.startScene = "hp/HpSingle.scene";
     GameConfig.sceneRoot = "";
     GameConfig.debug = false;
     GameConfig.stat = false;
