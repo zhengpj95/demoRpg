@@ -59,6 +59,7 @@
     }
 
     var Handler = Laya.Handler;
+    var Pool = Laya.Pool;
     class HpSingle extends ui.hp.HpSingleUI {
         constructor() {
             super();
@@ -72,6 +73,7 @@
         }
         onUpdateHp() {
             const subHp = MathUtils.getRandom(0, 5000);
+            this.tweenHp(subHp);
             this._maxHp1 = this._maxHp1 - subHp;
             console.log(`11111 ${this._maxHp1}, ${this._maxHp1 / this._maxHp}`);
             const w = 500 * (this._maxHp1 / this._maxHp);
@@ -79,6 +81,20 @@
                 if (w <= 0) {
                     this.timer.clearAll(this);
                 }
+            }));
+        }
+        tweenHp(hp) {
+            const lab = Pool.createByClass(Laya.Label);
+            lab.text = hp + "";
+            lab.fontSize = 24;
+            lab.color = "#00ff00";
+            lab.centerX = 0;
+            lab.y = 200;
+            lab.alpha = 1;
+            this.boxVal.addChild(lab);
+            Laya.Tween.to(lab, { y: 20, alpha: 0 }, 1000, null, Handler.create(this, () => {
+                lab.removeSelf();
+                Pool.recoverByClass(lab);
             }));
         }
     }

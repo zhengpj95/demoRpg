@@ -5,6 +5,7 @@ import Scene=Laya.Scene;
 var REG: Function = Laya.ClassUtils.regClass;
 export module ui.hp {
     export class HpSingleUI extends Scene {
+		public boxVal:Laya.Box;
 		public imgHp:Laya.Image;
         constructor(){ super()}
         createChildren():void {
