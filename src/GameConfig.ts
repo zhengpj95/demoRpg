@@ -2,6 +2,7 @@
 import HpSingle from "./hp/HpSingle"
 import MainHp from "./script/MainHp"
 import TestPanel from "./test/TestPanel"
+import TestPanelCloud from "./test/TestPanelCloud"
 import GameUI from "./script/GameUI"
 import GameControl from "./script/GameControl"
 import Bullet from "./script/Bullet"
@@ -16,7 +17,7 @@ export default class GameConfig{
     static screenMode:string="none";
     static alignV:string="middle";
     static alignH:string="center";
-    static startScene:any="hp/HpSingle.scene";
+    static startScene:any="test/TestPanelCloud.scene";
     static sceneRoot:string="";
     static debug:boolean=false;
     static stat:boolean=false;
@@ -28,6 +29,7 @@ export default class GameConfig{
         reg("hp/HpSingle.ts",HpSingle);
         reg("script/MainHp.ts",MainHp);
         reg("test/TestPanel.ts",TestPanel);
+        reg("test/TestPanelCloud.ts",TestPanelCloud);
         reg("script/GameUI.ts",GameUI);
         reg("script/GameControl.ts",GameControl);
         reg("script/Bullet.ts",Bullet);

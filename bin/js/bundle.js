@@ -40,6 +40,15 @@
             }
             test.TestPanelUI = TestPanelUI;
             REG("ui.test.TestPanelUI", TestPanelUI);
+            class TestPanelCloudUI extends Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("test/TestPanelCloud");
+                }
+            }
+            test.TestPanelCloudUI = TestPanelCloudUI;
+            REG("ui.test.TestPanelCloudUI", TestPanelCloudUI);
             class TestSceneUI extends Scene {
                 constructor() { super(); }
                 createChildren() {
@@ -170,6 +179,72 @@
             const panel = this.panel;
             panel.hScrollBarSkin = "";
             panel.vScrollBarSkin = "";
+        }
+    }
+
+    var Handler$1 = Laya.Handler;
+    var Tween = Laya.Tween;
+    class TestPanelCloud extends ui.test.TestPanelCloudUI {
+        constructor() {
+            super();
+            this._max = 10;
+            this._actList = [1];
+        }
+        getShowList() {
+            const list = this._actList.sort((a, b) => a - b);
+            if (list.length >= this._max) {
+                return list;
+            }
+            const maxNum = list[list.length - 1];
+            return [...list, maxNum + 1];
+        }
+        onEnable() {
+            super.onEnable();
+            this.list.renderHandler = Handler$1.create(this, this.onRenderList, undefined, false);
+            this.list.vScrollBarSkin = "";
+            const ary = this.getShowList();
+            this.list.array = ary.reverse();
+            this.list.scrollTo(ary.length);
+        }
+        onRenderList(item, index) {
+            const data = item.dataSource;
+            const labLayer = item.getChildByName("labLayer");
+            labLayer.text = `第${data}层`;
+            const btn = item.getChildByName("btn");
+            btn.clickHandler = Handler$1.create(this, this.onClickBtn, [item, index], false);
+            const isActed = this._actList.indexOf(data) > -1;
+            const boxCloud = item.getChildByName("boxCloud");
+            const imgCloud1 = boxCloud.getChildAt(0);
+            const imgCloud2 = boxCloud.getChildAt(1);
+            boxCloud.visible = !isActed;
+            if (!isActed) {
+                imgCloud1.x = 0;
+                imgCloud2.x = 300;
+            }
+            btn.visible = !isActed;
+        }
+        onClickBtn(item, index) {
+            const data = item.dataSource;
+            if (this._actList.indexOf(data) < 0) {
+                this._actList.push(data);
+            }
+            const boxCloud = item.getChildByName("boxCloud");
+            const imgCloud1 = boxCloud.getChildAt(0);
+            const imgCloud2 = boxCloud.getChildAt(1);
+            Tween.to(imgCloud1, { x: imgCloud1.x - 500 }, 1000);
+            Tween.to(imgCloud2, { x: imgCloud2.x + 500 }, 1000, null, Handler$1.create(this, this.tweenList, [index - 2], true));
+            const btn = item.getChildByName("btn");
+            btn.visible = false;
+        }
+        tweenList(index) {
+            const child = this.list.array.length;
+            if (child < this._max) {
+                const newList = this.getShowList();
+                const maxNum = newList[newList.length - 1];
+                this.list.addItemAt(maxNum, 0);
+                this.list.scrollTo(1);
+            }
+            this.list.tweenTo(index - 1, 500);
         }
     }
 
@@ -327,6 +402,7 @@
             reg("hp/HpSingle.ts", HpSingle);
             reg("script/MainHp.ts", MainHp);
             reg("test/TestPanel.ts", TestPanel);
+            reg("test/TestPanelCloud.ts", TestPanelCloud);
             reg("script/GameUI.ts", GameUI);
             reg("script/GameControl.ts", GameControl);
             reg("script/Bullet.ts", Bullet);
@@ -339,7 +415,7 @@
     GameConfig.screenMode = "none";
     GameConfig.alignV = "middle";
     GameConfig.alignH = "center";
-    GameConfig.startScene = "hp/HpSingle.scene";
+    GameConfig.startScene = "test/TestPanelCloud.scene";
     GameConfig.sceneRoot = "";
     GameConfig.debug = false;
     GameConfig.stat = false;

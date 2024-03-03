@@ -37,6 +37,16 @@ export module ui.test {
         }
     }
     REG("ui.test.TestPanelUI",TestPanelUI);
+    export class TestPanelCloudUI extends Scene {
+		public panel:Laya.Panel;
+		public list:Laya.List;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("test/TestPanelCloud");
+        }
+    }
+    REG("ui.test.TestPanelCloudUI",TestPanelCloudUI);
     export class TestSceneUI extends Scene {
 		public scoreLbl:Laya.Label;
 		public tipLbll:Laya.Label;
