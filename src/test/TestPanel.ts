@@ -1,4 +1,4 @@
-import {ui} from "../ui/layaMaxUI";
+import { ui } from "../ui/layaMaxUI";
 
 /**
  * 继承场景类的实现方式 Laya.Scene
@@ -8,16 +8,16 @@ import {ui} from "../ui/layaMaxUI";
  * 只要 hScrollBarSkin 和 vScrollBarSkin 不为 undefined 和 null，就可以实现滑动效果了。
  */
 export default class TestPanel extends ui.test.TestPanelUI {
-	constructor() {
-		super();
-	}
+  constructor() {
+    super();
+  }
 
-	onEnable() {
-		super.onEnable();
-		this.autoDestroyAtClosed = true; // 场景被关闭后，自动销毁
+  onEnable() {
+    super.onEnable();
+    this.autoDestroyAtClosed = true; // 场景被关闭后，自动销毁
 
-		const panel = this.panel;
-		panel.hScrollBarSkin = "";
-		panel.vScrollBarSkin = "";
-	}
+    const panel = this.panel;
+    panel.hScrollBarSkin = "";
+    panel.vScrollBarSkin = "";
+  }
 }
