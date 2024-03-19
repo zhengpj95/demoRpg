@@ -1,5 +1,7 @@
 import GameConfig from "./GameConfig";
 import HpSingle from "./hp/HpSingle";
+import { LayerMgr } from "./base/LayerMgr";
+import Event = Laya.Event;
 
 class Main {
   constructor() {
@@ -35,9 +37,19 @@ class Main {
     // 这种方式加载scene的，如果不设置runtime，scene对应的代码文件不会执行到。
     // GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
 
+    LayerMgr.init();
+    LayerMgr.onResize();
+    Laya.stage.on(Event.RESIZE, this, this.onResize);
+
     // 分离模式处理，把scene对应的代码文件加到舞台上即可，代码中自动绑定对应的scene了
-    const mdr = new HpSingle();
-    Laya.stage.addChild(mdr);
+    // const mdr = new HpSingle();
+    // Laya.stage.addChild(mdr);
+
+    LayerMgr.showView(HpSingle);
+  }
+
+  private onResize(): void {
+    LayerMgr.onResize();
   }
 }
 

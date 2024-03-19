@@ -355,7 +355,7 @@
         }
         static init() {
             var reg = Laya.ClassUtils.regClass;
-            reg("script/MainHp.ts", MainHp);
+            reg("hp/MainHp.ts", MainHp);
             reg("test/TestPanel.ts", TestPanel);
             reg("test/TestPanelCloud.ts", TestPanelCloud);
             reg("script/GameUI.ts", GameUI);
@@ -389,6 +389,7 @@
     class HpSingle extends ui.hp.HpSingleUI {
         constructor() {
             super();
+            this._layerIndex_ = 1;
             this._maxHp = 0;
             this._maxHp1 = 0;
         }
@@ -430,6 +431,65 @@
         }
     }
 
+    var UIComponent = Laya.UIComponent;
+    class BaseLayer extends UIComponent {
+        constructor(idx) {
+            super();
+            this.idx = idx;
+            this.name = "_idx" + idx;
+            this.mouseThrough = true;
+        }
+        onResize() {
+            this.width = Laya.stage.width;
+            this.height = Laya.stage.height;
+        }
+    }
+    class MapLayer extends BaseLayer {
+    }
+    class WinLayer extends BaseLayer {
+    }
+    class ModalLayer extends BaseLayer {
+    }
+    class LayerMgr {
+        static init() {
+            const stage = Laya.stage;
+            stage.addChild(LayerMgr.bgMain);
+            stage.addChild(LayerMgr.winMain);
+            stage.addChild(LayerMgr.modalMain);
+        }
+        static showView(mdr) {
+            const cls = new mdr();
+            if (cls) {
+                const idx = cls["_layerIndex_"];
+                if (idx === 0) {
+                    LayerMgr.bgMain.addChild(cls);
+                }
+                else if (idx === 1) {
+                    LayerMgr.winMain.addChild(cls);
+                }
+                else if (idx === 2) {
+                    LayerMgr.modalMain.addChild(cls);
+                }
+                else {
+                    Laya.stage.addChild(cls);
+                }
+            }
+        }
+        static onResize() {
+            if (!Laya.stage) {
+                return;
+            }
+            const nums = Laya.stage.numChildren;
+            for (let i = 0; i < nums; i++) {
+                Laya.stage.getChildAt(i).onResize();
+            }
+        }
+    }
+    LayerMgr.bgMain = new MapLayer(0);
+    LayerMgr.winMain = new WinLayer(1);
+    LayerMgr.modalMain = new ModalLayer(2);
+
+    var Event = Laya.Event;
     class Main {
         constructor() {
             if (window["Laya3D"])
@@ -456,8 +516,13 @@
             Laya.AtlasInfoManager.enable("fileconfig.json", Laya.Handler.create(this, this.onConfigLoaded));
         }
         onConfigLoaded() {
-            const mdr = new HpSingle();
-            Laya.stage.addChild(mdr);
+            LayerMgr.init();
+            LayerMgr.onResize();
+            Laya.stage.on(Event.RESIZE, this, this.onResize);
+            LayerMgr.showView(HpSingle);
+        }
+        onResize() {
+            LayerMgr.onResize();
         }
     }
     new Main();
