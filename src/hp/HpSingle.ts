@@ -11,8 +11,14 @@ export default class HpSingle extends ui.hp.HpSingleUI {
     super();
   }
 
+  onAwake() {
+    super.onAwake();
+    console.log(`HpSingle onAwake`);
+  }
+
   onEnable() {
     super.onEnable();
+    console.log(`HpSingle onEnable`);
     this._maxHp = this._maxHp1 = 100000;
     this.timer.loop(500, this, this.onUpdateHp);
   }
@@ -37,11 +43,15 @@ export default class HpSingle extends ui.hp.HpSingleUI {
     );
   }
 
+  /**
+   * Pool.createByClass(Laya.Label) 和 Pool.recoverByClass(lab)
+   * Pool.getItemByClass("HpLabel", Laya.Label) 和 Pool.recover("HpLabel", lab)
+   */
   private tweenHp(hp: number): void {
-    const lab = Pool.createByClass(Laya.Label);
-    lab.text = hp + "";
+    const lab = Pool.getItemByClass("HpLabel", Laya.Label);
+    lab.text = "-" + hp;
     lab.fontSize = 24;
-    lab.color = "#00ff00";
+    lab.color = "#ff0000";
     lab.centerX = 0;
     lab.y = 200;
     lab.alpha = 1;
@@ -53,7 +63,7 @@ export default class HpSingle extends ui.hp.HpSingleUI {
       null,
       Handler.create(this, () => {
         lab.removeSelf();
-        Pool.recoverByClass(lab);
+        Pool.recover("HpLabel", lab);
       }),
     );
   }

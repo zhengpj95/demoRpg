@@ -61,60 +61,13 @@
         })(test = ui.test || (ui.test = {}));
     })(ui || (ui = {}));
 
-    class MathUtils {
-        static getRandom(min, max) {
-            return Math.floor(Math.random() * (max - min + 1) + min);
-        }
-    }
-
-    var Handler = Laya.Handler;
-    var Pool = Laya.Pool;
-    class HpSingle extends ui.hp.HpSingleUI {
-        constructor() {
-            super();
-            this._maxHp = 0;
-            this._maxHp1 = 0;
-        }
-        onEnable() {
-            super.onEnable();
-            this._maxHp = this._maxHp1 = 100000;
-            this.timer.loop(500, this, this.onUpdateHp);
-        }
-        onUpdateHp() {
-            const subHp = MathUtils.getRandom(0, 5000);
-            this.tweenHp(subHp);
-            this._maxHp1 = this._maxHp1 - subHp;
-            console.log(`11111 ${this._maxHp1}, ${this._maxHp1 / this._maxHp}`);
-            const w = 500 * (this._maxHp1 / this._maxHp);
-            Laya.Tween.to(this.imgHp, { width: w }, 500, null, Handler.create(this, () => {
-                if (w <= 0) {
-                    this.timer.clearAll(this);
-                }
-            }));
-        }
-        tweenHp(hp) {
-            const lab = Pool.createByClass(Laya.Label);
-            lab.text = hp + "";
-            lab.fontSize = 24;
-            lab.color = "#00ff00";
-            lab.centerX = 0;
-            lab.y = 200;
-            lab.alpha = 1;
-            this.boxVal.addChild(lab);
-            Laya.Tween.to(lab, { y: 20, alpha: 0 }, 1000, null, Handler.create(this, () => {
-                lab.removeSelf();
-                Pool.recoverByClass(lab);
-            }));
-        }
-    }
-
     const HP_RES_ARY = [
         "hp/img_hp1.png",
         "hp/img_hp2.png",
         "hp/img_hp3.png",
         "hp/img_hp4.png",
         "hp/img_hp5.png",
-        "hp/img_hp6.png"
+        "hp/img_hp6.png",
     ];
     const HP_RES_END = "hp/img_hp7.png";
     const HP_SINGLE = 1000;
@@ -158,8 +111,9 @@
             this.updateHpSkin();
         }
         updateLabHp() {
-            const num = this._leftHp / this._maxHp * 100;
-            this.labHp.text = "x" + Math.ceil(this._leftHp / HP_SINGLE) + "    " + num.toFixed(2) + "%";
+            const num = (this._leftHp / this._maxHp) * 100;
+            this.labHp.text =
+                "x" + Math.ceil(this._leftHp / HP_SINGLE) + "    " + num.toFixed(2) + "%";
         }
         updateHpSkin() {
             if (this._hpResIdx >= HP_RES_ARY.length) {
@@ -182,13 +136,21 @@
         }
     }
 
-    var Handler$1 = Laya.Handler;
+    var Handler = Laya.Handler;
     var Tween = Laya.Tween;
     class TestPanelCloud extends ui.test.TestPanelCloudUI {
         constructor() {
             super();
             this._max = 10;
             this._actList = [1];
+        }
+        onEnable() {
+            super.onEnable();
+            this.list.renderHandler = Handler.create(this, this.onRenderList, undefined, false);
+            this.list.vScrollBarSkin = "";
+            const ary = this.getShowList();
+            this.list.array = ary.reverse();
+            this.list.scrollTo(ary.length);
         }
         getShowList() {
             const list = this._actList.sort((a, b) => a - b);
@@ -198,20 +160,12 @@
             const maxNum = list[list.length - 1];
             return [...list, maxNum + 1];
         }
-        onEnable() {
-            super.onEnable();
-            this.list.renderHandler = Handler$1.create(this, this.onRenderList, undefined, false);
-            this.list.vScrollBarSkin = "";
-            const ary = this.getShowList();
-            this.list.array = ary.reverse();
-            this.list.scrollTo(ary.length);
-        }
         onRenderList(item, index) {
             const data = item.dataSource;
             const labLayer = item.getChildByName("labLayer");
             labLayer.text = `第${data}层`;
             const btn = item.getChildByName("btn");
-            btn.clickHandler = Handler$1.create(this, this.onClickBtn, [item, index], false);
+            btn.clickHandler = Handler.create(this, this.onClickBtn, [item, index], false);
             const isActed = this._actList.indexOf(data) > -1;
             const boxCloud = item.getChildByName("boxCloud");
             const imgCloud1 = boxCloud.getChildAt(0);
@@ -232,7 +186,7 @@
             const imgCloud1 = boxCloud.getChildAt(0);
             const imgCloud2 = boxCloud.getChildAt(1);
             Tween.to(imgCloud1, { x: imgCloud1.x - 500 }, 1000);
-            Tween.to(imgCloud2, { x: imgCloud2.x + 500 }, 1000, null, Handler$1.create(this, this.tweenList, [index - 2], true));
+            Tween.to(imgCloud2, { x: imgCloud2.x + 500 }, 1000, null, Handler.create(this, this.tweenList, [index - 2], true));
             const btn = item.getChildByName("btn");
             btn.visible = false;
         }
@@ -260,20 +214,20 @@
             this._gameBox = this.owner.getChildByName("gameBox");
         }
         onUpdate() {
-            let now = Date.now();
+            const now = Date.now();
             if (now - this._time > this.createBoxInterval && this._started) {
                 this._time = now;
                 this.createBox();
             }
         }
         createBox() {
-            let box = Laya.Pool.getItemByCreateFun("dropBox", this.dropBox.create, this.dropBox);
+            const box = Laya.Pool.getItemByCreateFun("dropBox", this.dropBox.create, this.dropBox);
             box.pos(Math.random() * (Laya.stage.width - 100), -100);
             this._gameBox.addChild(box);
         }
         onStageClick(e) {
             e.stopPropagation();
-            let flyer = Laya.Pool.getItemByCreateFun("bullet", this.bullet.create, this.bullet);
+            const flyer = Laya.Pool.getItemByCreateFun("bullet", this.bullet.create, this.bullet);
             flyer.pos(Laya.stage.mouseX, Laya.stage.mouseY);
             this._gameBox.addChild(flyer);
         }
@@ -321,9 +275,11 @@
     }
 
     class Bullet extends Laya.Script {
-        constructor() { super(); }
+        constructor() {
+            super();
+        }
         onEnable() {
-            var rig = this.owner.getComponent(Laya.RigidBody);
+            const rig = this.owner.getComponent(Laya.RigidBody);
             rig.setVelocity({ x: 0, y: -10 });
         }
         onTriggerEnter(other, self, contact) {
@@ -354,7 +310,7 @@
             this.owner.rotation++;
         }
         onTriggerEnter(other, self, contact) {
-            var owner = this.owner;
+            const owner = this.owner;
             if (other.label === "buttle") {
                 if (this.level > 1) {
                     this.level--;
@@ -364,7 +320,7 @@
                 }
                 else {
                     if (owner.parent) {
-                        let effect = Laya.Pool.getItemByCreateFun("effect", this.createEffect, this);
+                        const effect = Laya.Pool.getItemByCreateFun("effect", this.createEffect, this);
                         effect.pos(owner.x, owner.y);
                         owner.parent.addChild(effect);
                         effect.play(0, true);
@@ -380,7 +336,7 @@
             }
         }
         createEffect() {
-            let ani = new Laya.Animation();
+            const ani = new Laya.Animation();
             ani.loadAnimation("test/TestAni.ani");
             ani.on(Laya.Event.COMPLETE, null, recover);
             function recover() {
@@ -399,7 +355,6 @@
         }
         static init() {
             var reg = Laya.ClassUtils.regClass;
-            reg("hp/HpSingle.ts", HpSingle);
             reg("script/MainHp.ts", MainHp);
             reg("test/TestPanel.ts", TestPanel);
             reg("test/TestPanelCloud.ts", TestPanelCloud);
@@ -411,17 +366,69 @@
     }
     GameConfig.width = 640;
     GameConfig.height = 1136;
-    GameConfig.scaleMode = "noscale";
+    GameConfig.scaleMode = "showall";
     GameConfig.screenMode = "none";
     GameConfig.alignV = "middle";
     GameConfig.alignH = "center";
-    GameConfig.startScene = "test/TestPanelCloud.scene";
+    GameConfig.startScene = "hp/HpSingle.scene";
     GameConfig.sceneRoot = "";
     GameConfig.debug = false;
     GameConfig.stat = false;
     GameConfig.physicsDebug = false;
     GameConfig.exportSceneToJson = true;
     GameConfig.init();
+
+    class MathUtils {
+        static getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+    }
+
+    var Handler$1 = Laya.Handler;
+    var Pool = Laya.Pool;
+    class HpSingle extends ui.hp.HpSingleUI {
+        constructor() {
+            super();
+            this._maxHp = 0;
+            this._maxHp1 = 0;
+        }
+        onAwake() {
+            super.onAwake();
+            console.log(`HpSingle onAwake`);
+        }
+        onEnable() {
+            super.onEnable();
+            console.log(`HpSingle onEnable`);
+            this._maxHp = this._maxHp1 = 100000;
+            this.timer.loop(500, this, this.onUpdateHp);
+        }
+        onUpdateHp() {
+            const subHp = MathUtils.getRandom(0, 5000);
+            this.tweenHp(subHp);
+            this._maxHp1 = this._maxHp1 - subHp;
+            console.log(`11111 ${this._maxHp1}, ${this._maxHp1 / this._maxHp}`);
+            const w = 500 * (this._maxHp1 / this._maxHp);
+            Laya.Tween.to(this.imgHp, { width: w }, 500, null, Handler$1.create(this, () => {
+                if (w <= 0) {
+                    this.timer.clearAll(this);
+                }
+            }));
+        }
+        tweenHp(hp) {
+            const lab = Pool.getItemByClass("HpLabel", Laya.Label);
+            lab.text = "-" + hp;
+            lab.fontSize = 24;
+            lab.color = "#ff0000";
+            lab.centerX = 0;
+            lab.y = 200;
+            lab.alpha = 1;
+            this.boxVal.addChild(lab);
+            Laya.Tween.to(lab, { y: 20, alpha: 0 }, 1000, null, Handler$1.create(this, () => {
+                lab.removeSelf();
+                Pool.recover("HpLabel", lab);
+            }));
+        }
+    }
 
     class Main {
         constructor() {
@@ -449,9 +456,11 @@
             Laya.AtlasInfoManager.enable("fileconfig.json", Laya.Handler.create(this, this.onConfigLoaded));
         }
         onConfigLoaded() {
-            GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
+            const mdr = new HpSingle();
+            Laya.stage.addChild(mdr);
         }
     }
     new Main();
 
 }());
+//# sourceMappingURL=bundle.js.map
