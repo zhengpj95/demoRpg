@@ -1,12 +1,14 @@
 import UIComponent = Laya.UIComponent;
+import { BaseMdr } from "./BaseMdr";
 
+// 层级
 export const enum LayerIndex {
   MAP = 0,
   WIN = 1,
   MODAL = 2,
 }
 
-// todo
+// 处理界面放到哪个层级
 export interface IBaseMdr {
   _layerIndex_: LayerIndex;
 }
@@ -39,6 +41,9 @@ class ModalLayer extends BaseLayer {
   //
 }
 
+/**
+ * 层级管理器
+ */
 export class LayerMgr {
   public static bgMain = new MapLayer(LayerIndex.MAP);
   public static winMain = new WinLayer(LayerIndex.WIN);
@@ -63,6 +68,22 @@ export class LayerMgr {
         LayerMgr.modalMain.addChild(cls);
       } else {
         Laya.stage.addChild(cls);
+      }
+    }
+  }
+
+  public static showView2<T extends BaseMdr>(mdr: new () => T): void {
+    const cls = new mdr();
+    if (cls.v) {
+      const idx = cls.layerIndex;
+      if (idx === LayerIndex.MAP) {
+        LayerMgr.bgMain.addChild(cls.v);
+      } else if (idx === LayerIndex.WIN) {
+        LayerMgr.winMain.addChild(cls.v);
+      } else if (idx === LayerIndex.MODAL) {
+        LayerMgr.modalMain.addChild(cls.v);
+      } else {
+        Laya.stage.addChild(cls.v);
       }
     }
   }
