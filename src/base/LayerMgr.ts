@@ -1,5 +1,5 @@
 import UIComponent = Laya.UIComponent;
-import { BaseMdr } from "./BaseMdr";
+import {BaseMdr} from "./BaseMdr";
 
 // 层级
 export const enum LayerIndex {
@@ -45,13 +45,13 @@ class ModalLayer extends BaseLayer {
  * 层级管理器
  */
 export class LayerMgr {
-  public static bgMain = new MapLayer(LayerIndex.MAP);
+  public static mapMain = new MapLayer(LayerIndex.MAP);
   public static winMain = new WinLayer(LayerIndex.WIN);
   public static modalMain = new ModalLayer(LayerIndex.MODAL);
 
   public static init(): void {
     const stage = Laya.stage;
-    stage.addChild(LayerMgr.bgMain);
+    stage.addChild(LayerMgr.mapMain);
     stage.addChild(LayerMgr.winMain);
     stage.addChild(LayerMgr.modalMain);
   }
@@ -61,7 +61,7 @@ export class LayerMgr {
     if (cls) {
       const idx = <LayerIndex>cls["_layerIndex_"];
       if (idx === LayerIndex.MAP) {
-        LayerMgr.bgMain.addChild(cls);
+        LayerMgr.mapMain.addChild(cls);
       } else if (idx === LayerIndex.WIN) {
         LayerMgr.winMain.addChild(cls);
       } else if (idx === LayerIndex.MODAL) {
@@ -77,7 +77,7 @@ export class LayerMgr {
     if (cls.v) {
       const idx = cls.layerIndex;
       if (idx === LayerIndex.MAP) {
-        LayerMgr.bgMain.addChild(cls.v);
+        LayerMgr.mapMain.addChild(cls.v);
       } else if (idx === LayerIndex.WIN) {
         LayerMgr.winMain.addChild(cls.v);
       } else if (idx === LayerIndex.MODAL) {
@@ -94,7 +94,10 @@ export class LayerMgr {
     }
     const nums = Laya.stage.numChildren;
     for (let i = 0; i < nums; i++) {
-      (<BaseLayer>Laya.stage.getChildAt(i)).onResize();
+      const layer = (Laya.stage.getChildAt(i));
+      if (layer && layer instanceof BaseLayer) {
+        layer.onResize();
+      }
     }
   }
 }
