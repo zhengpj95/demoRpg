@@ -3,7 +3,7 @@
     "type":"Scene",
     "selectedBox":2,
     "searchKey":"Scene",
-    "props":{"width":640,"sceneColor":"#774444","runtime":"hp/MainHp.ts","height":1136},
+    "props":{"width":640,"sceneColor":"#774444","height":1136},
     "nodeParent":-1,
     "maxID":14,
     "label":"Scene",

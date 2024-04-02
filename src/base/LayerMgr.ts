@@ -1,5 +1,5 @@
 import UIComponent = Laya.UIComponent;
-import {BaseMdr} from "./BaseMdr";
+import { BaseMdr } from "./BaseMdr";
 
 // 层级
 export const enum LayerIndex {
@@ -94,7 +94,7 @@ export class LayerMgr {
     }
     const nums = Laya.stage.numChildren;
     for (let i = 0; i < nums; i++) {
-      const layer = (Laya.stage.getChildAt(i));
+      const layer = Laya.stage.getChildAt(i);
       if (layer && layer instanceof BaseLayer) {
         layer.onResize();
       }

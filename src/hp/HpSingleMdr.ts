@@ -4,7 +4,7 @@ import { IBaseMdr, LayerIndex } from "../base/LayerMgr";
 import Handler = Laya.Handler;
 import Pool = Laya.Pool;
 
-export default class HpSingle extends ui.hp.HpSingleUI implements IBaseMdr {
+export default class HpSingleMdr extends ui.hp.HpSingleUI implements IBaseMdr {
   public _layerIndex_: LayerIndex = LayerIndex.WIN;
   private _maxHp = 0;
   private _maxHp1 = 0;
