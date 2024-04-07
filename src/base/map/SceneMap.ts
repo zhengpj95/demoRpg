@@ -2,12 +2,14 @@ import Sprite = Laya.Sprite;
 import Image = Laya.Image;
 import Handler = Laya.Handler;
 import UIComponent = Laya.UIComponent;
-import {IMapData, MapCellData} from "./MapConst";
+import Animation = Laya.Animation;
+import { IMapData, MapCellData } from "./MapConst";
 
 export class SceneMap extends Sprite {
   private _miniImg: Image;
   private _sprite: Sprite;
   private _bmpMap: Record<string, MapBmp> = {};
+  private _ani: Animation;
 
   constructor() {
     super();
@@ -16,7 +18,28 @@ export class SceneMap extends Sprite {
   }
 
   private setBg(): void {
-    Laya.loader.load(`map/1001/info.json`, Handler.create(this, this.onLoad), null, Laya.Loader.JSON, 4);
+    Laya.loader.load(
+      `map/1001/info.json`,
+      Handler.create(this, this.onLoad),
+      null,
+      Laya.Loader.JSON,
+      4,
+    );
+
+    this._ani = new Animation();
+    this._ani.loadAtlas(
+      "player/move_0.atlas",
+      Handler.create(this, this.onLoadPlayer),
+    );
+    this.timerOnce(5000, this, () => {
+      this._ani.loadAtlas(
+        "player/move_3.atlas",
+        Handler.create(this, this.onLoadPlayer),
+      );
+    });
+    this.timerOnce(10000, this, () => {
+      this._ani.stop();
+    });
   }
 
   private onLoad(mapData: IMapData): void {
@@ -40,6 +63,14 @@ export class SceneMap extends Sprite {
         this._bmpMap[bmp.name] = bmp;
       }
     }
+  }
+
+  private onLoadPlayer(): void {
+    console.log(`11111`);
+    this.addChild(this._ani);
+    console.log(this._ani);
+    this._ani.interval = 200;
+    this._ani.play();
   }
 }
 

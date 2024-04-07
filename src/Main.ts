@@ -1,6 +1,8 @@
 import GameConfig from "./GameConfig";
 import HpSingleMdr from "./hp/HpSingleMdr";
 import { LayerMgr } from "./base/LayerMgr";
+import { CompMgr } from "./base/comps/CompMgr";
+import { SceneMap } from "./base/map/SceneMap";
 import Event = Laya.Event;
 
 class Main {
@@ -46,6 +48,17 @@ class Main {
     // Laya.stage.addChild(mdr);
 
     LayerMgr.showView(HpSingleMdr);
+
+    Laya.loader.load(
+      `map/1001/info.json`,
+      null,
+      null,
+      Laya.Loader.JSON,
+      4
+    );
+    CompMgr.start();
+    const map = new SceneMap();
+    LayerMgr.mapMain.addChild(map);
   }
 
   private onResize(): void {
