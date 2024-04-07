@@ -1,0 +1,110 @@
+{
+    "frames": {
+        "move_3_0.png": {
+            "frame": {
+                "h": 109,
+                "idx": 0,
+                "w": 63,
+                "x": 72,
+                "y": 0
+            },
+            "sourceSize": {
+                "h": 109,
+                "w": 63
+            },
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        "move_3_1.png": {
+            "frame": {
+                "h": 112,
+                "idx": 0,
+                "w": 68,
+                "x": 0,
+                "y": 112
+            },
+            "sourceSize": {
+                "h": 112,
+                "w": 68
+            },
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        "move_3_2.png": {
+            "frame": {
+                "h": 111,
+                "idx": 0,
+                "w": 71,
+                "x": 0,
+                "y": 0
+            },
+            "sourceSize": {
+                "h": 111,
+                "w": 71
+            },
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        "move_3_3.png": {
+            "frame": {
+                "h": 110,
+                "idx": 0,
+                "w": 67,
+                "x": 69,
+                "y": 112
+            },
+            "sourceSize": {
+                "h": 110,
+                "w": 67
+            },
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        "move_3_4.png": {
+            "frame": {
+                "h": 114,
+                "idx": 0,
+                "w": 64,
+                "x": 137,
+                "y": 0
+            },
+            "sourceSize": {
+                "h": 114,
+                "w": 64
+            },
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        "move_3_5.png": {
+            "frame": {
+                "h": 115,
+                "idx": 0,
+                "w": 63,
+                "x": 137,
+                "y": 115
+            },
+            "sourceSize": {
+                "h": 115,
+                "w": 63
+            },
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0
+            }
+        }
+    },
+    "meta": {
+        "image": "move_3.png",
+        "prefix": "move_3/"
+    }
+}
