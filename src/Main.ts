@@ -1,5 +1,5 @@
 import GameConfig from "./GameConfig";
-import HpSingle from "./hp/HpSingle";
+import HpSingleMdr from "./hp/HpSingleMdr";
 import { LayerMgr } from "./base/LayerMgr";
 import Event = Laya.Event;
 
@@ -45,7 +45,7 @@ class Main {
     // const mdr = new HpSingle();
     // Laya.stage.addChild(mdr);
 
-    LayerMgr.showView(HpSingle);
+    LayerMgr.showView(HpSingleMdr);
   }
 
   private onResize(): void {
