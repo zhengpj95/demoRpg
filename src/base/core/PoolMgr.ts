@@ -1,4 +1,4 @@
-import { SingletonClass } from "./SingletonClass";
+import SingletonClass from "./SingletonClass";
 import { GameUtils } from "../../utils/GameUtils";
 
 /**

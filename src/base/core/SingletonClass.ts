@@ -15,11 +15,11 @@ export default class SingletonClass {
   }
 }
 
-// test
-export class TestSingleton extends SingletonClass {
-  public static ins: () => TestSingleton;
-
-  public update(): void {
-    console.log("test11111");
-  }
-}
+// export class TestSingleton extends SingletonClass {
+//   public static ins: () => TestSingleton;
+//
+//   // 调用：TestSingleton.ins().update();
+//   public update(): void {
+//     console.log("test11111");
+//   }
+// }
