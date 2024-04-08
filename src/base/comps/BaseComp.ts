@@ -9,7 +9,6 @@ export const enum CompType {
  * 实体组件基类
  */
 export class BaseComp {
-
   private _type: CompType;
   private _isRun: boolean;
 
@@ -40,5 +39,4 @@ export class BaseComp {
   public tick(delta: number): void {
     //
   }
-
 }
