@@ -1,4 +1,4 @@
-import { ui } from "../ui/layaMaxUI";
+import { ui } from "../../ui/layaMaxUI";
 
 /**
  * 继承场景类的实现方式 Laya.Scene

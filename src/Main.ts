@@ -1,8 +1,9 @@
 import GameConfig from "./GameConfig";
-import HpSingleMdr from "./hp/HpSingleMdr";
+import HpSingleMdr from "./modules/hp/HpSingleMdr";
 import { LayerMgr } from "./base/LayerMgr";
 import { CompMgr } from "./base/comps/CompMgr";
 import { SceneMap } from "./base/map/SceneMap";
+import App from "./App";
 import Event = Laya.Event;
 
 class Main {
@@ -38,6 +39,8 @@ class Main {
     //加载IDE指定的场景
     // 这种方式加载scene的，如果不设置runtime，scene对应的代码文件不会执行到。
     // GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
+
+    App.init();
 
     LayerMgr.init();
     LayerMgr.onResize();

@@ -1,10 +1,9 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":3,
-    "selecteID":4,
+    "selectedBox":2,
     "searchKey":"Scene",
-    "props":{"width":640,"sceneColor":"#000000","runtime":"test/TestPanelCloud.ts","height":1136},
+    "props":{"width":640,"sceneColor":"#000000","runtime":"modules/test/TestPanelCloud.ts","height":1136},
     "nodeParent":-1,
     "maxID":17,
     "label":"Scene",

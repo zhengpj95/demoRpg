@@ -1,5 +1,5 @@
 import SingletonClass from "./SingletonClass";
-import { GameUtils } from "../../utils/GameUtils";
+import { GameUtils } from "../utils/GameUtils";
 
 /**
  * 对象池

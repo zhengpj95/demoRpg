@@ -1,5 +1,5 @@
-import { ui } from "../ui/layaMaxUI";
-import { IBaseMdr, LayerIndex } from "../base/LayerMgr";
+import { ui } from "../../ui/layaMaxUI";
+import { IBaseMdr, LayerIndex } from "../../base/LayerMgr";
 
 const HP_RES_ARY: string[] = [
   "hp/img_hp1.png",
