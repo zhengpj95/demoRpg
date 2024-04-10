@@ -1,5 +1,5 @@
 import GameConfig from "./GameConfig";
-import HpSingleMdr from "./hp/HpSingleMdr";
+import HpSingleMdr from "./modules/hp/HpSingleMdr";
 import { LayerMgr } from "./base/LayerMgr";
 import { CompMgr } from "./base/comps/CompMgr";
 import { SceneMap } from "./base/map/SceneMap";

@@ -1,6 +1,6 @@
-import { ui } from "../ui/layaMaxUI";
-import { MathUtils } from "../utils/MathUtils";
-import { IBaseMdr, LayerIndex } from "../base/LayerMgr";
+import { ui } from "../../ui/layaMaxUI";
+import { MathUtils } from "../../base/utils/MathUtils";
+import { IBaseMdr, LayerIndex } from "../../base/LayerMgr";
 import Handler = Laya.Handler;
 import Pool = Laya.Pool;
 

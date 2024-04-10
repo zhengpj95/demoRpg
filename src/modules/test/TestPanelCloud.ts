@@ -1,4 +1,4 @@
-import { ui } from "../ui/layaMaxUI";
+import { ui } from "../../ui/layaMaxUI";
 import Handler = Laya.Handler;
 import Label = Laya.Label;
 import Box = Laya.Box;
