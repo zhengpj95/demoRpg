@@ -3,7 +3,7 @@
     "type":"View",
     "selectedBox":2,
     "searchKey":"View",
-    "props":{"width":640,"sceneColor":"#818181","runtime":"modules/test/TestPanel.ts","height":1136},
+    "props":{"width":640,"sceneColor":"#818181","height":1136},
     "nodeParent":-1,
     "maxID":24,
     "label":"View",
