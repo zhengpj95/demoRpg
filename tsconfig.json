@@ -5,7 +5,9 @@
     "noEmitHelpers": true,
     "sourceMap": true,
     "newLine": "lf",
-    "noUnusedLocals": false
+    "noUnusedLocals": false,
+    "strict": false,
+    "noImplicitReturns": false
   },
   "exclude": [
     "node_modules"

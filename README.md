@@ -18,6 +18,10 @@ Laya版本：2.12.0
 
 ui编辑器的 **Scripts文件夹** 下不展示ignore.cfg过滤的ts文件或文件夹。
 
+## tsconfig.json
+
+不要使用严格模式，否则生成的 layaMaxUI.ts 有问题
+
 ## panel滚动
 
 test/TestPanel.ts 文件
