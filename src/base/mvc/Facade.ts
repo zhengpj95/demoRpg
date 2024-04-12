@@ -3,12 +3,13 @@
  */
 import { BaseModule } from "./BaseModule";
 import { ModuleType } from "../ModuleConst";
+import App from "../../App";
 
 export let facade: Facade;
 
 export function initFacade(): void {
   facade = new Facade();
-  window["facade"] = facade;
+  App.debugMgr.debug("facade", facade);
 }
 
 type BaseModuleCls = new () => BaseModule;

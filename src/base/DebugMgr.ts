@@ -7,13 +7,13 @@ import SingletonClass from "./core/SingletonClass";
 export class DebugMgr extends SingletonClass {
   public static ins: () => DebugMgr;
 
-  public static debug(name: string, cls: any): void {
+  public debug(name: string, cls: any): void {
     if (name && cls) {
       window[name] = cls;
     }
   }
 
-  public static debugProxy(proxy: BaseProxy): void {
+  public debugProxy(proxy: BaseProxy): void {
     if (proxy.constructor.name) {
       window[proxy.constructor.name] = proxy;
     }

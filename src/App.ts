@@ -1,5 +1,7 @@
 import { facade, initFacade } from "./base/mvc/Facade";
 import { ModuleType } from "./base/ModuleConst";
+import { MessageMgr } from "./base/MessageMgr";
+import { DebugMgr } from "./base/DebugMgr";
 
 /**
  * @date 2024/4/10
@@ -33,4 +35,18 @@ export default class App {
     }
     Laya.stage.addChild(new mdrCls());
   }
+
+  //region getter
+  /**==============================================================*/
+
+  public static get messageMgr(): MessageMgr {
+    return MessageMgr.ins();
+  }
+
+  public static get debugMgr(): DebugMgr {
+    return DebugMgr.ins();
+  }
+
+  /**==============================================================*/
+  //endregion getter
 }
