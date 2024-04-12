@@ -1,7 +1,7 @@
-import { facade, initFacade } from "./base/mvc/Facade";
 import { ModuleType } from "./base/ModuleConst";
 import { MessageMgr } from "./base/MessageMgr";
 import { DebugMgr } from "./base/DebugMgr";
+import { facade, initFacade } from "./base/index";
 
 /**
  * @date 2024/4/10
