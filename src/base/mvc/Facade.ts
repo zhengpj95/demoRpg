@@ -2,7 +2,7 @@
  * @date 2024/4/10
  */
 import { BaseModule } from "./BaseModule";
-import { ModuleType } from "../ModuleConst";
+import { ModuleType } from "../../def/ModuleConst";
 import { DebugMgr } from "../DebugMgr";
 
 export let facade: Facade;

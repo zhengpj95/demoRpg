@@ -5,3 +5,6 @@
 export * from "./mvc/Facade";
 // export * from "./mvc/BaseModule";
 // export * from "./mvc/BaseProxy";
+
+export * from "./DebugMgr";
+export * from "./MessageMgr";
