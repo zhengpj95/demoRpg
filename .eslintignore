@@ -1,5 +1,4 @@
 src/GameConfig.ts
-src/Main.ts
 src/ui/*
 bin
 libs

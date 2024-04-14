@@ -1,7 +1,7 @@
 /**
  * @date 2024/4/10
  */
-import { ModuleType, ProxyType } from "../../def/ModuleConst";
+import { ModuleType, ProxyType } from "@def/ModuleConst";
 import { BaseProxy } from "./BaseProxy";
 import { BaseCommand } from "./BaseCommand";
 import { MessageMgr } from "../MessageMgr";
@@ -71,6 +71,6 @@ export class BaseModule {
   }
 
   public retMdr(viewType: number): MdrCls {
-    return this._mdrMap[viewType] ?? undefined;
+    return this._mdrMap[viewType];
   }
 }

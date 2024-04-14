@@ -27,6 +27,17 @@ export module ui.hp {
     }
     REG("ui.hp.MainHpUI",MainHpUI);
 }
+export module ui.login {
+    export class LoginUI extends Scene {
+		public btnLogin:Laya.Button;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("login/Login");
+        }
+    }
+    REG("ui.login.LoginUI",LoginUI);
+}
 export module ui.test {
     export class TestPanelUI extends View {
 		public panel:Laya.Panel;

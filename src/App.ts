@@ -1,7 +1,8 @@
-import { ModuleType } from "./def/ModuleConst";
-import { MessageMgr } from "./base/MessageMgr";
-import { DebugMgr } from "./base/DebugMgr";
-import { facade, initFacade } from "./base/index";
+import { initModules, insModules } from "./modules/InitModules";
+import { facade, initFacade } from "@base/mvc/Facade";
+import { MessageMgr } from "@base/MessageMgr";
+import { DebugMgr } from "@base/DebugMgr";
+import { CommonEvent, IOpenCloseData } from "@def/Common";
 
 /**
  * @date 2024/4/10
@@ -10,30 +11,52 @@ export default class App {
   public static init(): void {
     initFacade();
 
-    this.initModule();
-    facade.instantiate();
+    // 注册所有模块
+    initModules();
+    insModules();
+
+    App.messageMgr.on(CommonEvent.OPEN_VIEW, this.showView, this);
+    App.messageMgr.on(CommonEvent.CLOSE_VIEW, this.closeView, this);
   }
 
-  // 注册所有模块
-  private static initModule(): void {
-    //
-  }
-
-  // 打开界面
-  public static showView(moduleType: ModuleType, viewType: number): void {
-    const module = facade.retModule(moduleType);
+  /**
+   * 打开界面
+   * @param data
+   */
+  public static showView(data: IOpenCloseData): void {
+    const module = facade.retModule(data.module);
     if (!module) {
-      console.error(`App.showView error, module:${moduleType}`);
+      console.error(`App.showView error, module:${data.module}`);
       return;
     }
-    const mdrCls = module.retMdr(viewType);
+    const mdrCls = module.retMdr(data.view);
     if (!mdrCls) {
       console.error(
-        `App.showView error, module:${moduleType}, viewType:${viewType}`,
+        `App.showView error, module:${data.module}, viewType:${data.view}`,
       );
       return;
     }
     Laya.stage.addChild(new mdrCls());
+  }
+
+  /**
+   * 关闭界面
+   * @param data
+   */
+  public static closeView(data: IOpenCloseData): void {
+    const module = facade.retModule(data.module);
+    if (!module) {
+      console.error(`App.showView error, module:${data.module}`);
+      return;
+    }
+    const mdrCls = module.retMdr(data.view);
+    if (!mdrCls) {
+      console.error(
+        `App.showView error, module:${data.module}, viewType:${data.view}`,
+      );
+      return;
+    }
+    //
   }
 
   //region getter
