@@ -1,4 +1,4 @@
-import { initModules, insModules } from "./modules/InitModules";
+import { initModules } from "./modules/InitModules";
 import { facade, initFacade } from "@base/mvc/Facade";
 import { MessageMgr } from "@base/MessageMgr";
 import { DebugMgr } from "@base/DebugMgr";
@@ -13,7 +13,6 @@ export default class App {
 
     // 注册所有模块
     initModules();
-    insModules();
 
     App.messageMgr.on(CommonEvent.OPEN_VIEW, this.showView, this);
     App.messageMgr.on(CommonEvent.CLOSE_VIEW, this.closeView, this);
