@@ -1,10 +1,8 @@
 import GameConfig from "./GameConfig";
-import { LayerMgr } from "@base/LayerMgr";
 import App from "./App";
 import { CommonEvent, IOpenCloseData } from "@def/Common";
 import { ModuleType } from "@def/ModuleConst";
 import { LoginViewType } from "@def/Login";
-import Event = Laya.Event;
 
 class Main {
   constructor() {
@@ -51,10 +49,6 @@ class Main {
 
     App.init();
 
-    LayerMgr.init();
-    LayerMgr.onResize();
-    Laya.stage.on(Event.RESIZE, this, this.onResize);
-
     // 分离模式处理，把scene对应的代码文件加到舞台上即可，代码中自动绑定对应的scene了
     // const mdr = new HpSingle();
     // Laya.stage.addChild(mdr);
@@ -74,10 +68,6 @@ class Main {
     // CompMgr.start();
     // const map = new SceneMap();
     // LayerMgr.mapMain.addChild(map);
-  }
-
-  private onResize(): void {
-    LayerMgr.onResize();
   }
 }
 

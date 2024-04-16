@@ -3,6 +3,8 @@ import { facade, initFacade } from "@base/mvc/Facade";
 import { MessageMgr } from "@base/MessageMgr";
 import { DebugMgr } from "@base/DebugMgr";
 import { CommonEvent, IOpenCloseData } from "@def/Common";
+import { LayerMgr } from "@base/LayerMgr";
+import Event = Laya.Event;
 
 /**
  * @date 2024/4/10
@@ -14,8 +16,16 @@ export default class App {
     // 注册所有模块
     initModules();
 
+    LayerMgr.init();
+    Laya.stage.on(Event.RESIZE, this, this.onResize);
+    LayerMgr.onResize();
+
     App.messageMgr.on(CommonEvent.OPEN_VIEW, this.showView, this);
     App.messageMgr.on(CommonEvent.CLOSE_VIEW, this.closeView, this);
+  }
+
+  private static onResize(): void {
+    LayerMgr.onResize();
   }
 
   /**
