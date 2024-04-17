@@ -16,16 +16,11 @@ export default class App {
     // 注册所有模块
     initModules();
 
-    LayerMgr.init();
-    Laya.stage.on(Event.RESIZE, this, this.onResize);
-    LayerMgr.onResize();
+    App.layerMgr.onResize();
+    Laya.stage.on(Event.RESIZE, this.layerMgr, this.layerMgr.onResize);
 
     App.messageMgr.on(CommonEvent.OPEN_VIEW, this.showView, this);
     App.messageMgr.on(CommonEvent.CLOSE_VIEW, this.closeView, this);
-  }
-
-  private static onResize(): void {
-    LayerMgr.onResize();
   }
 
   /**
@@ -77,6 +72,10 @@ export default class App {
 
   public static get debugMgr(): DebugMgr {
     return DebugMgr.ins();
+  }
+
+  public static get layerMgr(): LayerMgr {
+    return LayerMgr.ins();
   }
 
   /**==============================================================*/
