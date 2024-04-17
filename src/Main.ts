@@ -1,8 +1,8 @@
 import GameConfig from "./GameConfig";
 import App from "./App";
-import { CommonEvent, IOpenCloseData } from "@def/Common";
 import { ModuleType } from "@def/ModuleConst";
 import { LoginViewType } from "@def/Login";
+import { CommonEvent, IOpenCloseData } from "@def/misc";
 
 class Main {
   constructor() {
@@ -19,7 +19,7 @@ class Main {
     Laya.URL.exportSceneToJson = GameConfig.exportSceneToJson;
 
     //打开调试面板（通过IDE设置调试模式，或者url地址增加debug=true参数，均可打开调试面板）
-    if (GameConfig.debug || Laya.Utils.getQueryString("debug") == "true")
+    if (GameConfig.debug || Laya.Utils.getQueryString("debug") === "true")
       Laya.enableDebugPanel();
     if (GameConfig.physicsDebug && Laya["PhysicsDebugDraw"])
       Laya["PhysicsDebugDraw"].enable();

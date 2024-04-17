@@ -1,8 +1,7 @@
 import { initModules } from "./modules/InitModules";
-import { facade, initFacade } from "@base/mvc/Facade";
+import { initFacade } from "@base/mvc/Facade";
 import { MessageMgr } from "@base/MessageMgr";
 import { DebugMgr } from "@base/DebugMgr";
-import { CommonEvent, IOpenCloseData } from "@def/Common";
 import { LayerMgr } from "@base/LayerMgr";
 import Event = Laya.Event;
 
@@ -18,49 +17,6 @@ export default class App {
 
     App.layerMgr.onResize();
     Laya.stage.on(Event.RESIZE, this.layerMgr, this.layerMgr.onResize);
-
-    App.messageMgr.on(CommonEvent.OPEN_VIEW, this.showView, this);
-    App.messageMgr.on(CommonEvent.CLOSE_VIEW, this.closeView, this);
-  }
-
-  /**
-   * 打开界面
-   * @param data
-   */
-  public static showView(data: IOpenCloseData): void {
-    const module = facade.retModule(data.module);
-    if (!module) {
-      console.error(`App.showView error, module:${data.module}`);
-      return;
-    }
-    const mdrCls = module.retMdr(data.view);
-    if (!mdrCls) {
-      console.error(
-        `App.showView error, module:${data.module}, viewType:${data.view}`,
-      );
-      return;
-    }
-    Laya.stage.addChild(new mdrCls());
-  }
-
-  /**
-   * 关闭界面
-   * @param data
-   */
-  public static closeView(data: IOpenCloseData): void {
-    const module = facade.retModule(data.module);
-    if (!module) {
-      console.error(`App.showView error, module:${data.module}`);
-      return;
-    }
-    const mdrCls = module.retMdr(data.view);
-    if (!mdrCls) {
-      console.error(
-        `App.showView error, module:${data.module}, viewType:${data.view}`,
-      );
-      return;
-    }
-    //
   }
 
   //region getter
