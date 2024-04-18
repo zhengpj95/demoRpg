@@ -1,9 +1,10 @@
 import { BaseProxy } from "@base/mvc/BaseProxy";
+import { ILoginProxy } from "@def/Login";
 
 /**
  * @date 2024/4/13
  */
-export class LoginProxy extends BaseProxy {
+export class LoginProxy extends BaseProxy implements ILoginProxy {
   init() {
     super.init();
   }

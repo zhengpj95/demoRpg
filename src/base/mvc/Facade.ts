@@ -2,14 +2,33 @@
  * @date 2024/4/10
  */
 import { BaseModule } from "./BaseModule";
-import { ModuleType } from "@def/ModuleConst";
+import { ModuleType, ProxyType } from "@def/ModuleConst";
 import { DebugMgr } from "../DebugMgr";
+import { BaseProxy } from "@base/mvc/BaseProxy";
 
 export let facade: Facade;
 
 export function initFacade(): void {
   facade = new Facade();
   DebugMgr.ins().debug("facade", facade);
+}
+
+// 获取proxy
+export function getProxy<T extends BaseProxy>(
+  module: ModuleType,
+  proxy: ProxyType,
+): T {
+  const m = facade.retModule(module);
+  if (!m) {
+    console.error(`getProxy error，不存在module: ${module}`);
+    return undefined;
+  }
+  const p = m.retProxy<T>(proxy);
+  if (!p) {
+    console.error(`getProxy error，不存在proxy: ${proxy}`);
+    return;
+  }
+  return p;
 }
 
 type BaseModuleCls = new () => BaseModule;
