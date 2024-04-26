@@ -1,4 +1,4 @@
-import { ui } from "../../ui/layaMaxUI";
+import { ui } from "@ui/layaMaxUI";
 import Handler = Laya.Handler;
 import Label = Laya.Label;
 import Box = Laya.Box;
@@ -9,7 +9,7 @@ import Tween = Laya.Tween;
 /**
  * 测试panel+list
  */
-export default class TestPanelCloud extends ui.test.TestPanelCloudUI {
+export class TestPanelCloudMdr extends ui.test.TestPanelCloudUI {
   private _max = 10;
   private _actList: number[] = [1];
 
