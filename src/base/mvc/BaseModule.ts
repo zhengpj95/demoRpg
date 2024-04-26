@@ -5,6 +5,7 @@ import { ModuleType, ProxyType } from "@def/ModuleConst";
 import { BaseProxy } from "./BaseProxy";
 import { BaseCommand } from "./BaseCommand";
 import { MessageMgr } from "../MessageMgr";
+import { LayerIndex } from "@base/LayerMgr";
 
 type MdrCls = new () => Laya.Scene;
 type CmdCls = new () => BaseCommand;
@@ -14,6 +15,7 @@ export class BaseModule {
   private _proxyMap: { [type: number]: BaseProxy } = {};
   private _mdrMap: { [type: number]: MdrCls } = {};
   private _cmdMap: { [type: number]: CmdCls } = {};
+  private _mdrLayerIdxMap: { [type: number]: LayerIndex } = {}; // 所属层级
 
   public constructor(module: ModuleType) {
     this.name = module;
@@ -63,14 +65,23 @@ export class BaseModule {
     return <T>this._proxyMap[type];
   }
 
-  public regMdr(viewType: number, mdr: MdrCls): void {
+  public regMdr(
+    viewType: number,
+    mdr: MdrCls,
+    layerIdx = LayerIndex.WIN,
+  ): void {
     if (this._mdrMap[viewType]) {
       return;
     }
     this._mdrMap[viewType] = mdr;
+    this._mdrLayerIdxMap[viewType] = layerIdx;
   }
 
   public retMdr(viewType: number): MdrCls {
     return this._mdrMap[viewType];
+  }
+
+  public retMdrIdx(viewType: number): LayerIndex {
+    return this._mdrLayerIdxMap[viewType];
   }
 }

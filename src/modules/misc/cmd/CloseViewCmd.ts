@@ -1,6 +1,7 @@
 import { BaseCommand } from "@base/mvc/BaseCommand";
 import { IOpenCloseData } from "@def/misc";
 import { facade } from "@base/mvc/Facade";
+import { LayerMgr } from "@base/LayerMgr";
 
 /**
  * @date 2024/4/17
@@ -19,6 +20,9 @@ export class CloseViewCmd extends BaseCommand {
       );
       return;
     }
-    //todo
+    const layerIdx = module.retMdrIdx(data.view);
+    const layer = LayerMgr.ins().getLayer(layerIdx);
+    const mdr = layer.getChildByName(`mv_${data.module}_${data.view}`);
+    mdr && mdr.removeSelf();
   }
 }
