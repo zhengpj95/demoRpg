@@ -1,5 +1,4 @@
 import { ui } from "@ui/layaMaxUI";
-import { IBaseMdr, LayerIndex } from "@base/LayerMgr";
 
 const HP_RES_ARY: string[] = [
   "hp/img_hp1.png",
@@ -31,8 +30,7 @@ function createSubHp(): number {
 /**
  * 血条
  */
-export class MainHpMdr extends ui.hp.MainHpUI implements IBaseMdr {
-  public _layerIndex_ = LayerIndex.WIN;
+export class MainHpMdr extends ui.hp.MainHpUI {
   private _maxHp: number;
   private _leftHp: number;
   private _radio: number = 0;

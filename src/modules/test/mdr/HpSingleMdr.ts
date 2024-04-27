@@ -1,11 +1,9 @@
 import { ui } from "@ui/layaMaxUI";
 import { MathUtils } from "@base/utils/MathUtils";
-import { IBaseMdr, LayerIndex } from "@base/LayerMgr";
 import Handler = Laya.Handler;
 import Pool = Laya.Pool;
 
-export class HpSingleMdr extends ui.hp.HpSingleUI implements IBaseMdr {
-  public _layerIndex_: LayerIndex = LayerIndex.WIN;
+export class HpSingleMdr extends ui.hp.HpSingleUI {
   private _maxHp = 0;
   private _maxHp1 = 0;
 

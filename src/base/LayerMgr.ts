@@ -9,11 +9,6 @@ export const enum LayerIndex {
   TIPS = 3,
 }
 
-// 处理界面放到哪个层级
-export interface IBaseMdr {
-  _layerIndex_: LayerIndex;
-}
-
 class BaseLayer extends UIComponent {
   public idx: number;
 
