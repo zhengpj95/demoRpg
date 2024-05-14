@@ -5,7 +5,7 @@ import { ui } from "@ui/layaMaxUI";
 import { CommonEvent, IOpenCloseData } from "@def/misc";
 import { ModuleType } from "@def/ModuleConst";
 import { TestViewType } from "@def/test";
-import { MessageMgr } from "@base/MessageMgr";
+import { emitter } from "@base/MessageMgr";
 import Handler = Laya.Handler;
 
 export class LoginMdr extends ui.login.LoginUI {
@@ -29,7 +29,7 @@ export class LoginMdr extends ui.login.LoginUI {
   }
 
   private onClick(): void {
-    MessageMgr.ins().emit(CommonEvent.OPEN_VIEW, <IOpenCloseData>{
+    emitter.emit(CommonEvent.OPEN_VIEW, <IOpenCloseData>{
       module: ModuleType.TEST,
       view: TestViewType.HP_SINGLE,
     });

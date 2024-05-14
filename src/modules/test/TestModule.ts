@@ -3,12 +3,13 @@
  * @date 2024/4/26
  */
 import { BaseModule } from "@base/mvc/BaseModule";
-import { ModuleType } from "@def/ModuleConst";
+import { ModuleType, ProxyType } from "@def/ModuleConst";
 import { TestViewType } from "@def/test";
 import { HpSingleMdr } from "./mdr/HpSingleMdr";
 import { MainHpMdr } from "./mdr/MainHpMdr";
 import { TestPanelMdr } from "./mdr/TestPanelMdr";
 import { TestPanelCloudMdr } from "./mdr/TestPanelCloudMdr";
+import { TestProxy } from "./model/TestProxy";
 
 export class TestModule extends BaseModule {
   constructor() {
@@ -17,6 +18,7 @@ export class TestModule extends BaseModule {
 
   initProxy(): void {
     super.initProxy();
+    this.regProxy(ProxyType.TEST, TestProxy);
   }
 
   initCmd(): void {

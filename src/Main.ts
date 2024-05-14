@@ -3,7 +3,8 @@ import App from "./App";
 import { ModuleType } from "@def/ModuleConst";
 import { LoginViewType } from "@def/Login";
 import { CommonEvent, IOpenCloseData } from "@def/misc";
-import "@base/FixLaya"; // 引入兼容一些laya内容
+import "@base/FixLaya";
+import { emitter } from "@base/MessageMgr"; // 引入兼容一些laya内容
 
 class Main {
   constructor() {
@@ -54,7 +55,7 @@ class Main {
     // const mdr = new HpSingle();
     // Laya.stage.addChild(mdr);
 
-    App.messageMgr.emit(CommonEvent.OPEN_VIEW, <IOpenCloseData>{
+    emitter.emit(CommonEvent.OPEN_VIEW, <IOpenCloseData>{
       module: ModuleType.LOGIN,
       view: LoginViewType.LOGIN,
     });

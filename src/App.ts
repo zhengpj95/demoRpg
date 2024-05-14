@@ -1,8 +1,7 @@
 import { initModules } from "./modules/InitModules";
 import { initFacade } from "@base/mvc/Facade";
-import { MessageMgr } from "@base/MessageMgr";
-import { DebugMgr } from "@base/DebugMgr";
 import { LayerMgr } from "@base/LayerMgr";
+import { initEmitter } from "@base/MessageMgr";
 import Event = Laya.Event;
 
 /**
@@ -10,6 +9,7 @@ import Event = Laya.Event;
  */
 export default class App {
   public static init(): void {
+    initEmitter();
     initFacade();
 
     // 注册所有模块
@@ -21,14 +21,6 @@ export default class App {
 
   //region getter
   /**==============================================================*/
-
-  public static get messageMgr(): MessageMgr {
-    return MessageMgr.ins();
-  }
-
-  public static get debugMgr(): DebugMgr {
-    return DebugMgr.ins();
-  }
 
   public static get layerMgr(): LayerMgr {
     return LayerMgr.ins();

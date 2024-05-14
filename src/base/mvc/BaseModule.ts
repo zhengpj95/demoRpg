@@ -4,8 +4,9 @@
 import { ModuleType, ProxyType } from "@def/ModuleConst";
 import { BaseProxy } from "./BaseProxy";
 import { BaseCommand } from "./BaseCommand";
-import { MessageMgr } from "../MessageMgr";
+import { emitter } from "../MessageMgr";
 import { LayerIndex } from "@base/LayerMgr";
+import { DebugMgr } from "@base/DebugMgr";
 
 type MdrCls = new () => Laya.Scene;
 type CmdCls = new () => BaseCommand;
@@ -40,7 +41,7 @@ export class BaseModule {
   }
 
   public regCmd(event: string, cls: CmdCls): void {
-    MessageMgr.ins().on(event, this.exeCmd, this, [event]);
+    emitter.on(event, this.exeCmd, this, [event]);
     this._cmdMap[event] = cls;
   }
 
@@ -59,6 +60,7 @@ export class BaseModule {
     const cls = new proxy(); // 单例模式，实例化保存
     cls.init();
     this._proxyMap[type] = cls;
+    DebugMgr.ins().debugProxy(cls);
   }
 
   public retProxy<T extends BaseProxy>(type: ProxyType): T {

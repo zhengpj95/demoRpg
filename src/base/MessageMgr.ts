@@ -1,14 +1,23 @@
 import SingletonClass from "./core/SingletonClass";
+import { DebugMgr } from "@base/DebugMgr";
 import Handler = Laya.Handler;
 
 type func = (...args: any) => void;
+
+// 全局事件管理器
+export let emitter: MessageMgr;
+
+export function initEmitter(): void {
+  emitter = MessageMgr.ins();
+  DebugMgr.ins().debug("emitter", emitter);
+}
 
 /**
  * 信息管理器
  * subscribe-publish pattern 订阅发布模式
  * @date 2024/4/11
  */
-export class MessageMgr extends SingletonClass {
+class MessageMgr extends SingletonClass {
   private _messages: { [key: string]: Handler[] } = {};
 
   public static ins: () => MessageMgr;
