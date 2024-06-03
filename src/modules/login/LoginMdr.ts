@@ -34,4 +34,9 @@ export class LoginMdr extends ui.login.LoginUI {
       view: TestViewType.HP_SINGLE,
     });
   }
+
+  // noinspection JSUnusedGlobalSymbols 皮肤中ClickScale调用到
+  private onClickScale(): void {
+    console.log(`11111 onClickScale: ${Date.now()}`);
+  }
 }
