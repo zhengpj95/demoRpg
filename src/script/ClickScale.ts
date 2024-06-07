@@ -24,6 +24,7 @@ export function findMediator(comp: Laya.Node): any | undefined {
 const DOWN_CLICK_SCALE = 1.1;
 const UP_CLICK_SCALE = 0.94;
 const CLICK_SCALE_TIME = 100;
+const ORI_PRO_KEY = ["left", "right", "top", "bottom", "centerX", "centerY"];
 
 /**
  * @date 2024/6/3
@@ -54,6 +55,7 @@ export default class ClickScale extends Script {
 
   private mdr?: any | undefined;
   private mdrCallback?: Handler;
+  private _oriMap: { [key: string]: number };
 
   public onAwake(): void {
     this.comp = <UIComponent>this.owner;
@@ -66,10 +68,20 @@ export default class ClickScale extends Script {
     this.downScaleY = this.comp.scaleY * DOWN_CLICK_SCALE;
     this.upScaleX = this.comp.scaleX * UP_CLICK_SCALE;
     this.upScaleY = this.comp.scaleY * UP_CLICK_SCALE;
+
+    if (!this._oriMap) {
+      this._oriMap = {};
+      for (const key of ORI_PRO_KEY) {
+        if (!isNaN(this.comp[key])) {
+          this._oriMap[key] = this.comp[key];
+        }
+      }
+    }
   }
 
   public onEnable(): void {
     this.setAnchor();
+    this.updateWidget(false);
     this.comp.on(Event.LOADED, this, this.setAnchor);
     this.comp.on(Event.CLICK, this, this.onClickComp);
     this.comp.on(Event.MOUSE_DOWN, this, this.onClickMouseDown);
@@ -111,6 +123,18 @@ export default class ClickScale extends Script {
     comp.y = this.originY + comp.height * this.originScaleY * 0.5;
   }
 
+  private updateWidget(isAnim = false): void {
+    if (isAnim) {
+      for (const key of ORI_PRO_KEY) {
+        this.comp[key] = NaN;
+      }
+    } else {
+      for (const key in this._oriMap) {
+        this.comp[key] = this._oriMap[key];
+      }
+    }
+  }
+
   private onClickComp(e: Event): void {
     if (e && this.stopClickPropagation) {
       e.stopPropagation();
@@ -140,6 +164,7 @@ export default class ClickScale extends Script {
       },
       CLICK_SCALE_TIME,
     );
+    this.updateWidget(true);
   }
 
   private onClickMouseUp(): void {
@@ -172,6 +197,8 @@ export default class ClickScale extends Script {
         scaleY: this.originScaleY,
       },
       CLICK_SCALE_TIME,
+      null,
+      Handler.create(this, this.updateWidget, [false]),
     );
   }
 }
