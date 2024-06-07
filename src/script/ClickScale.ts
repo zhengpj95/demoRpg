@@ -4,18 +4,18 @@ import UIComponent = Laya.UIComponent;
 import Event = Laya.Event;
 import Tween = Laya.Tween;
 
-export function findMediator(comp: Laya.Node): any | undefined {
+export function findMediator<T>(comp: Laya.Node): T | undefined {
   if (!comp) {
     return undefined;
   }
   if (comp instanceof Laya.Scene) {
-    return comp;
+    return <T>comp;
   }
-  let mdr: any | undefined;
+  let mdr: T | undefined;
   while (comp && !mdr) {
     comp = comp.parent;
     if (comp instanceof Laya.Scene) {
-      mdr = comp;
+      mdr = <T>comp;
     }
   }
   return mdr;
@@ -53,13 +53,13 @@ export default class ClickScale extends Script {
   private isSetPos = false;
   private isTweenUp = false;
 
-  private mdr?: any | undefined;
+  private mdr?: Laya.Scene | undefined;
   private mdrCallback?: Handler;
   private _oriMap: { [key: string]: number };
 
   public onAwake(): void {
     this.comp = <UIComponent>this.owner;
-    this.mdr = findMediator(this.comp);
+    this.mdr = findMediator<Laya.Scene>(this.comp);
     this.originX = this.comp.x;
     this.originY = this.comp.y;
     this.originScaleX = this.comp.scaleX;
