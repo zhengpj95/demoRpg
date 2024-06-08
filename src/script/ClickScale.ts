@@ -4,7 +4,9 @@ import UIComponent = Laya.UIComponent;
 import Event = Laya.Event;
 import Tween = Laya.Tween;
 
-export function findMediator<T>(comp: Laya.Node): T | undefined {
+export function findMediator<T extends Laya.Scene>(
+  comp: Laya.Node,
+): T | undefined {
   if (!comp) {
     return undefined;
   }
