@@ -3,6 +3,11 @@ import { IOpenCloseData } from "@def/misc";
 import { facade } from "@base/mvc/Facade";
 import { LayerMgr } from "@base/LayerMgr";
 
+/**创建mdr唯一标识*/
+export function createMdrKey(data: IOpenCloseData): string {
+  return `mv_${data.module}_${data.view}`;
+}
+
 /**
  * @date 2024/4/17
  */
@@ -22,8 +27,7 @@ export class OpenViewCmd extends BaseCommand {
     }
     const layerIdx = module.retMdrIdx(data.view);
     const layer = LayerMgr.ins().getLayer(layerIdx);
-    const cls = new mdrCls();
-    cls.name = `mv_${data.module}_${data.view}`;
-    layer.addChild(cls);
+    const mdrKey = createMdrKey(data);
+    layer.doAddMdr(mdrCls, mdrKey);
   }
 }

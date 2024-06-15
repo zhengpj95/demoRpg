@@ -6,18 +6,17 @@ import { CommonEvent, IOpenCloseData } from "@def/misc";
 import { ModuleType } from "@def/ModuleConst";
 import { TestViewType } from "@def/test";
 import { emitter } from "@base/MessageMgr";
-import Handler = Laya.Handler;
 
 export class LoginMdr extends ui.login.LoginUI {
   onEnable() {
     super.onEnable();
 
-    this.btnLogin.clickHandler = Handler.create(
-      this,
-      this.onClick,
-      undefined,
-      false,
-    );
+    // this.btnLogin.clickHandler = Handler.create(
+    //   this,
+    //   this.onClick,
+    //   undefined,
+    //   false,
+    // );
   }
 
   onOpened(param: any) {

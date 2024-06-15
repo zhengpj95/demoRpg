@@ -1,5 +1,9 @@
 import { ui } from "@ui/layaMaxUI";
 import { MathUtils } from "@base/utils/MathUtils";
+import { emitter } from "@base/MessageMgr";
+import { CommonEvent, IOpenCloseData } from "@def/misc";
+import { ModuleType } from "@def/ModuleConst";
+import { TestViewType } from "@def/test";
 import Handler = Laya.Handler;
 import Pool = Laya.Pool;
 
@@ -23,6 +27,14 @@ export class HpSingleMdr extends ui.hp.HpSingleUI {
     this.timer.loop(500, this, this.onUpdateHp);
   }
 
+  open(closeOther?: boolean, param?: any) {
+    super.open(closeOther, param);
+  }
+
+  close(type?: string) {
+    super.close(type);
+  }
+
   private onUpdateHp(): void {
     const subHp = MathUtils.getRandom(0, 5000);
     this.tweenHp(subHp);
@@ -38,6 +50,10 @@ export class HpSingleMdr extends ui.hp.HpSingleUI {
       Handler.create(this, () => {
         if (w <= 0) {
           this.timer.clearAll(this);
+          emitter.emit(CommonEvent.CLOSE_VIEW, <IOpenCloseData>{
+            module: ModuleType.TEST,
+            view: TestViewType.HP_SINGLE,
+          });
         }
       }),
     );

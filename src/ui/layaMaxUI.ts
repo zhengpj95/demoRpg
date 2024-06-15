@@ -29,9 +29,6 @@ export module ui.hp {
 }
 export module ui.login {
     export class LoginUI extends Scene {
-		public btnLogin:Laya.Button;
-		public imgGreen:Laya.Image;
-		public lab:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

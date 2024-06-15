@@ -2,6 +2,7 @@ import { initModules } from "./modules/InitModules";
 import { initFacade } from "@base/mvc/Facade";
 import { LayerMgr } from "@base/LayerMgr";
 import { initEmitter } from "@base/MessageMgr";
+import { DebugMgr } from "@base/DebugMgr";
 import Event = Laya.Event;
 
 /**
@@ -29,3 +30,4 @@ export default class App {
   /**==============================================================*/
   //endregion getter
 }
+DebugMgr.ins().debug("App", App);

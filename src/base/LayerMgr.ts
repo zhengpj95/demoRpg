@@ -11,12 +11,14 @@ export const enum LayerIndex {
 
 class BaseLayer extends UIComponent {
   public idx: number;
+  public mdrMap: { [view: number]: Laya.Scene };
 
   constructor(idx: number) {
     super();
     this.idx = idx;
     this.name = "layer_" + idx;
     this.mouseThrough = true;
+    this.mdrMap = {};
   }
 
   public onResize(): void {
@@ -31,9 +33,40 @@ class BaseLayer extends UIComponent {
       if (!child) continue;
       if (child instanceof Laya.Scene) {
         child.close();
+        const mdrKey = child.name;
+        this.mdrMap[mdrKey] = undefined;
+        delete this.mdrMap[mdrKey];
       }
       child.removeSelf();
     }
+  }
+
+  // 添加mdr
+  public doAddMdr(mdr: new () => Laya.Scene, mdrKey: string): boolean {
+    if (this.mdrMap[mdrKey]) {
+      return true;
+    }
+    const cls = new mdr();
+    cls.name = mdrKey;
+    this.addChild(cls);
+    cls.open(false);
+    this.mdrMap[mdrKey] = cls;
+    return true;
+  }
+
+  // 移除mdr
+  public doRemoveMdr(mdrKey: string): boolean {
+    if (!this.mdrMap[mdrKey]) {
+      return false;
+    }
+    const mdr: Laya.Scene = this.mdrMap[mdrKey];
+    if (mdr) {
+      mdr.close();
+      mdr.removeSelf();
+    }
+    this.mdrMap[mdrKey] = undefined;
+    delete this.mdrMap[mdrKey];
+    return true;
   }
 }
 

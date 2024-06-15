@@ -3,8 +3,8 @@ import App from "./App";
 import { ModuleType } from "@def/ModuleConst";
 import { LoginViewType } from "@def/Login";
 import { CommonEvent, IOpenCloseData } from "@def/misc";
-import "@base/FixLaya";
-import { emitter } from "@base/MessageMgr"; // 引入兼容一些laya内容
+import "@base/FixLaya"; // 引入兼容一些laya内容
+import { emitter } from "@base/MessageMgr";
 
 class Main {
   constructor() {
