@@ -4,8 +4,9 @@
 import { ui } from "@ui/layaMaxUI";
 import { CommonEvent, IOpenCloseData } from "@def/misc";
 import { ModuleType } from "@def/ModuleConst";
-import { TestViewType } from "@def/test";
 import { emitter } from "@base/MessageMgr";
+import { SceneViewType } from "@def/scene";
+import { LoginViewType } from "@def/Login";
 
 export class LoginMdr extends ui.login.LoginUI {
   onEnable() {
@@ -29,8 +30,12 @@ export class LoginMdr extends ui.login.LoginUI {
 
   private onClick(): void {
     emitter.emit(CommonEvent.OPEN_VIEW, <IOpenCloseData>{
-      module: ModuleType.TEST,
-      view: TestViewType.HP_SINGLE,
+      module: ModuleType.SCENE,
+      view: SceneViewType.SCENE,
+    });
+    emitter.emit(CommonEvent.CLOSE_VIEW, <IOpenCloseData>{
+      module: ModuleType.LOGIN,
+      view: LoginViewType.LOGIN,
     });
   }
 

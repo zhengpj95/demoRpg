@@ -7,6 +7,7 @@ export const enum ModuleType {
   LOGIN = 1,
   MISC = 2,
   BAG = 3,
+  SCENE = 4,
 
   TEST = 999, // 测试
 }
@@ -16,6 +17,7 @@ export const enum ProxyType {
   LOGIN = 1,
   MISC = 2,
   BAG = 3,
+  SCENE = 4,
 
   TEST = 999, // 测试
 }
