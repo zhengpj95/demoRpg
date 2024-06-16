@@ -1,5 +1,4 @@
-import { SceneMap } from "@base/map/SceneMap";
-import { LayerIndex, LayerMgr } from "@base/LayerMgr";
+import { SceneMap } from "./SceneMap";
 
 /**
  * 场景
@@ -15,6 +14,6 @@ export class SceneMdr extends Laya.Scene {
   open(closeOther?: boolean, param?: any) {
     super.open(closeOther, param);
     this._map = new SceneMap();
-    LayerMgr.ins().getLayer(LayerIndex.MAP).addChild(this._map);
+    this.addChild(this._map);
   }
 }

@@ -3,7 +3,7 @@ import Image = Laya.Image;
 import Handler = Laya.Handler;
 import UIComponent = Laya.UIComponent;
 import Animation = Laya.Animation;
-import { IMapData, MapCellData } from "./MapConst";
+import { IMapData, MapCellData } from "../model/MapConst";
 
 export class SceneMap extends Sprite {
   private _miniImg: Image;
@@ -45,8 +45,8 @@ export class SceneMap extends Sprite {
   private onLoad(mapData: IMapData): void {
     const img = new Image();
     img.skin = `map/1001/mini.jpg`;
-    img.width = mapData["width"];
-    img.height = mapData["height"];
+    img.width = mapData.width;
+    img.height = mapData.height;
     this.addChildAt(img, 0);
 
     this._sprite = new Sprite();
