@@ -49,6 +49,7 @@ P CD2D20C0 img_hp7.png
 P 0B347B79 img_hp_gray.png
 P 8A8AB548 img_hp_gray1.png
 D map
+D player
 D sound
 R 1DC3ABD8 destroy.wav
 R FF0B6E8D hit.wav
@@ -170,5 +171,5 @@ P C6235A28 8_6.jpg
 P 1E0B10AB 8_7.jpg
 P 698EEE57 8_8.jpg
 P A8BB9BD6 8_9.jpg
-R 0C9F1597 info.json
+R 93DE48B3 info.json
 P 031CE3F7 mini.jpg
