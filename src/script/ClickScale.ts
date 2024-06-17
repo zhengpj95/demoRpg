@@ -103,7 +103,6 @@ export default class ClickScale extends Script {
   public onDestroy(): void {
     this.mdr = undefined;
     if (this.mdrCallback) {
-      this.mdrCallback.run();
       this.mdrCallback = undefined;
     }
   }
