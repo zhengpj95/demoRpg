@@ -7,7 +7,7 @@ import { TestViewType } from "@def/test";
 import Handler = Laya.Handler;
 import Pool = Laya.Pool;
 
-export class HpSingleMdr extends ui.hp.HpSingleUI {
+export class HpSingleMdr extends ui.modules.hp.HpSingleUI {
   private _maxHp = 0;
   private _maxHp1 = 0;
 

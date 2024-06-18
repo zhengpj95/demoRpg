@@ -9,7 +9,7 @@ import Tween = Laya.Tween;
 /**
  * 测试panel+list
  */
-export class TestPanelCloudMdr extends ui.test.TestPanelCloudUI {
+export class TestPanelCloudMdr extends ui.modules.test.TestPanelCloudUI {
   private _max = 10;
   private _actList: number[] = [1];
 

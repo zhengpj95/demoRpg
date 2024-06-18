@@ -7,7 +7,7 @@ import { ui } from "@ui/layaMaxUI";
  * 所以一般在代码中设置，这样虽然不会出现资源报错，但是会出现 lose skin 问题。
  * 只要 hScrollBarSkin 和 vScrollBarSkin 不为 undefined 和 null，就可以实现滑动效果了。
  */
-export class TestPanelMdr extends ui.test.TestPanelUI {
+export class TestPanelMdr extends ui.modules.test.TestPanelUI {
   constructor() {
     super();
   }

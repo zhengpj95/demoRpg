@@ -30,7 +30,7 @@ function createSubHp(): number {
 /**
  * 血条
  */
-export class MainHpMdr extends ui.hp.MainHpUI {
+export class MainHpMdr extends ui.modules.hp.MainHpUI {
   private _maxHp: number;
   private _leftHp: number;
   private _radio: number = 0;

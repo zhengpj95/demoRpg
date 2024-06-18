@@ -8,7 +8,7 @@ import { emitter } from "@base/MessageMgr";
 import { SceneViewType } from "@def/scene";
 import { LoginViewType } from "@def/Login";
 
-export class LoginMdr extends ui.login.LoginUI {
+export class LoginMdr extends ui.modules.login.LoginUI {
   onEnable() {
     super.onEnable();
 

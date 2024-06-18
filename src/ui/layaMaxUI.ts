@@ -3,17 +3,17 @@ import View=Laya.View;
 import Dialog=Laya.Dialog;
 import Scene=Laya.Scene;
 var REG: Function = Laya.ClassUtils.regClass;
-export module ui.hp {
+export module ui.modules.hp {
     export class HpSingleUI extends Scene {
 		public boxVal:Laya.Box;
 		public imgHp:Laya.Image;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
-            this.loadScene("hp/HpSingle");
+            this.loadScene("modules/hp/HpSingle");
         }
     }
-    REG("ui.hp.HpSingleUI",HpSingleUI);
+    REG("ui.modules.hp.HpSingleUI",HpSingleUI);
     export class MainHpUI extends Scene {
 		public imgHpNext:Laya.Image;
 		public imgHpTween:Laya.Image;
@@ -22,49 +22,49 @@ export module ui.hp {
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
-            this.loadScene("hp/MainHp");
+            this.loadScene("modules/hp/MainHp");
         }
     }
-    REG("ui.hp.MainHpUI",MainHpUI);
+    REG("ui.modules.hp.MainHpUI",MainHpUI);
 }
-export module ui.login {
+export module ui.modules.login {
     export class LoginUI extends Scene {
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
-            this.loadScene("login/Login");
+            this.loadScene("modules/login/Login");
         }
     }
-    REG("ui.login.LoginUI",LoginUI);
+    REG("ui.modules.login.LoginUI",LoginUI);
 }
-export module ui.test {
+export module ui.modules.test {
     export class TestPanelUI extends View {
 		public panel:Laya.Panel;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
-            this.loadScene("test/TestPanel");
+            this.loadScene("modules/test/TestPanel");
         }
     }
-    REG("ui.test.TestPanelUI",TestPanelUI);
+    REG("ui.modules.test.TestPanelUI",TestPanelUI);
     export class TestPanelCloudUI extends Scene {
 		public panel:Laya.Panel;
 		public list:Laya.List;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
-            this.loadScene("test/TestPanelCloud");
+            this.loadScene("modules/test/TestPanelCloud");
         }
     }
-    REG("ui.test.TestPanelCloudUI",TestPanelCloudUI);
+    REG("ui.modules.test.TestPanelCloudUI",TestPanelCloudUI);
     export class TestSceneUI extends Scene {
 		public scoreLbl:Laya.Label;
 		public tipLbll:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
-            this.loadScene("test/TestScene");
+            this.loadScene("modules/test/TestScene");
         }
     }
-    REG("ui.test.TestSceneUI",TestSceneUI);
+    REG("ui.modules.test.TestSceneUI",TestSceneUI);
 }

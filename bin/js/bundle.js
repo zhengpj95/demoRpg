@@ -159,73 +159,82 @@
   var REG = Laya.ClassUtils.regClass;
   var ui;
   (function (ui) {
-      var hp;
-      (function (hp) {
-          class HpSingleUI extends Scene {
-              constructor() { super(); }
-              createChildren() {
-                  super.createChildren();
-                  this.loadScene("hp/HpSingle");
+      var modules;
+      (function (modules) {
+          var hp;
+          (function (hp) {
+              class HpSingleUI extends Scene {
+                  constructor() { super(); }
+                  createChildren() {
+                      super.createChildren();
+                      this.loadScene("modules/hp/HpSingle");
+                  }
               }
-          }
-          hp.HpSingleUI = HpSingleUI;
-          REG("ui.hp.HpSingleUI", HpSingleUI);
-          class MainHpUI extends Scene {
-              constructor() { super(); }
-              createChildren() {
-                  super.createChildren();
-                  this.loadScene("hp/MainHp");
+              hp.HpSingleUI = HpSingleUI;
+              REG("ui.modules.hp.HpSingleUI", HpSingleUI);
+              class MainHpUI extends Scene {
+                  constructor() { super(); }
+                  createChildren() {
+                      super.createChildren();
+                      this.loadScene("modules/hp/MainHp");
+                  }
               }
-          }
-          hp.MainHpUI = MainHpUI;
-          REG("ui.hp.MainHpUI", MainHpUI);
-      })(hp = ui.hp || (ui.hp = {}));
+              hp.MainHpUI = MainHpUI;
+              REG("ui.modules.hp.MainHpUI", MainHpUI);
+          })(hp = modules.hp || (modules.hp = {}));
+      })(modules = ui.modules || (ui.modules = {}));
   })(ui || (ui = {}));
   (function (ui) {
-      var login;
-      (function (login) {
-          class LoginUI extends Scene {
-              constructor() { super(); }
-              createChildren() {
-                  super.createChildren();
-                  this.loadScene("login/Login");
+      var modules;
+      (function (modules) {
+          var login;
+          (function (login) {
+              class LoginUI extends Scene {
+                  constructor() { super(); }
+                  createChildren() {
+                      super.createChildren();
+                      this.loadScene("modules/login/Login");
+                  }
               }
-          }
-          login.LoginUI = LoginUI;
-          REG("ui.login.LoginUI", LoginUI);
-      })(login = ui.login || (ui.login = {}));
+              login.LoginUI = LoginUI;
+              REG("ui.modules.login.LoginUI", LoginUI);
+          })(login = modules.login || (modules.login = {}));
+      })(modules = ui.modules || (ui.modules = {}));
   })(ui || (ui = {}));
   (function (ui) {
-      var test;
-      (function (test) {
-          class TestPanelUI extends View {
-              constructor() { super(); }
-              createChildren() {
-                  super.createChildren();
-                  this.loadScene("test/TestPanel");
+      var modules;
+      (function (modules) {
+          var test;
+          (function (test) {
+              class TestPanelUI extends View {
+                  constructor() { super(); }
+                  createChildren() {
+                      super.createChildren();
+                      this.loadScene("modules/test/TestPanel");
+                  }
               }
-          }
-          test.TestPanelUI = TestPanelUI;
-          REG("ui.test.TestPanelUI", TestPanelUI);
-          class TestPanelCloudUI extends Scene {
-              constructor() { super(); }
-              createChildren() {
-                  super.createChildren();
-                  this.loadScene("test/TestPanelCloud");
+              test.TestPanelUI = TestPanelUI;
+              REG("ui.modules.test.TestPanelUI", TestPanelUI);
+              class TestPanelCloudUI extends Scene {
+                  constructor() { super(); }
+                  createChildren() {
+                      super.createChildren();
+                      this.loadScene("modules/test/TestPanelCloud");
+                  }
               }
-          }
-          test.TestPanelCloudUI = TestPanelCloudUI;
-          REG("ui.test.TestPanelCloudUI", TestPanelCloudUI);
-          class TestSceneUI extends Scene {
-              constructor() { super(); }
-              createChildren() {
-                  super.createChildren();
-                  this.loadScene("test/TestScene");
+              test.TestPanelCloudUI = TestPanelCloudUI;
+              REG("ui.modules.test.TestPanelCloudUI", TestPanelCloudUI);
+              class TestSceneUI extends Scene {
+                  constructor() { super(); }
+                  createChildren() {
+                      super.createChildren();
+                      this.loadScene("modules/test/TestScene");
+                  }
               }
-          }
-          test.TestSceneUI = TestSceneUI;
-          REG("ui.test.TestSceneUI", TestSceneUI);
-      })(test = ui.test || (ui.test = {}));
+              test.TestSceneUI = TestSceneUI;
+              REG("ui.modules.test.TestSceneUI", TestSceneUI);
+          })(test = modules.test || (modules.test = {}));
+      })(modules = ui.modules || (ui.modules = {}));
   })(ui || (ui = {}));
 
   class GameControl extends Laya.Script {
@@ -271,7 +280,7 @@
       }
   }
 
-  class GameUI extends ui.test.TestSceneUI {
+  class GameUI extends ui.modules.test.TestSceneUI {
       constructor() {
           super();
           GameUI.instance = this;
@@ -525,7 +534,7 @@
       }
   }
 
-  class LoginMdr extends ui.login.LoginUI {
+  class LoginMdr extends ui.modules.login.LoginUI {
       onEnable() {
           super.onEnable();
       }
@@ -832,7 +841,7 @@
 
   var Handler$2 = Laya.Handler;
   var Pool = Laya.Pool;
-  class HpSingleMdr extends ui.hp.HpSingleUI {
+  class HpSingleMdr extends ui.modules.hp.HpSingleUI {
       constructor() {
           super();
           this._maxHp = 0;
@@ -905,7 +914,7 @@
   function createSubHp() {
       return getRandom(0, 1000);
   }
-  class MainHpMdr extends ui.hp.MainHpUI {
+  class MainHpMdr extends ui.modules.hp.MainHpUI {
       constructor() {
           super();
           this._radio = 0;
@@ -948,7 +957,7 @@
       }
   }
 
-  class TestPanelMdr extends ui.test.TestPanelUI {
+  class TestPanelMdr extends ui.modules.test.TestPanelUI {
       constructor() {
           super();
       }
@@ -963,7 +972,7 @@
 
   var Handler$3 = Laya.Handler;
   var Tween$1 = Laya.Tween;
-  class TestPanelCloudMdr extends ui.test.TestPanelCloudUI {
+  class TestPanelCloudMdr extends ui.modules.test.TestPanelCloudUI {
       constructor() {
           super();
           this._max = 10;
