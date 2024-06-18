@@ -1,5 +1,6 @@
 import SingletonClass from "./SingletonClass";
 import { GameUtils } from "../utils/GameUtils";
+import { DebugMgr } from "@base/DebugMgr";
 
 /**
  * 对象池
@@ -80,3 +81,4 @@ export default class PoolMgr extends SingletonClass {
     }
   }
 }
+DebugMgr.ins().debug("PoolMgr", PoolMgr);

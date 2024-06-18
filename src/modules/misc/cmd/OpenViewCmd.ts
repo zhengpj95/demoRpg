@@ -2,6 +2,7 @@ import { BaseCommand } from "@base/mvc/BaseCommand";
 import { IOpenCloseData } from "@def/misc";
 import { facade } from "@base/mvc/Facade";
 import { LayerMgr } from "@base/LayerMgr";
+import { GEvent } from "@base/core/GEvent";
 
 /**创建mdr唯一标识*/
 export function createMdrKey(data: IOpenCloseData): string {
@@ -12,7 +13,8 @@ export function createMdrKey(data: IOpenCloseData): string {
  * @date 2024/4/17
  */
 export class OpenViewCmd extends BaseCommand {
-  exec(data: IOpenCloseData): void {
+  exec(e: GEvent<IOpenCloseData>): void {
+    const data = e.data;
     const module = facade.retModule(data.module);
     if (!module) {
       console.error(`App.showView error, module:${data.module}`);

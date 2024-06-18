@@ -14,10 +14,20 @@ export class GameUtils {
       : Object.getPrototypeOf(value);
     if (Object.prototype.hasOwnProperty.call(prototype, "__class__")) {
       return prototype["__class__"];
+    } else if (type === "function" && value.name) {
+      return value.name;
+    } else if (prototype.constructor.name) {
+      return prototype.constructor.name;
     }
+
     const constructorString = prototype.constructor.toString().trim();
     const index = constructorString.indexOf("(");
-    const className = constructorString.substring(9, index);
+    let className = constructorString.substring(9, index);
+
+    if (!className && type === "function") {
+      className = "anonymous";
+    }
+
     Object.defineProperty(prototype, "__class__", {
       value: className,
       enumerable: false,

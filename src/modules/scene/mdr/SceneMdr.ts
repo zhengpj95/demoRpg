@@ -1,12 +1,12 @@
 import { SceneMap } from "./SceneMap";
 import { CompMgr } from "@base/comps/CompMgr";
-import { DebugMgr } from "@base/DebugMgr";
 import { ScenePlayerVO } from "@base/entity/SceneEntityVO";
 import { SceneEntityType } from "@base/entity/EntityConst";
 import { ScenePlayer } from "@base/entity/SceneEntity";
 import { BaseEvent } from "@base/BaseConst";
 import { emitter } from "@base/MessageMgr";
 import { AvatarComp } from "@base/comps/AvatarComp";
+import { GEvent } from "@base/core/GEvent";
 import Sprite = Laya.Sprite;
 
 /**
@@ -62,16 +62,17 @@ export class SceneMdr extends Laya.Scene {
 
     // todo
     CompMgr.start();
-    DebugMgr.ins().debug("CompMgr", CompMgr);
   }
 
-  private onAddEntity(avatar: AvatarComp): void {
+  private onAddEntity(e: GEvent<AvatarComp>): void {
+    const avatar = e.data;
     if (avatar) {
       this._entitySprite.addChild(avatar.display);
     }
   }
 
-  private onDelEntity(avatar: AvatarComp): void {
+  private onDelEntity(e: GEvent<AvatarComp>): void {
+    const avatar = e.data;
     if (avatar.display) {
       avatar.display.removeSelf();
     }

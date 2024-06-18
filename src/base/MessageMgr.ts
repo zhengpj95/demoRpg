@@ -1,5 +1,7 @@
 import SingletonClass from "./core/SingletonClass";
 import { DebugMgr } from "@base/DebugMgr";
+import { GEvent } from "@base/core/GEvent";
+import PoolMgr from "@base/core/PoolMgr";
 import Handler = Laya.Handler;
 
 type func = (...args: any) => void;
@@ -77,9 +79,6 @@ class MessageMgr extends SingletonClass {
     if (!list || !list.length) {
       return;
     }
-    if (args != null) {
-      args = [].concat(args);
-    }
     for (let i = 0; i < list.length; i++) {
       const handler = list[i];
       if (!handler) {
@@ -87,7 +86,9 @@ class MessageMgr extends SingletonClass {
         i--;
         continue;
       }
-      args ? handler.runWith(args) : handler.run();
+      const evt = GEvent.alloc(event, args);
+      handler.runWith(evt);
+      PoolMgr.release(evt);
       if (handler.once) {
         list[i] = null; // 置为null，下一回触发事件再移除
       }

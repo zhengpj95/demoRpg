@@ -4,20 +4,20 @@ import { emitter } from "@base/MessageMgr";
 import { BaseEvent } from "@base/BaseConst";
 import Animation = Laya.Animation;
 import Handler = Laya.Handler;
-import Sprite = Laya.Sprite;
+import UIComponent = Laya.UIComponent;
 
 /**
  * 场景模型
  */
 export class AvatarComp extends BaseComp {
   private _animation: Animation;
-  private _display: Sprite;
+  private _display: UIComponent;
 
-  get display(): Sprite {
+  get display(): UIComponent {
     return this._display;
   }
 
-  set display(value: Laya.Sprite) {
+  set display(value: Laya.UIComponent) {
     this._display = value;
   }
 
@@ -32,7 +32,13 @@ export class AvatarComp extends BaseComp {
       this._animation = new Animation();
     }
     if (!this.display) {
-      this.display = new Sprite();
+      this.display = new UIComponent();
+      this.display.x = this.display.y = 100;
+      this.display.width = 200;
+      this.display.height = 200;
+      this.display.graphics.drawRect(0, 0, 200, 200, "#0f0f0f");
+      this.display.anchorX = 0.5;
+      this.display.anchorY = 0.5;
       this.display.name = "avatarComp";
     }
     this._animation.loadAtlas(
