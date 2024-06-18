@@ -1,11 +1,7 @@
-export const enum SceneEntityType {
-  PLAYER = 1,
-  MONSTER = 2,
-  DROP = 3,
-}
+import { MonsterType, SceneEntityType } from "./EntityConst";
 
 export interface SceneEntityVO {
-  entityId: number;
+  entityId: number; //唯一id
   name: string;
   hp: number;
   maxHp: number;
@@ -18,9 +14,9 @@ export interface ScenePlayerVO extends SceneEntityVO {
 }
 
 export interface SceneMonsterVo extends SceneEntityVO {
-  //
+  monsterType: MonsterType;
 }
 
 export interface SceneDropVO extends SceneEntityVO {
-  //
+  itemId: number; // 道具id
 }

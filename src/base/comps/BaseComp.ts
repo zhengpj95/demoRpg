@@ -1,9 +1,5 @@
-export const enum CompType {
-  AVATAR = 1,
-  MAP = 2,
-  MOVE = 3,
-  CAMERA = 4,
-}
+import { SceneEntity } from "../entity/SceneEntity";
+import { CompType } from "./CompsConst";
 
 /**
  * 实体组件基类
@@ -11,6 +7,15 @@ export const enum CompType {
 export class BaseComp {
   private _type: CompType;
   private _isRun: boolean;
+  private _entity: SceneEntity;
+
+  get entity(): SceneEntity {
+    return this._entity;
+  }
+
+  set entity(value: SceneEntity) {
+    this._entity = value;
+  }
 
   get isRun(): boolean {
     return this._isRun;

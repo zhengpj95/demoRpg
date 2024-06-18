@@ -5,6 +5,8 @@ import { LoginViewType } from "@def/Login";
 import { CommonEvent, IOpenCloseData } from "@def/misc";
 import "@base/FixLaya"; // 引入兼容一些laya内容
 import { emitter } from "@base/MessageMgr";
+import { BaseEvent } from "@base/BaseConst";
+import Event = Laya.Event;
 
 class Main {
   constructor() {
@@ -70,6 +72,13 @@ class Main {
     // CompMgr.start();
     // const map = new SceneMap();
     // LayerMgr.mapMain.addChild(map);
+
+    Laya.stage.on(Event.CLICK, this, this.onClick);
+  }
+
+  private onClick(e: Event) {
+    console.log(`11111`, e.stageX, e.stageY);
+    emitter.emit(BaseEvent.STAGE_CLICK, [e.stageX, e.stageY]);
   }
 }
 
