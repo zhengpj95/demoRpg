@@ -14,6 +14,7 @@ export class SceneMdr extends Laya.Scene {
   open(closeOther?: boolean, param?: any) {
     super.open(closeOther, param);
     this._map = new SceneMap();
+    this._map.init(1001);
     this.addChild(this._map);
   }
 }
