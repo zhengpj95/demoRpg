@@ -26,5 +26,6 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": "off", // 允许声明但未使用的变量
     "@typescript-eslint/prefer-for-of": "warn", // 如果索引仅用于访问要迭代的数组，则优先于for循环的for-of循环
     "linebreak-style": ["error", "unix"], // ESLint中也可以增加换行符校验。 unix表示LF，windows表示CRLF
+    "@typescript-eslint/prefer-enum-initializers": "error", // 最好初始化每个枚举成员值
   },
 };
