@@ -79,7 +79,6 @@
       onDestroy() {
           this.mdr = undefined;
           if (this.mdrCallback) {
-              this.mdrCallback.run();
               this.mdrCallback = undefined;
           }
       }
@@ -719,6 +718,7 @@
           if (mdr) {
               mdr.close();
               mdr.removeSelf();
+              mdr.destroy();
           }
           this.mdrMap[mdrKey] = undefined;
           delete this.mdrMap[mdrKey];
@@ -1063,55 +1063,42 @@
   var Image = Laya.Image;
   var Handler$4 = Laya.Handler;
   var UIComponent$1 = Laya.UIComponent;
-  var Animation = Laya.Animation;
   class SceneMap extends Sprite {
       constructor() {
           super();
           this._bmpMap = {};
+      }
+      init(mapId) {
+          this._mapId = mapId;
+          this._sprite = new Sprite();
+          this.addChild(this._sprite);
           this.setBg();
       }
       setBg() {
-          Laya.loader.load(`map/1001/info.json`, Handler$4.create(this, this.onLoad), null, Laya.Loader.JSON, 4);
-          this._ani = new Animation();
-          this._ani.loadAtlas("player/move_0.atlas", Handler$4.create(this, this.onLoadPlayer));
-          this.timerOnce(5000, this, () => {
-              this._ani.loadAtlas("player/move_3.atlas", Handler$4.create(this, this.onLoadPlayer));
-          });
-          this.timerOnce(10000, this, () => {
-              this._ani.stop();
-          });
+          Laya.loader.load(`map/${this._mapId}/info.json`, Handler$4.create(this, this.onLoad), null, Laya.Loader.JSON, 4);
       }
       onLoad(mapData) {
           const img = new Image();
-          img.skin = `map/1001/mini.jpg`;
-          img.width = mapData["width"];
-          img.height = mapData["height"];
+          img.skin = `map/${this._mapId}/mini.jpg`;
+          img.width = mapData.width;
+          img.height = mapData.height;
+          this._miniImg = img;
           this.addChildAt(img, 0);
-          this._sprite = new Sprite();
-          this.addChildAt(this._sprite, 1);
           const rows = Math.ceil(mapData.height / mapData.sliceHeight);
           const cols = Math.ceil(mapData.width / mapData.sliceWidth);
-          console.log(mapData, rows, cols);
           for (let i = 0; i < rows; i++) {
               for (let j = 0; j < cols; j++) {
                   const bmp = new MapBmp();
-                  bmp.init(1001, i, j);
+                  bmp.init(this._mapId, i, j);
                   this._sprite.addChild(bmp);
                   this._bmpMap[bmp.name] = bmp;
               }
           }
       }
-      onLoadPlayer() {
-          console.log(`11111`);
-          this.addChild(this._ani);
-          console.log(this._ani);
-          this._ani.interval = 200;
-          this._ani.play();
-      }
   }
   class MapBmp extends UIComponent$1 {
       init(mapId, row, col) {
-          const url = `map/${mapId}/${row}_${col}.jpg`;
+          const url = `map/${mapId}/tiles/${row}_${col}.jpg`;
           this.x = col * MapCellData.GameSliceWidth;
           this.y = row * MapCellData.GameSliceHeight;
           this.name = `${mapId}_${row}_${col}`;
@@ -1120,6 +1107,13 @@
               this.addChild(this._bmp);
           }
           this._bmp.skin = url;
+      }
+      destroy(destroyChild) {
+          super.destroy(destroyChild);
+      }
+      onDestroy() {
+          super.onDestroy();
+          this._bmp && this._bmp.destroy();
       }
   }
 
@@ -1130,7 +1124,8 @@
       open(closeOther, param) {
           super.open(closeOther, param);
           this._map = new SceneMap();
-          LayerMgr.ins().getLayer(0).addChild(this._map);
+          this._map.init(1001);
+          this.addChild(this._map);
       }
   }
 

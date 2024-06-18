@@ -38,6 +38,7 @@ P 0587871F vscroll$up.png
 P 5FD17798 vscroll.png
 P DDDDFB9E vslider$bar.png
 P 01BAE7F5 vslider.png
+D effect
 D hp
 P CD1AB4DB img_hp1.png
 P AB4A1760 img_hp2.png
@@ -63,6 +64,9 @@ P 39B957DA p1.png
 P 2E1973F5 t1.png
 P F8700A3B tra.png
 D map/1001
+R 0C9F1597 info.json
+P 031CE3F7 mini.jpg
+D map/1001/tiles
 P 40481430 0_0.jpg
 P A26C5D5A 0_1.jpg
 P 4357A743 0_10.jpg
@@ -171,5 +175,3 @@ P C6235A28 8_6.jpg
 P 1E0B10AB 8_7.jpg
 P 698EEE57 8_8.jpg
 P A8BB9BD6 8_9.jpg
-R 93DE48B3 info.json
-P 031CE3F7 mini.jpg
