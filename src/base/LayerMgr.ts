@@ -63,6 +63,7 @@ class BaseLayer extends UIComponent {
     if (mdr) {
       mdr.close();
       mdr.removeSelf();
+      mdr.destroy();
     }
     this.mdrMap[mdrKey] = undefined;
     delete this.mdrMap[mdrKey];
