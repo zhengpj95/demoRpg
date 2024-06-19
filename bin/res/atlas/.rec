@@ -45,7 +45,7 @@ D sound
 R 1DC3ABD8 destroy.wav
 R FF0B6E8D hit.wav
 D map/1001
-R 0C9F1597 info.json
+R 93DE48B3 info.json
 P 031CE3F7 mini.jpg
 D modules/hp
 P CD1AB4DB img_hp1.png

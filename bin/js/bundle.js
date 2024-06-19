@@ -403,7 +403,7 @@
   GameConfig.screenMode = "none";
   GameConfig.alignV = "middle";
   GameConfig.alignH = "center";
-  GameConfig.startScene = "login/Login.scene";
+  GameConfig.startScene = "modules/login/Login.scene";
   GameConfig.sceneRoot = "";
   GameConfig.debug = false;
   GameConfig.stat = false;
@@ -430,6 +430,121 @@
           if (proxy.constructor.name) {
               window[proxy.constructor.name] = proxy;
           }
+      }
+  }
+
+  class GameUtils {
+      static getQualifiedClassName(value) {
+          const type = typeof value;
+          if (!value || (type !== "object" && !value.prototype)) {
+              return type;
+          }
+          const prototype = value.prototype
+              ? value.prototype
+              : Object.getPrototypeOf(value);
+          if (Object.prototype.hasOwnProperty.call(prototype, "__class__")) {
+              return prototype["__class__"];
+          }
+          else if (type === "function" && value.name) {
+              return value.name;
+          }
+          else if (prototype.constructor.name) {
+              return prototype.constructor.name;
+          }
+          const constructorString = prototype.constructor.toString().trim();
+          const index = constructorString.indexOf("(");
+          let className = constructorString.substring(9, index);
+          if (!className && type === "function") {
+              className = "anonymous";
+          }
+          Object.defineProperty(prototype, "__class__", {
+              value: className,
+              enumerable: false,
+              writable: true,
+          });
+          return className;
+      }
+  }
+
+  class PoolMgr extends SingletonClass {
+      static alloc(cls, ...args) {
+          const className = GameUtils.getQualifiedClassName(cls);
+          if (!this._poolMap[className]) {
+              this._poolMap[className] = [];
+          }
+          const list = this._poolMap[className];
+          if (list.length) {
+              const vo = list.pop();
+              if (vo["onAlloc"] && typeof vo["onAlloc"] == "function") {
+                  vo["onAlloc"]();
+              }
+              return vo;
+          }
+          const clazz = new cls(...args);
+          if (clazz["onAlloc"] && typeof clazz["onAlloc"] == "function") {
+              clazz["onAlloc"]();
+          }
+          clazz.ObjectPoolKey = className;
+          return clazz;
+      }
+      static release(obj) {
+          if (!obj) {
+              return false;
+          }
+          const refKey = obj.ObjectPoolKey;
+          if (!refKey ||
+              !this._poolMap[refKey] ||
+              this._poolMap[refKey].indexOf(obj) > -1) {
+              return false;
+          }
+          if (obj["onRelease"] && typeof obj["onRelease"] == "function") {
+              obj["onRelease"]();
+          }
+          this._poolMap[refKey].push(obj);
+          return true;
+      }
+      static clear() {
+          this._poolMap = {};
+      }
+      static getContent() {
+          return this._poolMap;
+      }
+      static setCount(count = 5) {
+          for (const key in this._poolMap) {
+              const list = this._poolMap[key];
+              if (list.length > count) {
+                  list.length = count;
+              }
+          }
+      }
+  }
+  PoolMgr._poolMap = {};
+  DebugMgr.ins().debug("PoolMgr", PoolMgr);
+
+  class GEvent {
+      get type() {
+          return this._type;
+      }
+      set type(value) {
+          this._type = value;
+      }
+      get data() {
+          return this._data;
+      }
+      set data(value) {
+          this._data = value;
+      }
+      static alloc(type, data) {
+          const e = PoolMgr.alloc(GEvent);
+          e.type = type;
+          e.data = data;
+          return e;
+      }
+      onAlloc() {
+      }
+      onRelease() {
+          this.type = "";
+          this.data = undefined;
       }
   }
 
@@ -478,9 +593,6 @@
           if (!list || !list.length) {
               return;
           }
-          if (args != null) {
-              args = [].concat(args);
-          }
           for (let i = 0; i < list.length; i++) {
               const handler = list[i];
               if (!handler) {
@@ -488,7 +600,9 @@
                   i--;
                   continue;
               }
-              args ? handler.runWith(args) : handler.run();
+              const evt = GEvent.alloc(event, args);
+              handler.runWith(evt);
+              PoolMgr.release(evt);
               if (handler.once) {
                   list[i] = null;
               }
@@ -786,7 +900,8 @@
       return `mv_${data.module}_${data.view}`;
   }
   class OpenViewCmd extends BaseCommand {
-      exec(data) {
+      exec(e) {
+          const data = e.data;
           const module = facade.retModule(data.module);
           if (!module) {
               console.error(`App.showView error, module:${data.module}`);
@@ -805,7 +920,8 @@
   }
 
   class CloseViewCmd extends BaseCommand {
-      exec(data) {
+      exec(e) {
+          const data = e.data;
           const module = facade.retModule(data.module);
           if (!module) {
               console.error(`App.showView error, module:${data.module}`);
@@ -1126,15 +1242,244 @@
       }
   }
 
+  class CompMgr {
+      static addComp(comp) {
+          if (!comp) {
+              return;
+          }
+          if (!this._compMap[comp.type]) {
+              this._compMap[comp.type] = [];
+          }
+          this._compMap[comp.type].push(comp);
+      }
+      static removeComp(comp) {
+          if (!comp || !this._compMap[comp.type].length) {
+              return;
+          }
+          const idx = this._compMap[comp.type].indexOf(comp);
+          if (idx > -1) {
+              this._compMap[comp.type].splice(idx, 1);
+          }
+      }
+      static start() {
+          Laya.timer.frameLoop(1, this, this.tick);
+      }
+      static stop() {
+          Laya.timer.clearAll(this);
+      }
+      static tick(delta) {
+          this.dealComp();
+      }
+      static dealComp() {
+          for (const key in this._compMap) {
+              const list = this._compMap[key];
+              if (list.length) {
+                  list.forEach((comp) => {
+                      if (comp.isRun) {
+                          comp.tick(Laya.timer.delta);
+                      }
+                  });
+              }
+          }
+      }
+  }
+  CompMgr._compMap = {};
+  DebugMgr.ins().debug("CompMgr", CompMgr);
+
+  class BaseComp {
+      get entity() {
+          return this._entity;
+      }
+      set entity(value) {
+          this._entity = value;
+      }
+      get isRun() {
+          return this._isRun;
+      }
+      set isRun(value) {
+          this._isRun = value;
+      }
+      get type() {
+          return this._type;
+      }
+      set type(value) {
+          this._type = value;
+      }
+      start() {
+          this.isRun = true;
+      }
+      stop() {
+          this.isRun = false;
+      }
+      tick(delta) {
+      }
+  }
+
+  var Animation = Laya.Animation;
+  var Handler$5 = Laya.Handler;
+  var UIComponent$2 = Laya.UIComponent;
+  class AvatarComp extends BaseComp {
+      constructor() {
+          super();
+          this.type = 1;
+      }
+      get display() {
+          return this._display;
+      }
+      set display(value) {
+          this._display = value;
+      }
+      start() {
+          super.start();
+          if (!this._animation) {
+              this._animation = new Animation();
+          }
+          if (!this.display) {
+              this.display = new UIComponent$2();
+              this.display.x = this.display.y = 100;
+              this.display.width = 200;
+              this.display.height = 200;
+              this.display.graphics.drawRect(0, 0, 200, 200, "#0f0f0f");
+              this.display.anchorX = 0.5;
+              this.display.anchorY = 0.5;
+              this.display.name = "avatarComp";
+          }
+          this._animation.loadAtlas("player/move_4.atlas", Handler$5.create(this, this.onLoadComplete));
+          emitter.emit("base_add_to_scene", this);
+      }
+      stop() {
+          super.stop();
+          emitter.emit("base_remove_from_scene", this);
+      }
+      onLoadComplete() {
+          this._animation.interval = 200;
+          this._animation.play();
+          this._display.addChild(this._animation);
+      }
+  }
+
+  const CompTypeMap = {
+      [1]: AvatarComp,
+  };
+
+  class SceneEntity {
+      constructor() {
+          this._comps = {};
+      }
+      get vo() {
+          return this._vo;
+      }
+      set vo(value) {
+          this._vo = value;
+      }
+      init(vo) {
+          this.vo = vo;
+      }
+      addComp(type) {
+          if (this._comps[type]) {
+              return false;
+          }
+          const comp = CompTypeMap[type];
+          const compIns = new comp();
+          compIns.type = type;
+          compIns.entity = this;
+          compIns.start();
+          CompMgr.addComp(compIns);
+          this._comps[type] = compIns;
+          return true;
+      }
+      removeComp(type) {
+          if (!this._comps[type]) {
+              return false;
+          }
+          const compIns = this._comps[type];
+          compIns.type = 0;
+          compIns.entity = null;
+          compIns.stop();
+          CompMgr.removeComp(compIns);
+          this._comps[type] = null;
+          delete this._comps[type];
+          return true;
+      }
+      getComp(type) {
+          return this._comps[type];
+      }
+      tick(delta) {
+      }
+      onAlloc() {
+      }
+      onRelease() {
+      }
+  }
+  class ScenePlayer extends SceneEntity {
+      init(vo) {
+          super.init(vo);
+          this.addComp(1);
+      }
+  }
+  class SceneMonster extends SceneEntity {
+      init(vo) {
+          super.init(vo);
+      }
+  }
+  class SceneDrop extends SceneEntity {
+      init(vo) {
+          super.init(vo);
+      }
+  }
+
+  var Sprite$1 = Laya.Sprite;
   class SceneMdr extends Laya.Scene {
       constructor() {
           super();
+      }
+      onEnable() {
+          super.onEnable();
+          emitter.on("base_add_to_scene", this.onAddEntity, this);
+          emitter.on("base_remove_from_scene", this.onDelEntity, this);
+      }
+      createEntitySprite() {
+          const sprite = new Sprite$1();
+          sprite.width = Laya.stage.width;
+          sprite.height = Laya.stage.height;
+          sprite.name = "_entitySprite";
+          sprite.mouseEnabled = false;
+          sprite.mouseThrough = true;
+          return sprite;
       }
       open(closeOther, param) {
           super.open(closeOther, param);
           this._map = new SceneMap();
           this._map.init(1001);
           this.addChild(this._map);
+          if (!this._entitySprite) {
+              this._entitySprite = this.createEntitySprite();
+              this.addChild(this._entitySprite);
+          }
+          const playerVo = {
+              entityId: 1001,
+              name: "zpj",
+              hp: 10000,
+              maxHp: 10000,
+              power: 999999,
+              type: 1,
+              vip: 0,
+          };
+          const player = new ScenePlayer();
+          player.init(playerVo);
+          CompMgr.start();
+      }
+      onAddEntity(e) {
+          const avatar = e.data;
+          if (avatar) {
+              this._entitySprite.addChild(avatar.display);
+          }
+      }
+      onDelEntity(e) {
+          const avatar = e.data;
+          if (avatar.display) {
+              avatar.display.removeSelf();
+          }
       }
   }
 
@@ -1195,6 +1540,7 @@
       return null;
   };
 
+  var Event$2 = Laya.Event;
   class Main {
       constructor() {
           if (window["Laya3D"])
@@ -1226,6 +1572,11 @@
               module: 1,
               view: 1,
           });
+          Laya.stage.on(Event$2.CLICK, this, this.onClick);
+      }
+      onClick(e) {
+          console.log(`11111`, e.stageX, e.stageY);
+          emitter.emit("base_stage_click", [e.stageX, e.stageY]);
       }
   }
   new Main();
