@@ -1,0 +1,76 @@
+{
+    "frames": {
+        "hurt1.png": {
+            "frame": {
+                "h": 54,
+                "idx": 0,
+                "w": 47,
+                "x": 0,
+                "y": 0
+            },
+            "sourceSize": {
+                "h": 128,
+                "w": 128
+            },
+            "spriteSourceSize": {
+                "x": 21,
+                "y": 56
+            }
+        },
+        "hurt2.png": {
+            "frame": {
+                "h": 60,
+                "idx": 0,
+                "w": 54,
+                "x": 0,
+                "y": 55
+            },
+            "sourceSize": {
+                "h": 128,
+                "w": 128
+            },
+            "spriteSourceSize": {
+                "x": 14,
+                "y": 51
+            }
+        },
+        "hurt3.png": {
+            "frame": {
+                "h": 62,
+                "idx": 0,
+                "w": 58,
+                "x": 55,
+                "y": 0
+            },
+            "sourceSize": {
+                "h": 128,
+                "w": 128
+            },
+            "spriteSourceSize": {
+                "x": 14,
+                "y": 49
+            }
+        },
+        "hurt4.png": {
+            "frame": {
+                "h": 65,
+                "idx": 0,
+                "w": 63,
+                "x": 55,
+                "y": 63
+            },
+            "sourceSize": {
+                "h": 128,
+                "w": 128
+            },
+            "spriteSourceSize": {
+                "x": 12,
+                "y": 46
+            }
+        }
+    },
+    "meta": {
+        "image": "Hurt.png",
+        "prefix": "Hurt/"
+    }
+}

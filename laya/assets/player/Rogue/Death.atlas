@@ -1,0 +1,178 @@
+{
+    "frames": {
+        "death1.png": {
+            "frame": {
+                "h": 54,
+                "idx": 0,
+                "w": 47,
+                "x": 0,
+                "y": 0
+            },
+            "sourceSize": {
+                "h": 256,
+                "w": 256
+            },
+            "spriteSourceSize": {
+                "x": 105,
+                "y": 102
+            }
+        },
+        "death10.png": {
+            "frame": {
+                "h": 81,
+                "idx": 0,
+                "w": 108,
+                "x": 48,
+                "y": 0
+            },
+            "sourceSize": {
+                "h": 256,
+                "w": 256
+            },
+            "spriteSourceSize": {
+                "x": 60,
+                "y": 92
+            }
+        },
+        "death2.png": {
+            "frame": {
+                "h": 62,
+                "idx": 0,
+                "w": 58,
+                "x": 157,
+                "y": 0
+            },
+            "sourceSize": {
+                "h": 256,
+                "w": 256
+            },
+            "spriteSourceSize": {
+                "x": 98,
+                "y": 94
+            }
+        },
+        "death3.png": {
+            "frame": {
+                "h": 65,
+                "idx": 0,
+                "w": 69,
+                "x": 216,
+                "y": 0
+            },
+            "sourceSize": {
+                "h": 256,
+                "w": 256
+            },
+            "spriteSourceSize": {
+                "x": 87,
+                "y": 91
+            }
+        },
+        "death4.png": {
+            "frame": {
+                "h": 54,
+                "idx": 0,
+                "w": 81,
+                "x": 157,
+                "y": 66
+            },
+            "sourceSize": {
+                "h": 256,
+                "w": 256
+            },
+            "spriteSourceSize": {
+                "x": 93,
+                "y": 99
+            }
+        },
+        "death5.png": {
+            "frame": {
+                "h": 70,
+                "idx": 0,
+                "w": 81,
+                "x": 0,
+                "y": 82
+            },
+            "sourceSize": {
+                "h": 256,
+                "w": 256
+            },
+            "spriteSourceSize": {
+                "x": 85,
+                "y": 91
+            }
+        },
+        "death6.png": {
+            "frame": {
+                "h": 72,
+                "idx": 0,
+                "w": 84,
+                "x": 82,
+                "y": 121
+            },
+            "sourceSize": {
+                "h": 256,
+                "w": 256
+            },
+            "spriteSourceSize": {
+                "x": 81,
+                "y": 89
+            }
+        },
+        "death7.png": {
+            "frame": {
+                "h": 60,
+                "idx": 0,
+                "w": 93,
+                "x": 167,
+                "y": 121
+            },
+            "sourceSize": {
+                "h": 256,
+                "w": 256
+            },
+            "spriteSourceSize": {
+                "x": 77,
+                "y": 99
+            }
+        },
+        "death8.png": {
+            "frame": {
+                "h": 62,
+                "idx": 0,
+                "w": 113,
+                "x": 167,
+                "y": 182
+            },
+            "sourceSize": {
+                "h": 256,
+                "w": 256
+            },
+            "spriteSourceSize": {
+                "x": 68,
+                "y": 102
+            }
+        },
+        "death9.png": {
+            "frame": {
+                "h": 74,
+                "idx": 0,
+                "w": 126,
+                "x": 0,
+                "y": 194
+            },
+            "sourceSize": {
+                "h": 256,
+                "w": 256
+            },
+            "spriteSourceSize": {
+                "x": 64,
+                "y": 96
+            }
+        }
+    },
+    "meta": {
+        "image": "Death.png",
+        "prefix": "Death/"
+    }
+}
