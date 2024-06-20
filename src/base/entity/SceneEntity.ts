@@ -1,10 +1,5 @@
 import { IPoolObject } from "@base/BaseConst";
-import {
-  SceneDropVO,
-  SceneEntityVO,
-  SceneMonsterVo,
-  ScenePlayerVO,
-} from "./SceneEntityVO";
+import { SceneDropVO, SceneEntityVO, SceneMonsterVo, ScenePlayerVO } from "./SceneEntityVO";
 import { BaseComp } from "@base/comps/BaseComp";
 import { CompMgr } from "@base/comps/CompMgr";
 import { CompType, CompTypeMap } from "@base/comps/CompsConst";
@@ -80,6 +75,7 @@ export class ScenePlayer extends SceneEntity {
 export class SceneMonster extends SceneEntity {
   init(vo: SceneMonsterVo) {
     super.init(vo);
+    this.addComp(CompType.AVATAR);
   }
 }
 

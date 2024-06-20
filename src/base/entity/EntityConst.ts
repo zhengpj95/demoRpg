@@ -8,12 +8,20 @@ export const enum SceneEntityType {
   DROP = 3,
 }
 
-export const enum Action {
+export const enum OldAction {
   MOVE = "move",
   STAND = "stand",
   ATTACK = "attack",
   ATTACKED = "attacked",
   DIE = "die",
+}
+
+export const enum Action {
+  MOVE = "Walk",
+  STAND = "Idle",
+  ATTACK = "Attack",
+  ATTACKED = "Hurt",
+  DIE = "Death",
 }
 
 export const enum Dir {

@@ -5,6 +5,7 @@ import { BaseEvent } from "@base/BaseConst";
 import Animation = Laya.Animation;
 import Handler = Laya.Handler;
 import UIComponent = Laya.UIComponent;
+import { Action } from "@base/entity/EntityConst";
 
 /**
  * 场景模型
@@ -12,6 +13,8 @@ import UIComponent = Laya.UIComponent;
 export class AvatarComp extends BaseComp {
   private _animation: Animation;
   private _display: UIComponent;
+  private _curAction: Action;
+  private _isLoadAtlas = false;
 
   get display(): UIComponent {
     return this._display;
@@ -33,18 +36,12 @@ export class AvatarComp extends BaseComp {
     }
     if (!this.display) {
       this.display = new UIComponent();
-      this.display.x = this.display.y = 100;
-      this.display.width = 200;
-      this.display.height = 200;
-      this.display.graphics.drawRect(0, 0, 200, 200, "#0f0f0f");
-      this.display.anchorX = 0.5;
-      this.display.anchorY = 0.5;
       this.display.name = "avatarComp";
+      const point = this.entity.vo.point;
+      this.display.x = point ? point.x : 0;
+      this.display.y = point ? point.y : 0;
     }
-    this._animation.loadAtlas(
-      "player/move_4.atlas",
-      Handler.create(this, this.onLoadComplete),
-    );
+    // this._animation.loadAtlas("player/Rogue/Attack_Extra.atlas", Handler.create(this, this.onLoadComplete));
 
     emitter.emit(BaseEvent.ADD_TO_SCENE, this);
   }
@@ -56,8 +53,20 @@ export class AvatarComp extends BaseComp {
   }
 
   private onLoadComplete(): void {
+    this._isLoadAtlas = false;
     this._animation.interval = 200;
     this._animation.play();
     this._display.addChild(this._animation);
+  }
+
+  public tick(delta: number): void {
+    const vo = this.entity.vo;
+    if (vo.action && vo.action !== this._curAction) {
+      if (!this._isLoadAtlas) {
+        this._curAction = vo.action;
+        this._isLoadAtlas = true;
+        this._animation.loadAtlas(`player/Rogue/${vo.action}.atlas`, Handler.create(this, this.onLoadComplete));
+      }
+    }
   }
 }

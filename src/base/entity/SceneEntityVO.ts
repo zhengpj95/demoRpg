@@ -1,4 +1,4 @@
-import { MonsterType, SceneEntityType } from "./EntityConst";
+import { Action, MonsterType, SceneEntityType } from "./EntityConst";
 
 export interface SceneEntityVO {
   entityId: number; //唯一id
@@ -7,6 +7,8 @@ export interface SceneEntityVO {
   maxHp: number;
   power: number;
   type: SceneEntityType;
+  point?: { x: number; y: number };
+  action?: Action;
 }
 
 export interface ScenePlayerVO extends SceneEntityVO {
