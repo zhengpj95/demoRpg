@@ -2,10 +2,10 @@ import { BaseComp } from "./BaseComp";
 import { CompType } from "./CompsConst";
 import { emitter } from "@base/MessageMgr";
 import { BaseEvent } from "@base/BaseConst";
+import { Action } from "@base/entity/EntityConst";
 import Animation = Laya.Animation;
 import Handler = Laya.Handler;
 import UIComponent = Laya.UIComponent;
-import { Action } from "@base/entity/EntityConst";
 
 /**
  * 场景模型
@@ -65,7 +65,10 @@ export class AvatarComp extends BaseComp {
       if (!this._isLoadAtlas) {
         this._curAction = vo.action;
         this._isLoadAtlas = true;
-        this._animation.loadAtlas(`player/Rogue/${vo.action}.atlas`, Handler.create(this, this.onLoadComplete));
+        this._animation.loadAtlas(
+          `player/Rogue/${vo.action}.atlas`,
+          Handler.create(this, this.onLoadComplete),
+        );
       }
     }
   }

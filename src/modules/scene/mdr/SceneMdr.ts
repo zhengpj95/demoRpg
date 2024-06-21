@@ -7,8 +7,8 @@ import { BaseEvent } from "@base/BaseConst";
 import { emitter } from "@base/MessageMgr";
 import { AvatarComp } from "@base/comps/AvatarComp";
 import { GEvent } from "@base/core/GEvent";
-import Sprite = Laya.Sprite;
 import { CompType } from "@base/comps/CompsConst";
+import Sprite = Laya.Sprite;
 
 /**
  * 场景
@@ -93,7 +93,13 @@ export class SceneMdr extends Laya.Scene {
 
   private updatePlayerVo(): void {
     if (this._player) {
-      const ary: Action[] = [Action.MOVE, Action.STAND, Action.ATTACK, Action.ATTACKED, Action.DIE];
+      const ary: Action[] = [
+        Action.MOVE,
+        Action.STAND,
+        Action.ATTACK,
+        Action.ATTACKED,
+        Action.DIE,
+      ];
       const action = ary[Math.floor(Math.random() * ary.length)];
       this._player.vo.action = action || Action.STAND;
       const comp = this._player.getComp(CompType.AVATAR) as AvatarComp;
