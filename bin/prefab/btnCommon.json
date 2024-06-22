@@ -1,1 +1,0 @@
-{"type":"Image","props":{"y":0,"x":0,"presetID":1,"name":"btnCommon","isPresetRoot":true},"compId":13,"child":[{"type":"Script","props":{"presetID":2,"runtime":"script/ClickScale.ts"},"compId":14}],"loadList":[],"loadList3D":[]}
