@@ -9,6 +9,7 @@ export interface SceneEntityVO {
   type: SceneEntityType;
   point?: { x: number; y: number };
   action?: Action;
+  avatarName?: string;
 }
 
 export interface ScenePlayerVO extends SceneEntityVO {

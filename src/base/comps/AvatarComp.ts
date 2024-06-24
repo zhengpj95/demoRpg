@@ -66,7 +66,7 @@ export class AvatarComp extends BaseComp {
         this._curAction = vo.action;
         this._isLoadAtlas = true;
         this._animation.loadAtlas(
-          `player/Rogue/${vo.action}.atlas`,
+          `${vo.avatarName}/${vo.action}.atlas`,
           Handler.create(this, this.onLoadComplete),
         );
       }

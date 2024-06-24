@@ -81,6 +81,7 @@ export class SceneMonster extends SceneEntity {
   init(vo: SceneMonsterVo) {
     super.init(vo);
     this.addComp(CompType.AVATAR);
+    this.addComp(CompType.MOVE);
   }
 }
 

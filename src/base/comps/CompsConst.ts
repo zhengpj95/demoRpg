@@ -1,5 +1,6 @@
 import { AvatarComp } from "@base/comps/AvatarComp";
 import { BaseComp } from "@base/comps/BaseComp";
+import { MoveComp } from "@base/comps/MoveComp";
 
 /**
  * @date 2024/6/18
@@ -14,4 +15,5 @@ export const enum CompType {
 
 export const CompTypeMap: Record<number, new () => BaseComp> = {
   [CompType.AVATAR]: AvatarComp,
+  [CompType.MOVE]: MoveComp,
 };
