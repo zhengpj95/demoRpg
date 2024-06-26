@@ -1,5 +1,4 @@
 import { AvatarComp } from "@base/comps/AvatarComp";
-import { BaseComp } from "@base/comps/BaseComp";
 import { MoveComp } from "@base/comps/MoveComp";
 
 /**
@@ -13,7 +12,15 @@ export const enum CompType {
   CAMERA = 4,
 }
 
-export const CompTypeMap: Record<number, new () => BaseComp> = {
+/**代码提示用*/
+export interface ICompTypeMap {
+  [CompType.AVATAR]: AvatarComp;
+  [CompType.MOVE]: MoveComp;
+}
+
+export const CompTypeMap: {
+  [K in keyof ICompTypeMap]: new () => ICompTypeMap[K];
+} = {
   [CompType.AVATAR]: AvatarComp,
   [CompType.MOVE]: MoveComp,
 };

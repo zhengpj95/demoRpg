@@ -7,7 +7,7 @@ import {
 } from "./SceneEntityVO";
 import { BaseComp } from "@base/comps/BaseComp";
 import { CompMgr } from "@base/comps/CompMgr";
-import { CompType, CompTypeMap } from "@base/comps/CompsConst";
+import { CompType, CompTypeMap, ICompTypeMap } from "@base/comps/CompsConst";
 
 /**场景实体*/
 export class SceneEntity implements IPoolObject {
@@ -25,9 +25,9 @@ export class SceneEntity implements IPoolObject {
     this.vo = vo;
   }
 
-  public addComp(type: CompType): boolean {
+  public addComp<K extends keyof ICompTypeMap>(type: K): ICompTypeMap[K] {
     if (this._comps[type]) {
-      return false;
+      return <ICompTypeMap[K]>this._comps[type];
     }
     const comp = CompTypeMap[type];
     const compIns = new comp();
@@ -36,14 +36,18 @@ export class SceneEntity implements IPoolObject {
     compIns.start();
     CompMgr.addComp(compIns);
     this._comps[type] = compIns;
-    return true;
+    return <ICompTypeMap[K]>compIns;
   }
 
-  public removeComp(type: CompType): boolean {
+  public getComp<K extends keyof ICompTypeMap>(type: K): ICompTypeMap[K] {
+    return <ICompTypeMap[K]>this._comps[type];
+  }
+
+  public removeComp<K extends keyof ICompTypeMap>(type: K): boolean {
     if (!this._comps[type]) {
       return false;
     }
-    const compIns = this._comps[type];
+    const compIns = <ICompTypeMap[K]>this._comps[type];
     compIns.type = CompType.NONE;
     compIns.entity = null;
     compIns.stop();
@@ -51,10 +55,6 @@ export class SceneEntity implements IPoolObject {
     this._comps[type] = null;
     delete this._comps[type];
     return true;
-  }
-
-  public getComp(type: CompType): BaseComp {
-    return this._comps[type];
   }
 
   public tick(delta: number): void {
