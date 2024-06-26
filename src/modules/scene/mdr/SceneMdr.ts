@@ -2,7 +2,8 @@ import { SceneMap } from "./SceneMap";
 import { CompMgr } from "@base/comps/CompMgr";
 import { SceneMonsterVo, ScenePlayerVO } from "@base/entity/SceneEntityVO";
 import { Action, MonsterType, SceneEntityType } from "@base/entity/EntityConst";
-import { SceneMonster, ScenePlayer } from "@base/entity/SceneEntity";
+import { ScenePlayer } from "@base/entity/ScenePlayer";
+import { SceneMonster } from "@base/entity/SceneMonster";
 import { BaseEvent } from "@base/BaseConst";
 import { emitter } from "@base/MessageMgr";
 import { AvatarComp } from "@base/comps/AvatarComp";
@@ -85,6 +86,8 @@ export class SceneMdr extends Laya.Scene {
     };
     const monster = new SceneMonster();
     monster.init(monsterVo);
+
+    this._player.battle = monster;
 
     // todo
     Laya.timer.loop(10 * 1000, this, this.updatePlayerVo);

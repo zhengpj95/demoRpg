@@ -23,9 +23,9 @@ export class MoveComp extends BaseComp {
     const vo = entity.vo;
     const avatar = <AvatarComp>entity.getComp(CompType.AVATAR);
     const dis = Laya.timer.currTimer - this._lastMoveTime;
-    if (avatar.display.x > this._targetPoint.x + 100) {
+    if (vo.point.x > this._targetPoint.x + 50) {
       if (dis > this._moveInterval) {
-        avatar.display.x -= 1;
+        vo.point.x -= 1;
         this._lastMoveTime = Laya.timer.currTimer;
       }
     } else {

@@ -61,6 +61,13 @@ export class AvatarComp extends BaseComp {
 
   public tick(delta: number): void {
     const vo = this.entity.vo;
+    const point = this.entity.vo.point;
+    if (this.display.x !== point.x) {
+      this.display.x = point.x || 0;
+    }
+    if (this.display.y !== point.y) {
+      this.display.y = point.y || 0;
+    }
     if (vo.action && vo.action !== this._curAction) {
       if (!this._isLoadAtlas) {
         this._curAction = vo.action;

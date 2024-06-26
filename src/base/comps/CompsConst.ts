@@ -1,5 +1,6 @@
 import { AvatarComp } from "@base/comps/AvatarComp";
 import { MoveComp } from "@base/comps/MoveComp";
+import { BattleComp } from "@base/comps/BattleComp";
 
 /**
  * @date 2024/6/18
@@ -10,12 +11,14 @@ export const enum CompType {
   MAP = 2,
   MOVE = 3,
   CAMERA = 4,
+  BATTLE = 5,
 }
 
 /**代码提示用*/
 export interface ICompTypeMap {
   [CompType.AVATAR]: AvatarComp;
   [CompType.MOVE]: MoveComp;
+  [CompType.BATTLE]: BattleComp;
 }
 
 export const CompTypeMap: {
@@ -23,4 +26,5 @@ export const CompTypeMap: {
 } = {
   [CompType.AVATAR]: AvatarComp,
   [CompType.MOVE]: MoveComp,
+  [CompType.BATTLE]: BattleComp,
 };

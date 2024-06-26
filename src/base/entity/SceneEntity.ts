@@ -1,10 +1,5 @@
 import { IPoolObject } from "@base/BaseConst";
-import {
-  SceneDropVO,
-  SceneEntityVO,
-  SceneMonsterVo,
-  ScenePlayerVO,
-} from "./SceneEntityVO";
+import { SceneEntityVO } from "./SceneEntityVO";
 import { BaseComp } from "@base/comps/BaseComp";
 import { CompMgr } from "@base/comps/CompMgr";
 import { CompType, CompTypeMap, ICompTypeMap } from "@base/comps/CompsConst";
@@ -12,6 +7,7 @@ import { CompType, CompTypeMap, ICompTypeMap } from "@base/comps/CompsConst";
 /**场景实体*/
 export class SceneEntity implements IPoolObject {
   private _comps: Record<number, BaseComp> = {};
+
   private _vo: SceneEntityVO;
   get vo(): SceneEntityVO {
     return this._vo;
@@ -19,6 +15,15 @@ export class SceneEntity implements IPoolObject {
 
   set vo(value: SceneEntityVO) {
     this._vo = value;
+  }
+
+  private _battle: SceneEntity;
+  get battle(): SceneEntity {
+    return this._battle;
+  }
+
+  set battle(value: SceneEntity) {
+    this._battle = value;
   }
 
   public init(vo: SceneEntityVO): void {
@@ -67,26 +72,5 @@ export class SceneEntity implements IPoolObject {
 
   onRelease(): void {
     //
-  }
-}
-
-export class ScenePlayer extends SceneEntity {
-  init(vo: ScenePlayerVO) {
-    super.init(vo);
-    this.addComp(CompType.AVATAR);
-  }
-}
-
-export class SceneMonster extends SceneEntity {
-  init(vo: SceneMonsterVo) {
-    super.init(vo);
-    this.addComp(CompType.AVATAR);
-    this.addComp(CompType.MOVE);
-  }
-}
-
-export class SceneDrop extends SceneEntity {
-  init(vo: SceneDropVO) {
-    super.init(vo);
   }
 }
