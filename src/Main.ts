@@ -6,6 +6,7 @@ import { CommonEvent, IOpenCloseData } from "@def/misc";
 import "@base/FixLaya"; // 引入兼容一些laya内容
 import { emitter } from "@base/MessageMgr";
 import { BaseEvent } from "@base/BaseConst";
+import { initConfig } from "@base/cfg/GameCfg";
 import Event = Laya.Event;
 
 class Main {
@@ -39,6 +40,8 @@ class Main {
   }
 
   onVersionLoaded(): void {
+    console.log(`version.json success`);
+    initConfig();
     //激活大小图映射，加载小图的时候，如果发现小图在大图合集里面，则优先加载大图合集，而不是小图
     Laya.AtlasInfoManager.enable(
       "fileconfig.json",
@@ -47,6 +50,7 @@ class Main {
   }
 
   onConfigLoaded(): void {
+    console.log(`fileconfig.json success`);
     //加载IDE指定的场景
     // 这种方式加载scene的，如果不设置runtime，scene对应的代码文件不会执行到。
     // GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
@@ -61,17 +65,6 @@ class Main {
       module: ModuleType.LOGIN,
       view: LoginViewType.LOGIN,
     });
-
-    // Laya.loader.load(
-    //   `map/1001/info.json`,
-    //   null,
-    //   null,
-    //   Laya.Loader.JSON,
-    //   4
-    // );
-    // CompMgr.start();
-    // const map = new SceneMap();
-    // LayerMgr.mapMain.addChild(map);
 
     Laya.stage.on(Event.CLICK, this, this.onClick);
   }

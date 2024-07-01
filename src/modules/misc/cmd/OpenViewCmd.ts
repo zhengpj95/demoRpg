@@ -31,5 +31,6 @@ export class OpenViewCmd extends BaseCommand {
     const layer = LayerMgr.ins().getLayer(layerIdx);
     const mdrKey = createMdrKey(data);
     layer.doAddMdr(mdrCls, mdrKey);
+    console.log(`OpenViewCmd 打开界面 m:${data.module},v:${data.view}`);
   }
 }

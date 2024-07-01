@@ -2,6 +2,8 @@
  * 配置初始化，加载，读取
  * @date 2024/6/27
  */
+import Handler = Laya.Handler;
+import { DebugMgr } from "@base/DebugMgr";
 
 export type MaybeUndefined<T> = T | undefined;
 
@@ -19,12 +21,50 @@ class GameCfg {
   public static cfgListMap: { [key in ConfigName]?: ConfigMap[key][] } = {};
 
   public static init(): void {
-    //
+    Laya.loader.load(
+      this.jsonCfgListPath,
+      Handler.create(this, this.onLoaded),
+      null,
+      Laya.Loader.JSON,
+      0,
+    );
+  }
+
+  private static onLoaded(data: string[]): void {
+    console.log(`GameCfg cfgList.json success: `, data);
+
+    if (data && data.length) {
+      for (const jsonName of data) {
+        Laya.loader.load(
+          this.jsonPath + jsonName,
+          Handler.create(this, this.onLoadedJson, [jsonName]),
+          null,
+          Laya.Loader.JSON,
+          0,
+        );
+      }
+    }
+  }
+
+  private static onLoadedJson(jsonName: string, data: any): void {
+    jsonName = jsonName.replace(".json", "");
+    this.cfgMap[jsonName] = data;
+
+    const list: any[] = [];
+    for (const key in data) {
+      list.push(data[key]);
+    }
+    this.cfgListMap[jsonName] = list;
   }
 }
 
 export function initConfig(): void {
   GameCfg.init();
+  DebugMgr.ins().debug("GameCfg", GameCfg);
+  DebugMgr.ins().debug("getConfigByName", getConfigByName);
+  DebugMgr.ins().debug("getConfigByNameId", getConfigByNameId);
+  DebugMgr.ins().debug("getConfigListByName", getConfigListByName);
+  DebugMgr.ins().debug("getConfigMoreByName", getConfigMoreByName);
 }
 
 /**
@@ -34,7 +74,8 @@ export function initConfig(): void {
 export function getConfigByName<K extends ConfigTableName<K>>(
   name: K,
 ): Record<string, ConfigMap[K]> | undefined {
-  return <Record<string, ConfigMap[K]>>GameCfg.cfgMap[name] ?? undefined;
+  const data = <Record<string, ConfigMap[K]>>GameCfg.cfgMap[name];
+  return data ? data : undefined;
 }
 
 /**

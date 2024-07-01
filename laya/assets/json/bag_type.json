@@ -1,0 +1,12 @@
+{
+  "1": {
+    "type": 1,
+    "name": "equip",
+    "cnt": 100
+  },
+  "2": {
+    "type": 2,
+    "name": "normal",
+    "cnt": 100
+  }
+}
