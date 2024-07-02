@@ -24,7 +24,7 @@ export const enum Action {
   DIE = "Death",
 }
 
-export const enum Dir {
+export const enum Direction {
   Top = 0,
   TopRight = 1,
   Right = 2,
