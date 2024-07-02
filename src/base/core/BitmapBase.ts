@@ -103,6 +103,17 @@ export class BitmapBase extends Sprite implements IPoolObject {
     return this._source;
   }
 
+  /**
+   * 设置轴心点
+   * @param x ([0,1])
+   * @param y ([0,1])
+   */
+  public setAnchor(x: number = 0, y: number = 0): void {
+    const pivotX = x === 0 ? 0 : this.width * x;
+    const pivotY = y === 0 ? 0 : this.height * y;
+    this.pivot(pivotX, pivotY);
+  }
+
   private removeCur(): void {
     this.texture = <any>null;
     this._source = undefined;
