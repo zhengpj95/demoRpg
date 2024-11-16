@@ -15,6 +15,11 @@ export class HitMoleStartMdr extends ui.modules.hit_mole.HitMoleStartUI {
   onEnable() {
     super.onEnable();
     this.btnStart.clickHandler = Handler.create(this, this.onBtnStar);
+
+    this.labTest.overflow = "scroll";
+    this.labTest.text = `打地鼠啦打地鼠啦，快来玩打地鼠啦，又菜又爱玩的地鼠来给大家助兴啦！走过路过，不要错过啦！`;
+
+    this.timerLoop(500, this, this.scrollLabel);
   }
 
   // 通过 ClickScale 绑定，皮肤中设定
@@ -26,5 +31,25 @@ export class HitMoleStartMdr extends ui.modules.hit_mole.HitMoleStartUI {
   private onBtnStar(): void {
     ComUtils.closeView(ModuleType.HIT_MOLE, HitMoleViewType.START);
     ComUtils.openView(ModuleType.HIT_MOLE, HitMoleViewType.MAIN);
+  }
+
+  public scrollLabel(): void {
+    if (
+      this.labTest1.scrollX >=
+      this.labTest1.textWidth - this.labTest1.width
+    ) {
+      this.labTest1.scrollX = 0;
+    } else {
+      this.labTest1.scrollX = this.labTest1.scrollX + 20;
+    }
+
+    if (
+      this.labTest.textField.scrollX >=
+      this.labTest.textField.textWidth - this.labTest.width
+    ) {
+      this.labTest.textField.scrollX = 0;
+    } else {
+      this.labTest.textField.scrollX = this.labTest.textField.scrollX + 20;
+    }
   }
 }

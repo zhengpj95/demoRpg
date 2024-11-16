@@ -1,11 +1,12 @@
 {
+    "x":0,
     "type":"View",
     "selectedBox":2,
-    "selecteID":20,
+    "selecteID":21,
     "searchKey":"View",
     "props":{"width":640,"sceneWidth":640,"sceneHeight":1136,"sceneColor":"#000000","height":1136},
     "nodeParent":-1,
-    "maxID":21,
+    "maxID":23,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -14,6 +15,7 @@
     "compId":2,
     "child":[
         {
+            "x":15,
             "type":"Image",
             "searchKey":"Image",
             "props":{"skin":"modules/hit_mole/back.png","centerY":0,"centerX":0},
@@ -27,6 +29,7 @@
                 ]
         },
         {
+            "x":15,
             "type":"Button",
             "searchKey":"Button,btnStart,btnStart",
             "props":{"x":245,"var":"btnStart","toggle":false,"stateNum":"2","skin":"modules/hit_mole/btn_start.png","name":"btnStart","centerY":119,"centerX":0},
@@ -40,6 +43,7 @@
                 ]
         },
         {
+            "x":15,
             "type":"Sprite",
             "searchKey":"Sprite",
             "props":{"y":546,"x":268.5,"texture":"modules/hit_mole/mouse_normal_1.png"},
@@ -53,6 +57,7 @@
                 ]
         },
         {
+            "x":15,
             "type":"Sprite",
             "searchKey":"Sprite",
             "props":{"y":454,"x":268.5,"texture":"modules/hit_mole/mouse_normal_2.png"},
@@ -66,6 +71,7 @@
                 ]
         },
         {
+            "x":15,
             "type":"Image",
             "selectedBox":13,
             "searchKey":"Image,btnRule",
@@ -104,6 +110,34 @@
                     "frameRate":24,
                     "action":0
                 }]
+        },
+        {
+            "x":15,
+            "type":"Label",
+            "searchKey":"Label,labTest",
+            "props":{"y":798,"width":300,"var":"labTest","height":22,"fontSize":22,"color":"#ffffff","centerX":0},
+            "nodeParent":2,
+            "label":"labTest",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":21,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Text",
+            "searchKey":"Text,labTest1",
+            "props":{"y":765,"x":170,"width":300,"var":"labTest1","text":"打地鼠啦打地鼠啦，快来玩打地鼠啦，又菜又爱玩的地鼠来给大家助兴啦！走过路过，不要错过啦！","overflow":"scroll","fontSize":22,"color":"#ffffff"},
+            "nodeParent":2,
+            "label":"labTest1",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":22,
+            "child":[
+                ]
         }],
     "animations":[
         {
