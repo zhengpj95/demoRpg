@@ -4,7 +4,7 @@
 import { ui } from "@ui/layaMaxUI";
 import { HitMoleViewType } from "@def/hit_mole";
 import { ModuleType } from "@def/ModuleConst";
-import { ComUtils } from "../../ComUtils";
+import { ComUtils } from "../../../ComUtils";
 import Handler = Laya.Handler;
 
 export class HitMoleStartMdr extends ui.modules.hit_mole.HitMoleStartUI {
