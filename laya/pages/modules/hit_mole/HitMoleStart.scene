@@ -1,5 +1,4 @@
 {
-    "x":0,
     "type":"View",
     "selectedBox":2,
     "selecteID":20,
@@ -15,7 +14,6 @@
     "compId":2,
     "child":[
         {
-            "x":15,
             "type":"Image",
             "searchKey":"Image",
             "props":{"skin":"modules/hit_mole/back.png","centerY":0,"centerX":0},
@@ -29,7 +27,6 @@
                 ]
         },
         {
-            "x":15,
             "type":"Button",
             "searchKey":"Button,btnStart,btnStart",
             "props":{"x":245,"var":"btnStart","toggle":false,"stateNum":"2","skin":"modules/hit_mole/btn_start.png","name":"btnStart","centerY":119,"centerX":0},
@@ -43,7 +40,6 @@
                 ]
         },
         {
-            "x":15,
             "type":"Sprite",
             "searchKey":"Sprite",
             "props":{"y":546,"x":268.5,"texture":"modules/hit_mole/mouse_normal_1.png"},
@@ -57,7 +53,6 @@
                 ]
         },
         {
-            "x":15,
             "type":"Sprite",
             "searchKey":"Sprite",
             "props":{"y":454,"x":268.5,"texture":"modules/hit_mole/mouse_normal_2.png"},
@@ -71,11 +66,10 @@
                 ]
         },
         {
-            "x":15,
             "type":"Image",
             "selectedBox":13,
             "searchKey":"Image,btnRule",
-            "props":{"y":400,"x":466,"skin":"modules/hit_mole/hammer.png","presetID":1,"preset":"laya/pages/prefab/btnCommon.prefab","name":"btnRule"},
+            "props":{"y":400,"x":466,"skin":"modules/hit_mole/hammer.png","presetID":1,"preset":"laya/pages/prefab/BtnCommon.prefab","name":"btnRule"},
             "nodeParent":2,
             "maxID":15,
             "label":"btnRule",
@@ -91,7 +85,7 @@
                     "source":"src/script/ClickScale.ts",
                     "searchKey":"Script,ClickScale",
                     "removeAble":true,
-                    "props":{"presetID":2,"preset":"laya/pages/prefab/btnCommon.prefab","mdrCall":"onClickRule"},
+                    "props":{"presetID":2,"preset":"laya/pages/prefab/BtnCommon.prefab","mdrCall":"onClickRule"},
                     "nodeParent":20,
                     "label":"ClickScale",
                     "isDirectory":false,
