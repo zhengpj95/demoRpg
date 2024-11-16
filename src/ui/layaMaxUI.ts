@@ -3,6 +3,40 @@ import View=Laya.View;
 import Dialog=Laya.Dialog;
 import Scene=Laya.Scene;
 var REG: Function = Laya.ClassUtils.regClass;
+export module ui.modules.hit_mole {
+    export class HitMoleMainUI extends View {
+		public boxHammer:Laya.Box;
+		public boxTips:Laya.Box;
+		public boxOver:Laya.Box;
+		public labOverValue:Laya.Label;
+		public btnRestart:Laya.Button;
+		public labTime:Laya.Label;
+		public timeBar:Laya.ProgressBar;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("modules/hit_mole/HitMoleMain");
+        }
+    }
+    REG("ui.modules.hit_mole.HitMoleMainUI",HitMoleMainUI);
+    export class HitMoleRuleUI extends View {
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("modules/hit_mole/HitMoleRule");
+        }
+    }
+    REG("ui.modules.hit_mole.HitMoleRuleUI",HitMoleRuleUI);
+    export class HitMoleStartUI extends View {
+		public btnStart:Laya.Button;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("modules/hit_mole/HitMoleStart");
+        }
+    }
+    REG("ui.modules.hit_mole.HitMoleStartUI",HitMoleStartUI);
+}
 export module ui.modules.hp {
     export class HpSingleUI extends Scene {
 		public boxVal:Laya.Box;

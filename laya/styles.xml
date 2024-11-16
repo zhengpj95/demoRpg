@@ -1,21 +1,30 @@
 <res>
-    <item name="modules/hp/img_hp1.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20"
-          picType="0" scale="0"/>
-    <item name="modules/hp/img_hp2.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20"
-          picType="0" scale="0"/>
-    <item name="modules/hp/img_hp3.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20"
-          picType="0" scale="0"/>
-    <item name="modules/hp/img_hp4.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20"
-          picType="0" scale="0"/>
-    <item name="modules/hp/img_hp5.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20"
-          picType="0" scale="0"/>
-    <item name="modules/hp/img_hp6.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20"
-          picType="0" scale="0"/>
-    <item name="modules/hp/img_hp7.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20"
-          picType="0" scale="0"/>
-    <item name="modules/hp/img_hp_gray.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20"
-          picType="0" scale="0"/>
-    <item name="modules/hp/img_hp_gray1.png" type="Image" compress="0" pack="0" quality="80"
-          props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
-    <item name="player" type="" compress="0" pack="2" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hp/img_hp1.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="modules/hp/img_hp2.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="modules/hp/img_hp3.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="modules/hp/img_hp4.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="modules/hp/img_hp5.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="modules/hp/img_hp6.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="modules/hp/img_hp7.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="modules/hp/img_hp_gray.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="modules/hp/img_hp_gray1.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=16,20,16,20" picType="0" scale="0"/>
+   <item name="player" type="" compress="0" pack="2" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/mask-01.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/hammer.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/mouse_normal_1.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/mouse_normal_2.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/mouse_hit_2.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/mouse_hit_1.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/score_1.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/score_2.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/total Score.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/overBg.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/mask-02.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/mask-03.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/mask-04.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/mask-05.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/mask-06.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/mask-07.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/mask-08.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="modules/hit_mole/mask-09.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
 </res>

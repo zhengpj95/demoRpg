@@ -8,6 +8,7 @@ export const enum ModuleType {
   MISC = 2,
   BAG = 3,
   SCENE = 4,
+  HIT_MOLE = 10, // 打地鼠
 
   TEST = 999, // 测试
 }

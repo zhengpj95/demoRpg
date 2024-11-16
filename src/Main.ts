@@ -1,12 +1,12 @@
 import GameConfig from "./GameConfig";
 import App from "./App";
 import { ModuleType } from "@def/ModuleConst";
-import { LoginViewType } from "@def/Login";
 import { CommonEvent, IOpenCloseData } from "@def/misc";
 import "@base/FixLaya"; // 引入兼容一些laya内容
 import { emitter } from "@base/MessageMgr";
 import { BaseEvent } from "@base/BaseConst";
 import { initConfig } from "@base/cfg/GameCfg";
+import { HitMoleViewType } from "@def/hit_mole";
 import Event = Laya.Event;
 
 class Main {
@@ -62,15 +62,14 @@ class Main {
     // Laya.stage.addChild(mdr);
 
     emitter.emit(CommonEvent.OPEN_VIEW, <IOpenCloseData>{
-      module: ModuleType.LOGIN,
-      view: LoginViewType.LOGIN,
+      module: ModuleType.HIT_MOLE,
+      view: HitMoleViewType.START,
     });
 
     Laya.stage.on(Event.CLICK, this, this.onClick);
   }
 
   private onClick(e: Event) {
-    console.log(`11111`, e.stageX, e.stageY);
     emitter.emit(BaseEvent.STAGE_CLICK, [e.stageX, e.stageY]);
   }
 }
