@@ -18,6 +18,7 @@ export class HitMoleStartMdr extends ui.modules.hit_mole.HitMoleStartUI {
 
     this.labTest.overflow = "scroll";
     this.labTest.text = `打地鼠啦打地鼠啦，快来玩打地鼠啦，又菜又爱玩的地鼠来给大家助兴啦！走过路过，不要错过啦！`;
+    this.scrollLab.text = `1111111111打地鼠啦打地鼠啦，快来玩打地鼠啦，又菜又爱玩的地鼠来给大家助兴啦！走过路过，不要错过啦！`;
 
     this.timerLoop(500, this, this.scrollLabel);
   }

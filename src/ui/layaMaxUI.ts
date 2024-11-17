@@ -31,6 +31,7 @@ export module ui.modules.hit_mole {
 		public btnStart:Laya.Button;
 		public labTest:Laya.Label;
 		public labTest1:Laya.Text;
+		public scrollLab:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
