@@ -5,8 +5,11 @@ import { CompType } from "./CompsConst";
  * 实体组件基类
  */
 export class BaseComp {
+  /** 组件所属类型  */
   private _type: CompType;
+  /** 组件在运行否 */
   private _isRun: boolean;
+  /** 组件所属场景实体 */
   private _entity: SceneEntity;
 
   get entity(): SceneEntity {
