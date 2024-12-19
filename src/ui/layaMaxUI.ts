@@ -29,8 +29,6 @@ export module ui.modules.hit_mole {
     REG("ui.modules.hit_mole.HitMoleRuleUI",HitMoleRuleUI);
     export class HitMoleStartUI extends View {
 		public btnStart:Laya.Button;
-		public labTest:Laya.Label;
-		public labTest1:Laya.Text;
 		public scrollLab:Laya.Label;
         constructor(){ super()}
         createChildren():void {
