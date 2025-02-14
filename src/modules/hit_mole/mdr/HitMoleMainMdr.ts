@@ -15,13 +15,14 @@ type BoxHole = Box & {
   imgBg: Image;
   imgAnimal: Image;
 };
+const FUN_TIME = 90;
 
 export class HitMoleMainMdr extends ui.modules.hit_mole.HitMoleMainUI {
   private _boxList: BoxHole[] = [];
   private _preIdx = -1;
   private _animalTweenTime = 300;
   private _score = 0;
-  private _timeSec = 90;
+  private _timeSec = FUN_TIME;
   private _setTimeMap = {};
 
   onEnable() {
@@ -40,7 +41,6 @@ export class HitMoleMainMdr extends ui.modules.hit_mole.HitMoleMainUI {
     this.timerLoop(1000, this, this.updateTime);
     this.updateTime();
 
-    // Laya.stage.on(Event.CLICK, this, this.onClickStage);
     emitter.on(BaseEvent.STAGE_CLICK, this.onClickStage, this);
     this.boxHammer.visible = false;
   }
@@ -55,13 +55,13 @@ export class HitMoleMainMdr extends ui.modules.hit_mole.HitMoleMainUI {
   }
 
   private updateTime(): void {
-    if (this._timeSec <= 30) {
+    if (this._timeSec <= FUN_TIME / 3) {
       this._animalTweenTime = 150;
       if (!this._setTimeMap[3]) {
-        this.timerLoop(700, this, this.startTick);
+        this.timerLoop(800, this, this.startTick);
         this._setTimeMap[3] = 1;
       }
-    } else if (this._timeSec <= 60) {
+    } else if (this._timeSec <= FUN_TIME / 2) {
       this._animalTweenTime = 200;
       if (!this._setTimeMap[2]) {
         this.timerLoop(1000, this, this.startTick);
@@ -70,7 +70,7 @@ export class HitMoleMainMdr extends ui.modules.hit_mole.HitMoleMainUI {
     }
 
     this._timeSec--;
-    this.timeBar.value = Math.max(0, this._timeSec / 90);
+    this.timeBar.value = Math.max(0, this._timeSec / FUN_TIME);
 
     if (this._timeSec < 0) {
       this.timer.clearAll(this);
@@ -221,8 +221,12 @@ export class HitMoleMainMdr extends ui.modules.hit_mole.HitMoleMainUI {
     this._score = 0;
     this._setTimeMap = {};
     this._preIdx = -1;
-    this._timeSec = 90;
     this._boxList.forEach((item) => this.initHole(item));
+    this.timerOnce(500, this, this.restartFunc);
+  }
+
+  private restartFunc(): void {
+    this._timeSec = FUN_TIME;
     this.timerLoop(1200, this, this.startTick);
     this.timerLoop(1000, this, this.updateTime);
     this.updateTime();
