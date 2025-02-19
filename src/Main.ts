@@ -7,6 +7,7 @@ import { emitter } from "@base/MessageMgr";
 import { BaseEvent } from "@base/BaseConst";
 import { initConfig } from "@base/cfg/GameCfg";
 import { HitMoleViewType } from "@def/hit_mole";
+import { tweenMgr } from "@base/tween/TweenManager";
 import Event = Laya.Event;
 
 class Main {
@@ -37,6 +38,8 @@ class Main {
       Laya.Handler.create(this, this.onVersionLoaded),
       Laya.ResourceVersion.FILENAME_VERSION,
     );
+
+    initLoop();
   }
 
   onVersionLoaded(): void {
@@ -72,6 +75,29 @@ class Main {
   private onClick(e: Event) {
     emitter.emit(BaseEvent.STAGE_CLICK, [e.stageX, e.stageY]);
   }
+}
+
+let _rawLoop: () => boolean;
+let stage: {
+  _loop: () => boolean;
+};
+
+function _loop(): boolean {
+  try {
+    if (_rawLoop) {
+      _rawLoop.call(Laya.stage);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+  tweenMgr.update();
+  return true;
+}
+
+function initLoop(): void {
+  stage = <any>Laya.stage;
+  _rawLoop = stage._loop;
+  stage._loop = _loop;
 }
 
 //激活启动类
