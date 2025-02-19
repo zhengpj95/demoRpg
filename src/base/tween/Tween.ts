@@ -20,15 +20,17 @@ export class Tween {
   private repeatCount: number = 0; // 当前重复次数
   private ease: EaseFunc; // 缓动函数
   private onComplete?: OnCompleteCallback; // 完成回调
+  private timeScale = 1; //时间缩放
 
   public init(
     target: any,
-    vars?: { loop?: boolean; yoyo?: boolean; repeat?: number },
+    vars?: { loop?: boolean; yoyo?: boolean; repeat?: number; scale?: number },
   ): this {
     this.target = target;
     this.loop = (vars && vars.loop) || false;
     this.yoyo = (vars && vars.yoyo) || false;
     this.repeat = (vars && vars.repeat) || 0;
+    this.timeScale = (vars && vars.scale) || 1;
     this.ease = EaseNone;
     this.duration = 0;
     this.properties = {};
@@ -82,7 +84,7 @@ export class Tween {
     if (this.startTime === null) return false;
 
     const elapsed = currentTime - this.startTime;
-    let t = elapsed / this.duration;
+    let t = (elapsed * this.timeScale) / this.duration;
 
     if (t >= 1) {
       // 缓动完成

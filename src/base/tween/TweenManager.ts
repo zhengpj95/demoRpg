@@ -19,7 +19,7 @@ class TweenManager {
 
   public get(
     target: any,
-    vars?: { loop?: boolean; yoyo?: boolean; repeat?: number },
+    vars?: { loop?: boolean; yoyo?: boolean; repeat?: number; scale?: number },
   ): Tween {
     return this.reg(new Tween().init(target, vars));
   }
