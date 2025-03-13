@@ -1,4 +1,5 @@
-import { Tween } from "./Tween";
+import { TweenImpl } from "./Tween";
+import { TweenManger } from "@base/tween/TweenConst";
 
 let TWEEN_ID = 0;
 const TWEEN_ID_FLAG = "$TWEEN_ID";
@@ -7,11 +8,11 @@ const TWEEN_ID_FLAG = "$TWEEN_ID";
  * @author zpj
  * @date @date 2025/2/19
  */
-class TweenManager {
-  private tweens: Tween[] = []; // 存储所有缓动实例
-  private _tmpTweens: Tween[] = [];
+class TweenManagerImpl implements TweenManger {
+  private tweens: TweenImpl[] = []; // 存储所有缓动实例
+  private _tmpTweens: TweenImpl[] = [];
 
-  private reg(tw: Tween): Tween {
+  private reg(tw: TweenImpl): TweenImpl {
     tw[TWEEN_ID_FLAG] = ++TWEEN_ID;
     this._tmpTweens.push(tw);
     return tw;
@@ -20,8 +21,8 @@ class TweenManager {
   public get(
     target: any,
     vars?: { loop?: boolean; yoyo?: boolean; repeat?: number; scale?: number },
-  ): Tween {
-    return this.reg(new Tween().init(target, vars));
+  ): TweenImpl {
+    return this.reg(new TweenImpl().init(target, vars));
   }
 
   // 移除目标对象的所有缓动
@@ -44,4 +45,8 @@ class TweenManager {
   }
 }
 
-export const tweenMgr = new TweenManager();
+export const tweenMgr: TweenManger = new TweenManagerImpl();
+
+export function loopTween(): void {
+  (<TweenManagerImpl>tweenMgr).update();
+}

@@ -1,13 +1,16 @@
-import { EaseFunc, EaseNone } from "./TweenConst";
+import {
+  EaseFunc,
+  EaseNone,
+  OnCompleteCallback,
+  Tween,
+  TweenProperties,
+} from "./TweenConst";
 
 /**
  * @author zpj
  * @date 2025/2/19
  */
-type TweenProperties = Record<string, number>; // 目标属性的键值对
-type OnCompleteCallback = () => void; // 缓动完成时的回调函数
-
-export class Tween {
+export class TweenImpl implements Tween {
   public target: any; // 缓动目标对象
   private duration: number; // 缓动持续时间
   private properties: TweenProperties; // 目标属性

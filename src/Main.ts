@@ -7,7 +7,7 @@ import { emitter } from "@base/MessageMgr";
 import { BaseEvent } from "@base/BaseConst";
 import { initConfig } from "@base/cfg/GameCfg";
 import { HitMoleViewType } from "@def/hit_mole";
-import { tweenMgr } from "@base/tween/TweenManager";
+import { loopTween } from "@base/tween/TweenManager";
 import Event = Laya.Event;
 
 class Main {
@@ -90,7 +90,7 @@ function _loop(): boolean {
   } catch (e) {
     console.log(e);
   }
-  tweenMgr.update();
+  loopTween();
   return true;
 }
 
