@@ -11,7 +11,7 @@ import {
  * @date 2025/2/19
  */
 export class TweenImpl implements Tween {
-  public target: any; // 缓动目标对象
+  private target: any; // 缓动目标对象
   private duration: number; // 缓动持续时间
   private properties: TweenProperties; // 目标属性
   private startTime: number | null = null; // 缓动开始时间
