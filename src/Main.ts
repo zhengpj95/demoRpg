@@ -39,6 +39,28 @@ class Main {
       Laya.ResourceVersion.FILENAME_VERSION,
     );
 
+    // 游戏切到后台（例如切换到其他标签页、锁屏等）
+    Laya.stage.on(Laya.Event.BLUR, this, () => {
+      // console.log("Laya.stage 触发 BLUR 游戏失去焦点");
+      // 你可以在这里暂停游戏、暂停音乐等
+    });
+
+    // 游戏回到前台
+    Laya.stage.on(Laya.Event.FOCUS, this, () => {
+      // console.log("Laya.stage 触发 FOCUS 游戏获得焦点");
+      // 你可以在这里恢复游戏、恢复音乐等
+    });
+
+    Laya.stage.on(Laya.Event.VISIBILITY_CHANGE, this, () => {
+      if (!Laya.stage.isVisibility) {
+        // console.log("页面不可见，切到后台或且切页签");
+        // 执行暂停逻辑
+      } else {
+        // console.log("页面重新可见");
+        // 执行恢复逻辑
+      }
+    });
+
     initLoop();
   }
 
