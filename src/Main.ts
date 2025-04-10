@@ -103,8 +103,21 @@ let _rawLoop: () => boolean;
 let stage: {
   _loop: () => boolean;
 };
+let _lastLoop = 0;
+
+const enum UpdateFrame {
+  FAST = 16,
+  SLOW = 33,
+  SLEEP = 1000,
+}
 
 function _loop(): boolean {
+  const now = Date.now();
+  const elapsed = now - _lastLoop;
+  if (elapsed < UpdateFrame.SLOW) {
+    return false;
+  }
+  _lastLoop = now;
   try {
     if (_rawLoop) {
       _rawLoop.call(Laya.stage);
@@ -114,6 +127,18 @@ function _loop(): boolean {
   }
   loopTween();
   return true;
+}
+
+// 在切后台或页签时，requestAnimationFrame执行频率会降低到1fps或更低，甚至完全暂停。所以这里特殊处理下
+setInterval(_bgLoop, 1);
+
+function _bgLoop(): void {
+  const now = Date.now();
+  const elapsed = now - _lastLoop;
+  if (elapsed < UpdateFrame.SLOW * 1.5) {
+    return;
+  }
+  _loop();
 }
 
 function initLoop(): void {
