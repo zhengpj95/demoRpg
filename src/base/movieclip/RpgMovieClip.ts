@@ -26,7 +26,7 @@ export class RpgMovieClip extends BitmapBase implements IPoolObject {
   private _currentAction = ""; // 当前动作
   private _nextAction = ""; // 下一个动作
 
-  public override center = true;
+  public center = true;
 
   public setAction(action: string): void {
     if (this._currentAction !== action) {
