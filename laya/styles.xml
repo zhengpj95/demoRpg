@@ -27,4 +27,5 @@
    <item name="modules/hit_mole/mask-07.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
    <item name="modules/hit_mole/mask-08.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
    <item name="modules/hit_mole/mask-09.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="effect" type="" compress="0" pack="2" quality="80" props="" picType="0" scale="0"/>
 </res>

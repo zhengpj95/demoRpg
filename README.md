@@ -57,3 +57,18 @@ panel.vScrollBarSkin = "";
 ## 血条变化
 
 src/script/MainHp.ts 文件
+
+## 序列帧
+
+```xml
+{
+  "filename": "Circle_explosion/Circle_explosion1",
+  "frame": { "x": 98, "y": 208, "w": 50, "h": 43 }, // 表示在大图中，这帧图像的位置和尺寸
+  "rotated": false, // 此帧没有被旋转
+  "trimmed": true, // 原图裁剪了透明边界，只保留了有效像素
+  "spriteSourceSize": { "x": 106, "y": 109, "w": 50, "h": 43 }, // 原图中，这个小图的偏移位置（绘制用）
+  "sourceSize": { "w": 256, "h": 256 } // 原始帧图为 256x256，包含空白
+}
+```
+
+
