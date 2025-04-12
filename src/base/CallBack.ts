@@ -92,9 +92,10 @@ export class CallBack<T extends any[] = [], R = void, C = any> {
    * 释放回调对象到对象池
    */
   public free(): void {
+    if (!this._id) return;
     this._method = null;
     this._context = null;
-    this._args.length = 0;
+    if (this._args) this._args.length = 0;
     this._once = false;
     this._id = 0;
     CallBack._pool.push(this);
