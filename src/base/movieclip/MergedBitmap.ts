@@ -1,6 +1,7 @@
 import { IPoolObject } from "@base/BaseConst";
 import { IFrameData, ITextureAtlas } from "@base/movieclip/MovieClipConst";
 import { CallBack } from "@base/CallBack";
+import PoolMgr from "@base/core/PoolMgr";
 import Handler = Laya.Handler;
 import Loader = Laya.Loader;
 import Texture = Laya.Texture;
@@ -16,6 +17,38 @@ export class MergedBitmap implements IPoolObject {
   private _callback: CallBack<[MergedBitmap]>;
   private _texture: Texture;
   private _textureList: Texture[];
+
+  public static onLoad(url: string, callback: CallBack<[MergedBitmap]>): void {
+    const bitmap = PoolMgr.alloc(MergedBitmap);
+    bitmap._url = url;
+    bitmap._callback = callback;
+    Laya.loader.load(
+      [
+        {
+          url: url + ".png",
+          type: Loader.IMAGE,
+          priority: 1,
+        },
+        {
+          url: url + ".json",
+          type: Loader.JSON,
+          priority: 1,
+        },
+      ],
+      Handler.create(this, this.onLoadComplete, [bitmap]),
+    );
+  }
+
+  private static onLoadComplete(bitmap: MergedBitmap): void {
+    const texture = <Texture>Laya.loader.getRes(bitmap._url + ".png");
+    const json = <ITextureAtlas>Laya.loader.getRes(bitmap._url + ".json");
+    bitmap._texture = texture;
+    bitmap._atlas = json;
+    bitmap._frames = json.frames;
+    if (bitmap._callback) {
+      bitmap._callback.exec(bitmap);
+    }
+  }
 
   public onLoad(url: string, callback: CallBack<[MergedBitmap]>): void {
     this._url = url;
