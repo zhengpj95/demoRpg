@@ -116,11 +116,14 @@ export class MergedBitmap implements IPoolObject {
   }
 
   onRelease(): void {
-    this._url = "";
+    this._url = <any>undefined;
     this._atlas = <any>undefined;
-    this._frames = [];
+    this._frames = <any>undefined;
+    if (this._callback) {
+      this._callback.free();
+    }
     this._callback = <any>undefined;
     this._texture = <any>undefined;
-    this._textureList = [];
+    this._textureList = <any>undefined;
   }
 }
