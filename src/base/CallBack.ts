@@ -44,7 +44,6 @@ export class CallBack<T extends any[] = [], R = void, C = any> {
     args?: T | boolean,
     once?: boolean,
   ): CallBack<T, R, C> {
-    console.log(11111, typeof func);
     if (typeof func !== "function") {
       throw new Error("CallBack func must be Function!");
     }
