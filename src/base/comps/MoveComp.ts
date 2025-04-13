@@ -10,7 +10,7 @@ export class MoveComp extends BaseComp {
 
   start() {
     super.start();
-    this._targetPoint = { x: 0, y: 568 };
+    this._targetPoint = { x: 100, y: 568 };
   }
 
   stop() {
@@ -29,7 +29,7 @@ export class MoveComp extends BaseComp {
         this._lastMoveTime = Laya.timer.currTimer;
       }
     } else {
-      avatar.entity.vo.action = Action.STAND;
+      avatar.entity.vo.action = Action.Idle;
     }
   }
 }

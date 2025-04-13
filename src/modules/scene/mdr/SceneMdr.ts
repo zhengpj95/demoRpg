@@ -3,12 +3,11 @@ import { CompMgr } from "@base/comps/CompMgr";
 import { SceneMonsterVo, ScenePlayerVO } from "@base/entity/SceneEntityVO";
 import { Action, MonsterType, SceneEntityType } from "@base/entity/EntityConst";
 import { ScenePlayer } from "@base/entity/ScenePlayer";
-import { SceneMonster } from "@base/entity/SceneMonster";
 import { BaseEvent } from "@base/BaseConst";
 import { emitter } from "@base/MessageMgr";
 import { AvatarComp } from "@base/comps/AvatarComp";
 import { GEvent } from "@base/core/GEvent";
-import { CompType } from "@base/comps/CompsConst";
+import { SceneMonster } from "@base/entity/SceneMonster";
 import Sprite = Laya.Sprite;
 
 /**
@@ -57,6 +56,22 @@ export class SceneMdr extends Laya.Scene {
       this.addChild(this._entitySprite);
     }
 
+    // const img = new Image("modules/hit_mole/overBg.png");
+    // img.x = img.y = 100;
+    // img.anchorX = img.anchorY = 0.5;
+    // img.height = img.width = 200;
+    // // this.addChild(img);
+    //
+    // const box = new Box();
+    // box.width = 200;
+    // box.height = 200;
+    // box.x = box.y = 100;
+    // this.addChild(box);
+    // const bmp = new RpgMovieClip();
+    // bmp.setAction(Action.ATTACKED);
+    // bmp.scale(-1, 1);
+    // bmp.play("player/knight", -1, box);
+
     const playerVo: ScenePlayerVO = {
       entityId: 1001,
       name: "zpj",
@@ -65,9 +80,9 @@ export class SceneMdr extends Laya.Scene {
       power: 999999,
       type: SceneEntityType.PLAYER,
       vip: 0,
-      point: { x: 0, y: 568 },
-      action: Action.STAND,
-      avatarName: `player/Rogue`,
+      point: { x: 100, y: 100 },
+      action: Action.ATTACK,
+      avatarName: `player/rogue`,
     };
     this._player = new ScenePlayer();
     this._player.init(playerVo);
@@ -79,18 +94,14 @@ export class SceneMdr extends Laya.Scene {
       maxHp: 10000,
       power: 999999,
       type: SceneEntityType.PLAYER,
-      point: { x: 600, y: 568 },
-      action: Action.MOVE,
-      avatarName: `player/Rogue`,
+      point: { x: 600, y: 100 },
+      action: Action.Walk,
+      avatarName: `player/knight`,
       monsterType: MonsterType.MONSTER,
     };
     const monster = new SceneMonster();
     monster.init(monsterVo);
-
     this._player.battle = monster;
-
-    // todo
-    Laya.timer.loop(10 * 1000, this, this.updatePlayerVo);
 
     // todo
     CompMgr.start();
@@ -107,22 +118,6 @@ export class SceneMdr extends Laya.Scene {
     const avatar = e.data;
     if (avatar.display) {
       avatar.display.removeSelf();
-    }
-  }
-
-  private updatePlayerVo(): void {
-    if (this._player) {
-      const ary: Action[] = [
-        Action.MOVE,
-        Action.STAND,
-        Action.ATTACK,
-        Action.ATTACKED,
-        Action.DIE,
-      ];
-      const action = ary[Math.floor(Math.random() * ary.length)];
-      this._player.vo.action = action || Action.STAND;
-      const comp = this._player.getComp(CompType.AVATAR) as AvatarComp;
-      console.log(`11111 `, comp);
     }
   }
 }
