@@ -8,7 +8,7 @@ import { CallBack } from "@base/CallBack";
 import Sprite = Laya.Sprite;
 
 function getDirectionScale(dir: number): { x: number; y: number } {
-  if (dir === Direction.Left) {
+  if (dir === Direction.LEFT) {
     return { x: -1, y: 1 };
   }
   return { x: 1, y: 1 };

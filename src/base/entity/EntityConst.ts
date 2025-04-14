@@ -9,22 +9,22 @@ export const enum SceneEntityType {
 }
 
 export const enum Action {
-  Walk = "Walk",
-  Idle = "Idle",
+  WALK = "Walk",
+  IDLE = "Idle",
   ATTACK = "Attack",
-  Hurt = "Hurt",
-  Death = "Death",
+  HURT = "Hurt",
+  DEATH = "Death",
 }
 
 export const enum Direction {
-  Top = 0,
-  TopRight = 1,
-  Right = 2,
-  BottomRight = 3,
-  Bottom = 4,
-  BottomLeft = 5,
-  Left = 6,
-  TopLeft = 7,
+  TOP = 0,
+  TOP_RIGHT = 1,
+  RIGHT = 2,
+  BOTTOM_RIGHT = 3,
+  BOTTOM = 4,
+  BOTTOM_LEFT = 5,
+  LEFT = 6,
+  TOP_LEFT = 7,
 }
 
 export const enum MonsterType {
