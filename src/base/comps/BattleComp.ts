@@ -6,16 +6,16 @@ import { BaseComp } from "@base/comps/BaseComp";
 export class BattleComp extends BaseComp {
   private _isAttack = false;
 
-  start() {
+  public start(): void {
     super.start();
   }
 
-  stop() {
+  public stop(): void {
     super.stop();
     this._isAttack = false;
   }
 
-  tick(delta: number) {
+  public tick(delta: number): void {
     super.tick(delta);
     const entity = this.entity;
     if (!entity.battle) {

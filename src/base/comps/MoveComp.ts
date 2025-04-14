@@ -8,16 +8,16 @@ export class MoveComp extends BaseComp {
   private _moveInterval = 1; //间隔，毫秒
   private _lastMoveTime = 0;
 
-  start() {
+  public start(): void {
     super.start();
     this._targetPoint = { x: 100, y: 568 };
   }
 
-  stop() {
+  public stop(): void {
     super.stop();
   }
 
-  tick(delta: number) {
+  public tick(delta: number): void {
     super.tick(delta);
     const entity = this.entity;
     const vo = entity.vo;
