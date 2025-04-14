@@ -1,4 +1,4 @@
-import { Action, MonsterType, SceneEntityType } from "./EntityConst";
+import { Action, Direction, MonsterType, SceneEntityType } from "./EntityConst";
 
 export interface SceneEntityVO {
   entityId: number; //唯一id
@@ -9,7 +9,8 @@ export interface SceneEntityVO {
   type: SceneEntityType;
   point?: { x: number; y: number };
   action?: Action;
-  avatarName?: string;
+  avatarName: string;
+  dir: Direction;
 }
 
 export interface ScenePlayerVO extends SceneEntityVO {

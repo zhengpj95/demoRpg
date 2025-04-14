@@ -2,10 +2,17 @@ import { BaseComp } from "./BaseComp";
 import { CompType } from "./CompsConst";
 import { emitter } from "@base/MessageMgr";
 import { BaseEvent } from "@base/BaseConst";
-import { Action } from "@base/entity/EntityConst";
+import { Action, Direction } from "@base/entity/EntityConst";
 import { RpgMovieClip } from "@base/movieclip/RpgMovieClip";
 import { CallBack } from "@base/CallBack";
 import Sprite = Laya.Sprite;
+
+function getDirectionScale(dir: number): { x: number; y: number } {
+  if (dir === Direction.Left) {
+    return { x: -1, y: 1 };
+  }
+  return { x: 1, y: 1 };
+}
 
 /**
  * 场景模型
@@ -16,11 +23,11 @@ export class AvatarComp extends BaseComp {
   private _isLoadAtlas = false;
   private _rpg: RpgMovieClip;
 
-  get display(): Sprite {
+  public get display(): Sprite {
     return this._display;
   }
 
-  set display(value: Laya.Sprite) {
+  public set display(value: Laya.Sprite) {
     this._display = value;
   }
 
@@ -29,7 +36,7 @@ export class AvatarComp extends BaseComp {
     this.type = CompType.AVATAR;
   }
 
-  start() {
+  public start(): void {
     super.start();
     if (!this.display) {
       this.display = new Sprite();
@@ -47,10 +54,12 @@ export class AvatarComp extends BaseComp {
         CallBack.alloc(this, this.onLoadRpg),
       );
     }
+    const scale = getDirectionScale(this.entity.vo.dir);
+    this._rpg.scale(scale.x, scale.y);
     emitter.emit(BaseEvent.ADD_TO_SCENE, this);
   }
 
-  stop() {
+  public stop(): void {
     super.stop();
     this._isLoadAtlas = false;
     emitter.emit(BaseEvent.REMOVE_FROM_SCENE, this);

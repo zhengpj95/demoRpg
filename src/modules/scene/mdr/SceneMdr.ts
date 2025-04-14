@@ -1,7 +1,12 @@
 import { SceneMap } from "./SceneMap";
 import { CompMgr } from "@base/comps/CompMgr";
 import { SceneMonsterVo, ScenePlayerVO } from "@base/entity/SceneEntityVO";
-import { Action, MonsterType, SceneEntityType } from "@base/entity/EntityConst";
+import {
+  Action,
+  Direction,
+  MonsterType,
+  SceneEntityType,
+} from "@base/entity/EntityConst";
 import { ScenePlayer } from "@base/entity/ScenePlayer";
 import { BaseEvent } from "@base/BaseConst";
 import { emitter } from "@base/MessageMgr";
@@ -83,6 +88,7 @@ export class SceneMdr extends Laya.Scene {
       point: { x: 100, y: 100 },
       action: Action.ATTACK,
       avatarName: `player/rogue`,
+      dir: Direction.Right,
     };
     this._player = new ScenePlayer();
     this._player.init(playerVo);
@@ -93,11 +99,12 @@ export class SceneMdr extends Laya.Scene {
       hp: 10000,
       maxHp: 10000,
       power: 999999,
-      type: SceneEntityType.PLAYER,
+      type: SceneEntityType.MONSTER,
       point: { x: 600, y: 100 },
       action: Action.Walk,
       avatarName: `player/knight`,
       monsterType: MonsterType.MONSTER,
+      dir: Direction.Left,
     };
     const monster = new SceneMonster();
     monster.init(monsterVo);
