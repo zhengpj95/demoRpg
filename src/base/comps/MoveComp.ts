@@ -29,7 +29,7 @@ export class MoveComp extends BaseComp {
         this._lastMoveTime = Laya.timer.currTimer;
       }
     } else {
-      avatar.entity.vo.action = Action.IDLE;
+      avatar.entity.vo.action = Action.ATTACK;
     }
   }
 }

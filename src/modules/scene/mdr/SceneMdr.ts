@@ -87,7 +87,7 @@ export class SceneMdr extends Laya.Scene {
       vip: 0,
       point: { x: 100, y: 100 },
       action: Action.ATTACK,
-      avatarName: `player/rogue`,
+      avatarName: `player/knight`,
       dir: Direction.RIGHT,
     };
     this._player = new ScenePlayer();
@@ -102,7 +102,7 @@ export class SceneMdr extends Laya.Scene {
       type: SceneEntityType.MONSTER,
       point: { x: 600, y: 100 },
       action: Action.WALK,
-      avatarName: `player/knight`,
+      avatarName: `player/rogue`,
       monsterType: MonsterType.MONSTER,
       dir: Direction.LEFT,
     };

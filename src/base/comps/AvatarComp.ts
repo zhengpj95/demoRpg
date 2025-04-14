@@ -5,6 +5,8 @@ import { BaseEvent } from "@base/BaseConst";
 import { Action, Direction } from "@base/entity/EntityConst";
 import { RpgMovieClip } from "@base/movieclip/RpgMovieClip";
 import { CallBack } from "@base/CallBack";
+import { HeadUI } from "@base/entity/HeadUI";
+import PoolMgr from "@base/core/PoolMgr";
 import Sprite = Laya.Sprite;
 
 function getDirectionScale(dir: number): { x: number; y: number } {
@@ -22,6 +24,7 @@ export class AvatarComp extends BaseComp {
   private _curAction: Action;
   private _isLoadAtlas = false;
   private _rpg: RpgMovieClip;
+  private _headUI: HeadUI;
 
   public get display(): Sprite {
     return this._display;
@@ -56,6 +59,15 @@ export class AvatarComp extends BaseComp {
     }
     const scale = getDirectionScale(this.entity.vo.dir);
     this._rpg.scale(scale.x, scale.y);
+
+    if (!this._headUI) {
+      this._headUI = PoolMgr.alloc(HeadUI);
+      this._headUI.entity = this.entity;
+      this.display.addChild(this._headUI);
+      this._headUI.y = -50;
+      this._headUI.x = -(this._headUI.width / 2) + -scale.x * 20;
+    }
+
     emitter.emit(BaseEvent.ADD_TO_SCENE, this);
   }
 
@@ -63,6 +75,10 @@ export class AvatarComp extends BaseComp {
     super.stop();
     this._isLoadAtlas = false;
     emitter.emit(BaseEvent.REMOVE_FROM_SCENE, this);
+    if (this._headUI) {
+      PoolMgr.release(this._headUI);
+      this._headUI = <any>undefined;
+    }
   }
 
   private onLoadRpg(): void {
