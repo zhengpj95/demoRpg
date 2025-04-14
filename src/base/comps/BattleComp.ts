@@ -1,5 +1,7 @@
 import { BaseComp } from "@base/comps/BaseComp";
 
+const ATTACK_DIS = 50;
+
 /**
  * @date 2024/6/26
  */
@@ -34,12 +36,12 @@ export class BattleComp extends BaseComp {
   }
 
   private canAttack(): boolean {
-    const attackDis = 50;
+    const attackDis = ATTACK_DIS;
+    const vo = this.entity.vo;
+    const battleVo = this.entity.battle.vo;
     return (
-      Math.abs(this.entity.battle.vo.point.x - this.entity.vo.point.x) <=
-        attackDis &&
-      Math.abs(this.entity.battle.vo.point.y - this.entity.vo.point.y) <=
-        attackDis
+      Math.abs(battleVo.point.x - vo.point.x) <= attackDis &&
+      Math.abs(battleVo.point.y - vo.point.y) <= attackDis
     );
   }
 
@@ -49,7 +51,9 @@ export class BattleComp extends BaseComp {
     if (!battleObj) {
       battleObj.battle = this.entity;
     }
-    console.log(1, "_attack");
+    console.log(
+      `11111 BattleComp ${this.entity.vo.name} attack ${this.entity.battle.vo.name}`,
+    );
   }
 
   private stopAttack(): void {
