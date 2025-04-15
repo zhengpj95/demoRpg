@@ -18,7 +18,11 @@ export class CompMgr {
   }
 
   public static removeComp(comp: BaseComp): void {
-    if (!comp || !this._compMap[comp.type].length) {
+    if (
+      !comp ||
+      !this._compMap[comp.type] ||
+      !this._compMap[comp.type].length
+    ) {
       return;
     }
     const idx = this._compMap[comp.type].indexOf(comp);

@@ -38,9 +38,9 @@ export class SceneEntity implements IPoolObject {
     const compIns = new comp();
     compIns.type = type;
     compIns.entity = this;
+    this._comps[type] = compIns;
     compIns.start();
     CompMgr.addComp(compIns);
-    this._comps[type] = compIns;
     return <ICompTypeMap[K]>compIns;
   }
 
@@ -53,10 +53,10 @@ export class SceneEntity implements IPoolObject {
       return false;
     }
     const compIns = <ICompTypeMap[K]>this._comps[type];
-    compIns.type = CompType.NONE;
-    compIns.entity = null;
     compIns.stop();
+    compIns.entity = null;
     CompMgr.removeComp(compIns);
+    compIns.type = CompType.NONE;
     this._comps[type] = null;
     delete this._comps[type];
     return true;
@@ -66,11 +66,21 @@ export class SceneEntity implements IPoolObject {
     //
   }
 
+  public destroy(): void {
+    this.onRelease();
+  }
+
   public onAlloc(): void {
-    //
+    this._comps = {};
+    this.vo = <any>undefined;
+    this.battle = <any>undefined;
   }
 
   public onRelease(): void {
-    //
+    const keys = Object.keys(this._comps);
+    for (const key of keys) {
+      this.removeComp(+key);
+    }
+    this._comps = {};
   }
 }

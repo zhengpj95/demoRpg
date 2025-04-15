@@ -8,11 +8,12 @@ import {
   SceneEntityType,
 } from "@base/entity/EntityConst";
 import { ScenePlayer } from "@base/entity/ScenePlayer";
-import { BaseEvent } from "@base/BaseConst";
 import { emitter } from "@base/MessageMgr";
-import { AvatarComp } from "@base/comps/AvatarComp";
 import { GEvent } from "@base/core/GEvent";
 import { SceneMonster } from "@base/entity/SceneMonster";
+import { SceneEntity } from "@base/entity/SceneEntity";
+import { CompType } from "@base/comps/CompsConst";
+import { SceneEvent } from "@def/scene";
 import Sprite = Laya.Sprite;
 
 /**
@@ -31,8 +32,8 @@ export class SceneMdr extends Laya.Scene {
 
   onEnable() {
     super.onEnable();
-    emitter.on(BaseEvent.ADD_TO_SCENE, this.onAddEntity, this);
-    emitter.on(BaseEvent.REMOVE_FROM_SCENE, this.onDelEntity, this);
+    emitter.on(SceneEvent.ADD_TO_SCENE, this.onAddEntity, this);
+    emitter.on(SceneEvent.REMOVE_FROM_SCENE, this.onDelEntity, this);
   }
 
   private createEntitySprite(): Sprite {
@@ -115,17 +116,22 @@ export class SceneMdr extends Laya.Scene {
     CompMgr.start();
   }
 
-  private onAddEntity(e: GEvent<AvatarComp>): void {
-    const avatar = e.data;
+  private onAddEntity(e: GEvent<SceneEntity>): void {
+    const entity = e.data;
+    if (!entity) return;
+    const avatar = entity.getComp(CompType.AVATAR);
     if (avatar) {
       this._entitySprite.addChild(avatar.display);
     }
   }
 
-  private onDelEntity(e: GEvent<AvatarComp>): void {
-    const avatar = e.data;
-    if (avatar.display) {
+  private onDelEntity(e: GEvent<SceneEntity>): void {
+    const entity = e.data;
+    if (!entity) return;
+    const avatar = entity.getComp(CompType.AVATAR);
+    if (avatar && avatar.display) {
       avatar.display.removeSelf();
     }
+    entity.destroy();
   }
 }
