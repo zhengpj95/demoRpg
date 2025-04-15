@@ -8,3 +8,8 @@ export const enum BaseEvent {
   REMOVE_FROM_SCENE = "base_remove_from_scene", // 从场景移除
   STAGE_CLICK = "base_stage_click", // 点击舞台
 }
+
+export interface PathNode {
+  x: number;
+  y: number;
+}

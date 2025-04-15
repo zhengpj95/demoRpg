@@ -100,7 +100,7 @@ export class SceneMdr extends Laya.Scene {
       maxHp: 10000,
       power: 999999,
       type: SceneEntityType.MONSTER,
-      point: { x: 600, y: 100 },
+      point: { x: 550, y: 100 },
       action: Action.WALK,
       avatarName: `player/rogue`,
       monsterType: MonsterType.MONSTER,
@@ -108,6 +108,7 @@ export class SceneMdr extends Laya.Scene {
     };
     const monster = new SceneMonster();
     monster.init(monsterVo);
+    monster.addPath({ x: 150, y: 100 });
     this._player.battle = monster;
 
     // todo

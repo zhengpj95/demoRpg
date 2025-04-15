@@ -83,6 +83,11 @@ export class AvatarComp extends BaseComp {
 
   private onLoadRpg(): void {
     this._isLoadAtlas = true;
+
+    const img = new Laya.Image("comp/img_blank.png");
+    img.width = 128;
+    img.height = 128;
+    this._rpg.addChild(img);
   }
 
   public tick(delta: number): void {

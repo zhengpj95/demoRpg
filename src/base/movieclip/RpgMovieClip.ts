@@ -14,7 +14,8 @@ const INIT_FPS = 10;
  */
 export class RpgMovieClip extends BitmapBase implements IPoolObject {
   private _mergedBitmap: MergedBitmap;
-  private _callBack: CallBack | undefined;
+  private _loadCallBack: CallBack | undefined;
+  private _finishCallBack: CallBack | undefined;
   private _total: number = 0;
   private _current: number = 0;
   private _playCnt: number = 1;
@@ -34,15 +35,21 @@ export class RpgMovieClip extends BitmapBase implements IPoolObject {
     }
   }
 
+  public setCnt(cnt: number): void {
+    this._playCnt = cnt;
+  }
+
   public play(
     url: string,
     cnt: number = 1,
     container?: Sprite,
-    callBack?: CallBack,
+    loadCallBack?: CallBack,
+    finishCallback?: CallBack,
     remove?: boolean,
   ): void {
     this._playCnt = cnt;
-    this._callBack = callBack;
+    this._loadCallBack = loadCallBack;
+    this._finishCallBack = finishCallback;
     this._remove = remove;
     this._container = container;
     MergedBitmap.onLoad(url, CallBack.alloc(this, this.onLoadedMergedBitmap));
@@ -77,6 +84,10 @@ export class RpgMovieClip extends BitmapBase implements IPoolObject {
       this._container.addChild(this);
     }
     Laya.timer.loop(this._interval, this, this.onUpdate);
+
+    if (this._loadCallBack) {
+      this._loadCallBack.exec();
+    }
   }
 
   private getTextureList(action?: string): Texture[] {
@@ -111,8 +122,8 @@ export class RpgMovieClip extends BitmapBase implements IPoolObject {
   }
 
   private playEnd(): void {
-    if (this._callBack) {
-      this._callBack.exec();
+    if (this._finishCallBack) {
+      this._finishCallBack.exec();
     }
     if (this._remove) {
       this.removeSelf();
@@ -133,10 +144,14 @@ export class RpgMovieClip extends BitmapBase implements IPoolObject {
       PoolMgr.release(this._mergedBitmap);
     }
     this._mergedBitmap = <any>undefined;
-    if (this._callBack) {
-      this._callBack.free();
+    if (this._loadCallBack) {
+      this._loadCallBack.free();
     }
-    this._callBack = <any>undefined;
+    this._loadCallBack = <any>undefined;
+    if (this._finishCallBack) {
+      this._finishCallBack.free();
+    }
+    this._finishCallBack = <any>undefined;
 
     this._total = 0;
     this._current = 0;
