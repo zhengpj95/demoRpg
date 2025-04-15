@@ -53,8 +53,8 @@ export class SceneEntity implements IPoolObject {
       return false;
     }
     const compIns = <ICompTypeMap[K]>this._comps[type];
-    compIns.stop();
     compIns.entity = null;
+    compIns.stop();
     CompMgr.removeComp(compIns);
     compIns.type = CompType.NONE;
     this._comps[type] = null;
