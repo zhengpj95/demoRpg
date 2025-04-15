@@ -66,11 +66,11 @@ export class SceneEntity implements IPoolObject {
     //
   }
 
-  onAlloc(): void {
+  public onAlloc(): void {
     //
   }
 
-  onRelease(): void {
+  public onRelease(): void {
     //
   }
 }

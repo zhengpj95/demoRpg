@@ -6,7 +6,7 @@ import { SceneEntity } from "@base/entity/SceneEntity";
  * @date 2024/6/26
  */
 export class SceneMonster extends SceneEntity {
-  init(vo: SceneMonsterVo) {
+  public init(vo: SceneMonsterVo): void {
     super.init(vo);
     this.addComp(CompType.AVATAR);
     this.addComp(CompType.MOVE);
