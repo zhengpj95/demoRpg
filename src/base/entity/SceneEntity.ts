@@ -2,6 +2,7 @@ import { ISceneUpdate } from "@base/BaseConst";
 import { SceneEntityVO } from "./SceneEntityVO";
 import { BaseComp } from "@base/comps/BaseComp";
 import { CompType, CompTypeMap, ICompTypeMap } from "@base/comps/CompsConst";
+import PoolMgr from "@base/core/PoolMgr";
 
 /**场景实体*/
 export class SceneEntity implements ISceneUpdate {
@@ -93,6 +94,7 @@ export class SceneEntity implements ISceneUpdate {
   }
 
   public destroy(): void {
+    PoolMgr.release(this);
     this.onRelease();
   }
 
@@ -108,5 +110,7 @@ export class SceneEntity implements ISceneUpdate {
       this.removeComp(+key);
     }
     this._comps = {};
+    this._isDone = false;
+    this._vo = <any>undefined;
   }
 }

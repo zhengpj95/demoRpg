@@ -1,4 +1,5 @@
 import { BaseComp } from "@base/comps/BaseComp";
+import { Action } from "@base/entity/EntityConst";
 
 const ATTACK_DIS = 50;
 
@@ -21,7 +22,7 @@ export class BattleComp extends BaseComp {
   public tick(delta: number): void {
     super.tick(delta);
     const entity = this.entity;
-    if (!entity.battle) {
+    if (!entity || !entity.battle) {
       return;
     }
 
@@ -50,6 +51,7 @@ export class BattleComp extends BaseComp {
   }
 
   private startAttack(): void {
+    this.entity.vo.action = Action.ATTACK;
     this._isAttack = true;
     this._lastAttackTime = 0;
     const battleObj = this.entity.battle;
@@ -62,6 +64,7 @@ export class BattleComp extends BaseComp {
   }
 
   private stopAttack(): void {
+    this.entity.vo.action = Action.IDLE;
     this._isAttack = false;
     this.entity.battle = null;
     this._lastAttackTime = 0;

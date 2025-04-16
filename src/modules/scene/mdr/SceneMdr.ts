@@ -15,7 +15,24 @@ import { CompType } from "@base/comps/CompsConst";
 import { SceneEvent } from "@def/scene";
 import { TimerMgr } from "@base/TimerMgr";
 import { DebugMgr } from "@base/DebugMgr";
+import PoolMgr from "@base/core/PoolMgr";
 import Sprite = Laya.Sprite;
+
+function createMonster(): SceneMonsterVo {
+  return {
+    entityId: 2001,
+    name: "monster" + ((Math.random() * 10) >> 0),
+    hp: 10000,
+    maxHp: 10000,
+    power: 999999,
+    type: SceneEntityType.MONSTER,
+    point: { x: 550, y: 100 },
+    action: Action.WALK,
+    avatarName: `player/rogue`,
+    monsterType: MonsterType.MONSTER,
+    dir: Direction.LEFT,
+  };
+}
 
 /**
  * 场景
@@ -83,33 +100,21 @@ export class SceneMdr extends Laya.Scene {
 
     const playerVo: ScenePlayerVO = {
       entityId: 1001,
-      name: "zpj",
+      name: "无尽猪猪",
       hp: 10000,
       maxHp: 10000,
       power: 999999,
       type: SceneEntityType.PLAYER,
       vip: 0,
       point: { x: 100, y: 100 },
-      action: Action.ATTACK,
+      action: Action.IDLE,
       avatarName: `player/knight`,
       dir: Direction.RIGHT,
     };
     this._player = new ScenePlayer();
     this._player.init(playerVo);
 
-    const monsterVo: SceneMonsterVo = {
-      entityId: 2001,
-      name: "monster1",
-      hp: 10000,
-      maxHp: 10000,
-      power: 999999,
-      type: SceneEntityType.MONSTER,
-      point: { x: 550, y: 100 },
-      action: Action.WALK,
-      avatarName: `player/rogue`,
-      monsterType: MonsterType.MONSTER,
-      dir: Direction.LEFT,
-    };
+    const monsterVo: SceneMonsterVo = createMonster();
     const monster = new SceneMonster();
     monster.init(monsterVo);
     monster.addPath({ x: 150, y: 100 });
@@ -142,7 +147,18 @@ export class SceneMdr extends Laya.Scene {
     }
   }
 
+  private createMonster(): void {
+    if (this._entityList.length > 1) return;
+    const monsterVo = createMonster();
+    const monster = PoolMgr.alloc(SceneMonster);
+    monster.init(monsterVo);
+    monster.addPath({ x: 150, y: 100 });
+    this._player.battle = monster;
+  }
+
   public update(elapsed: number): void {
+    this.createMonster();
+
     const delTmp: SceneEntity[] = [];
     const list = this._entityList;
     for (const entity of list) {

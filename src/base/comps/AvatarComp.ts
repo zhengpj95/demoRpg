@@ -124,12 +124,15 @@ export class AvatarComp extends BaseComp {
       this._rpg.setAction(vo.action);
       this._rpg.setCnt(vo.action === Action.DEATH ? 1 : -1);
     }
+
+    if (vo.action === Action.DEATH) {
+      return;
+    }
     if (vo.hp <= 0) {
       vo.hp = 0;
       vo.action = Action.DEATH;
+      console.log(`AvatarComp: ${vo.name} is death!`);
     }
-    if (vo.hp >= 0) {
-      this._headHp.setHp(vo.hp, vo.maxHp);
-    }
+    this._headHp.setHp(vo.hp, vo.maxHp);
   }
 }
