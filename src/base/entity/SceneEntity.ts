@@ -25,6 +25,15 @@ export class SceneEntity implements ISceneUpdate {
     this._battle = value;
   }
 
+  private _isDone: boolean = false;
+  public set isDone(value: boolean) {
+    this._isDone = value;
+  }
+
+  public get isDone(): boolean {
+    return this._isDone;
+  }
+
   public init(vo: SceneEntityVO): void {
     this.vo = vo;
   }
@@ -53,8 +62,8 @@ export class SceneEntity implements ISceneUpdate {
       return false;
     }
     const compIns = <ICompTypeMap[K]>this._comps[type];
-    compIns.entity = null;
     compIns.stop();
+    compIns.entity = null;
     // CompMgr.removeComp(compIns);
     compIns.type = CompType.NONE;
     this._comps[type] = null;

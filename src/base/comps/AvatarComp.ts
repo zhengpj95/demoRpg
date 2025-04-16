@@ -7,6 +7,7 @@ import { CallBack } from "@base/CallBack";
 import { HeadUI } from "@base/entity/HeadUI";
 import PoolMgr from "@base/core/PoolMgr";
 import { SceneEvent } from "@def/scene";
+import { HeadHp } from "@base/entity/HeadHp";
 import Sprite = Laya.Sprite;
 
 function getDirectionScale(dir: number): { x: number; y: number } {
@@ -25,6 +26,7 @@ export class AvatarComp extends BaseComp {
   private _isLoadAtlas = false;
   private _rpg: RpgMovieClip;
   private _headUI: HeadUI;
+  private _headHp: HeadHp;
 
   public get display(): Sprite {
     return this._display;
@@ -55,6 +57,7 @@ export class AvatarComp extends BaseComp {
         -1,
         this.display,
         CallBack.alloc(this, this.onLoadRpg),
+        CallBack.alloc(this, this.playEnd),
       );
     }
     const scale = getDirectionScale(this.entity.vo.dir);
@@ -66,6 +69,13 @@ export class AvatarComp extends BaseComp {
       this.display.addChild(this._headUI);
       this._headUI.y = -50;
       this._headUI.x = -(this._headUI.width / 2) + -scale.x * 20;
+    }
+    if (!this._headHp) {
+      this._headHp = PoolMgr.alloc(HeadHp);
+      this._headHp.setHp(this.entity.vo.hp, this.entity.vo.maxHp);
+      this._headHp.y = -70;
+      this._headHp.x = -(this._headHp.width / 2) + -scale.x * 20;
+      this.display.addChild(this._headHp);
     }
 
     emitter.emit(SceneEvent.ADD_TO_SCENE, this.entity);
@@ -79,6 +89,10 @@ export class AvatarComp extends BaseComp {
       PoolMgr.release(this._headUI);
       this._headUI = <any>undefined;
     }
+    if (this._headHp) {
+      PoolMgr.release(this._headHp);
+      this._headHp = <any>undefined;
+    }
   }
 
   private onLoadRpg(): void {
@@ -88,6 +102,12 @@ export class AvatarComp extends BaseComp {
     img.width = 128;
     img.height = 128;
     this._rpg.addChild(img);
+  }
+
+  private playEnd(): void {
+    if (this.entity) {
+      this.entity.isDone = true;
+    }
   }
 
   public tick(delta: number): void {
@@ -102,6 +122,14 @@ export class AvatarComp extends BaseComp {
     if (vo.action && vo.action !== this._curAction) {
       this._curAction = vo.action;
       this._rpg.setAction(vo.action);
+      this._rpg.setCnt(vo.action === Action.DEATH ? 1 : -1);
+    }
+    if (vo.hp <= 0) {
+      vo.hp = 0;
+      vo.action = Action.DEATH;
+    }
+    if (vo.hp >= 0) {
+      this._headHp.setHp(vo.hp, vo.maxHp);
     }
   }
 }

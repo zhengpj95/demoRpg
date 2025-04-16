@@ -46,7 +46,7 @@ export class MoveComp extends BaseComp {
     const dis = Laya.timer.currTimer - this._lastMoveTime;
     if (vo.point.x > this._targetNode.x) {
       if (dis > this._moveInterval) {
-        vo.point.x -= 2;
+        vo.point.x -= 5;
         this._lastMoveTime = Laya.timer.currTimer;
       }
     } else {

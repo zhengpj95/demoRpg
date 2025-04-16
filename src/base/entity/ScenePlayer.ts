@@ -11,4 +11,8 @@ export class ScenePlayer extends SceneEntity {
     this.addComp(CompType.AVATAR);
     this.addComp(CompType.BATTLE);
   }
+
+  public update(elapsed: number): void {
+    super.update(elapsed);
+  }
 }

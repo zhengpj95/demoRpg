@@ -14,6 +14,7 @@ import { SceneEntity } from "@base/entity/SceneEntity";
 import { CompType } from "@base/comps/CompsConst";
 import { SceneEvent } from "@def/scene";
 import { TimerMgr } from "@base/TimerMgr";
+import { DebugMgr } from "@base/DebugMgr";
 import Sprite = Laya.Sprite;
 
 /**
@@ -29,6 +30,7 @@ export class SceneMdr extends Laya.Scene {
 
   constructor() {
     super();
+    DebugMgr.ins().debug("SceneMdr", this);
   }
 
   public onEnable(): void {
@@ -135,18 +137,30 @@ export class SceneMdr extends Laya.Scene {
     if (avatar && avatar.display) {
       avatar.display.removeSelf();
     }
-    entity.destroy();
     if (idx > -1) {
       this._entityList.splice(idx, 1);
     }
   }
 
   public update(elapsed: number): void {
-    // CompMgr.tick(elapsed);
-    for (const entity of this._entityList) {
+    const delTmp: SceneEntity[] = [];
+    const list = this._entityList;
+    for (const entity of list) {
       if (entity) {
-        entity.update(elapsed);
+        if (entity.isDone) {
+          delTmp.push(entity);
+        } else {
+          entity.update(elapsed);
+        }
       }
+    }
+    if (delTmp.length) {
+      for (const item of delTmp) {
+        item.destroy();
+        const idx = this._entityList.indexOf(item);
+        if (idx > -1) this._entityList.splice(idx, 1);
+      }
+      delTmp.length = 0;
     }
   }
 }

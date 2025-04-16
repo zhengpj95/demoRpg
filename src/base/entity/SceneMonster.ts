@@ -21,4 +21,8 @@ export class SceneMonster extends SceneEntity {
       comp.addPath(node);
     }
   }
+
+  public update(elapsed: number): void {
+    super.update(elapsed);
+  }
 }
