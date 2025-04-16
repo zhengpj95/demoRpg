@@ -1,3 +1,7 @@
+export interface ISceneUpdate extends IPoolObject {
+  update: (elapsed: number) => void;
+}
+
 export interface IPoolObject {
   onAlloc: () => void;
   onRelease: () => void;

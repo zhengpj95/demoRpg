@@ -1,5 +1,4 @@
 import { SceneMap } from "./SceneMap";
-import { CompMgr } from "@base/comps/CompMgr";
 import { SceneMonsterVo, ScenePlayerVO } from "@base/entity/SceneEntityVO";
 import {
   Action,
@@ -14,6 +13,7 @@ import { SceneMonster } from "@base/entity/SceneMonster";
 import { SceneEntity } from "@base/entity/SceneEntity";
 import { CompType } from "@base/comps/CompsConst";
 import { SceneEvent } from "@def/scene";
+import { TimerMgr } from "@base/TimerMgr";
 import Sprite = Laya.Sprite;
 
 /**
@@ -25,12 +25,13 @@ export class SceneMdr extends Laya.Scene {
   private _entitySprite: Sprite;
   private _singleMap: Sprite;
   private _player: ScenePlayer;
+  private _entityList: SceneEntity[] = [];
 
   constructor() {
     super();
   }
 
-  onEnable() {
+  public onEnable(): void {
     super.onEnable();
     emitter.on(SceneEvent.ADD_TO_SCENE, this.onAddEntity, this);
     emitter.on(SceneEvent.REMOVE_FROM_SCENE, this.onDelEntity, this);
@@ -46,7 +47,7 @@ export class SceneMdr extends Laya.Scene {
     return sprite;
   }
 
-  open(closeOther?: boolean, param?: any) {
+  public open(closeOther?: boolean, param?: any): void {
     super.open(closeOther, param);
 
     this._singleMap = new Sprite();
@@ -111,9 +112,7 @@ export class SceneMdr extends Laya.Scene {
     monster.init(monsterVo);
     monster.addPath({ x: 150, y: 100 });
     this._player.battle = monster;
-
-    // todo
-    CompMgr.start();
+    TimerMgr.ins().addTimer(this, this.update);
   }
 
   private onAddEntity(e: GEvent<SceneEntity>): void {
@@ -123,15 +122,31 @@ export class SceneMdr extends Laya.Scene {
     if (avatar) {
       this._entitySprite.addChild(avatar.display);
     }
+    if (this._entityList.indexOf(entity) < 0) {
+      this._entityList.push(entity);
+    }
   }
 
   private onDelEntity(e: GEvent<SceneEntity>): void {
     const entity = e.data;
     if (!entity) return;
+    const idx = this._entityList.indexOf(entity);
     const avatar = entity.getComp(CompType.AVATAR);
     if (avatar && avatar.display) {
       avatar.display.removeSelf();
     }
     entity.destroy();
+    if (idx > -1) {
+      this._entityList.splice(idx, 1);
+    }
+  }
+
+  public update(elapsed: number): void {
+    // CompMgr.tick(elapsed);
+    for (const entity of this._entityList) {
+      if (entity) {
+        entity.update(elapsed);
+      }
+    }
   }
 }

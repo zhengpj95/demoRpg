@@ -6,8 +6,9 @@ import "@base/FixLaya"; // 引入兼容一些laya内容
 import { emitter } from "@base/MessageMgr";
 import { BaseEvent } from "@base/BaseConst";
 import { initConfig } from "@base/cfg/GameCfg";
-import { HitMoleViewType } from "@def/hit_mole";
 import { loopTween } from "@base/tween/TweenManager";
+import { TimerMgr } from "@base/TimerMgr";
+import { HitMoleViewType } from "@def/hit_mole";
 import Event = Laya.Event;
 
 class Main {
@@ -126,6 +127,7 @@ function _loop(): boolean {
     console.log(e);
   }
   loopTween();
+  TimerMgr.ins().update();
   return true;
 }
 

@@ -1,11 +1,10 @@
-import { IPoolObject } from "@base/BaseConst";
+import { ISceneUpdate } from "@base/BaseConst";
 import { SceneEntityVO } from "./SceneEntityVO";
 import { BaseComp } from "@base/comps/BaseComp";
-import { CompMgr } from "@base/comps/CompMgr";
 import { CompType, CompTypeMap, ICompTypeMap } from "@base/comps/CompsConst";
 
 /**场景实体*/
-export class SceneEntity implements IPoolObject {
+export class SceneEntity implements ISceneUpdate {
   private _comps: Record<number, BaseComp> = {};
 
   private _vo: SceneEntityVO;
@@ -40,7 +39,7 @@ export class SceneEntity implements IPoolObject {
     compIns.entity = this;
     this._comps[type] = compIns;
     compIns.start();
-    CompMgr.addComp(compIns);
+    // CompMgr.addComp(compIns);
     return <ICompTypeMap[K]>compIns;
   }
 
@@ -48,6 +47,7 @@ export class SceneEntity implements IPoolObject {
     return <ICompTypeMap[K]>this._comps[type];
   }
 
+  public removeComp(type: CompType | number): boolean;
   public removeComp<K extends keyof ICompTypeMap>(type: K): boolean {
     if (!this._comps[type]) {
       return false;
@@ -55,15 +55,32 @@ export class SceneEntity implements IPoolObject {
     const compIns = <ICompTypeMap[K]>this._comps[type];
     compIns.entity = null;
     compIns.stop();
-    CompMgr.removeComp(compIns);
+    // CompMgr.removeComp(compIns);
     compIns.type = CompType.NONE;
     this._comps[type] = null;
     delete this._comps[type];
     return true;
   }
 
-  public tick(delta: number): void {
-    //
+  public update(elapsed: number): void {
+    if (!this.vo) return;
+
+    const delTmp: BaseComp[] = [];
+    const keys = Object.keys(this._comps);
+    for (const key of keys) {
+      const comp = <BaseComp>this._comps[key];
+      if (comp && comp.isRun) {
+        comp.tick(elapsed);
+      } else {
+        delTmp.push(comp);
+      }
+    }
+    if (delTmp.length) {
+      for (const tmp of delTmp) {
+        if (tmp) this.removeComp(tmp.type);
+      }
+      delTmp.length = 0;
+    }
   }
 
   public destroy(): void {

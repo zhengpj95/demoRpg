@@ -1,10 +1,11 @@
 import { SceneEntity } from "../entity/SceneEntity";
 import { CompType } from "./CompsConst";
+import { IPoolObject } from "@base/BaseConst";
 
 /**
  * 实体组件基类
  */
-export class BaseComp {
+export class BaseComp implements IPoolObject {
   /** 组件所属类型  */
   private _type: CompType;
   /** 组件在运行否 */
@@ -42,6 +43,18 @@ export class BaseComp {
 
   public stop(): void {
     this.isRun = false;
+  }
+
+  public onAlloc(): void {
+    this._isRun = false;
+    this._type = CompType.NONE;
+    this._entity = <any>undefined;
+  }
+
+  public onRelease(): void {
+    this._isRun = false;
+    this._type = CompType.NONE;
+    this._entity = <any>undefined;
   }
 
   public tick(delta: number): void {
