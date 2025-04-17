@@ -4,7 +4,7 @@
 import { ui } from "@ui/layaMaxUI";
 import { HitMoleViewType } from "@def/hit_mole";
 import { ModuleType } from "@def/ModuleConst";
-import { ComUtils } from "../../../ComUtils";
+import App from "../../../App";
 import Handler = Laya.Handler;
 
 export class HitMoleStartMdr extends ui.modules.hit_mole.HitMoleStartUI {
@@ -20,12 +20,12 @@ export class HitMoleStartMdr extends ui.modules.hit_mole.HitMoleStartUI {
 
   // 通过 ClickScale 绑定，皮肤中设定
   public onClickRule(): void {
-    ComUtils.openView(ModuleType.HIT_MOLE, HitMoleViewType.RULE);
+    App.openView(ModuleType.HIT_MOLE, HitMoleViewType.RULE);
   }
 
   // 通过button绑定
   private onBtnStar(): void {
-    ComUtils.closeView(ModuleType.HIT_MOLE, HitMoleViewType.START);
-    ComUtils.openView(ModuleType.HIT_MOLE, HitMoleViewType.MAIN);
+    App.closeView(ModuleType.HIT_MOLE, HitMoleViewType.START);
+    App.openView(ModuleType.HIT_MOLE, HitMoleViewType.MAIN);
   }
 }
