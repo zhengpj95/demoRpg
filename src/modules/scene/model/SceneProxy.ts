@@ -1,13 +1,11 @@
-import SingletonClass from "@base/core/SingletonClass";
+import { BaseProxy } from "@base/mvc/BaseProxy";
 
 /**
  * @author zpj
  * @date 2025/4/16
  */
-export class SceneProxy extends SingletonClass {
-  public static ins: () => SceneProxy;
-
-  public constructor() {
-    super();
+export class SceneProxy extends BaseProxy {
+  public init(): void {
+    super.init();
   }
 }

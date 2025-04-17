@@ -5,7 +5,7 @@ import { ILoginProxy } from "@def/login";
  * @date 2024/4/13
  */
 export class LoginProxy extends BaseProxy implements ILoginProxy {
-  init() {
+  public init(): void {
     super.init();
   }
 }
