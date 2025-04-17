@@ -1,5 +1,5 @@
 import { BaseProxy } from "@base/mvc/BaseProxy";
-import { ILoginProxy } from "@def/Login";
+import { ILoginProxy } from "@def/login";
 
 /**
  * @date 2024/4/13

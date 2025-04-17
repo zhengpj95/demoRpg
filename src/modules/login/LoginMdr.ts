@@ -6,7 +6,7 @@ import { CommonEvent, IOpenCloseData } from "@def/misc";
 import { ModuleType } from "@def/ModuleConst";
 import { emitter } from "@base/MessageMgr";
 import { SceneViewType } from "@def/scene";
-import { LoginViewType } from "@def/Login";
+import { LoginViewType } from "@def/login";
 
 export class LoginMdr extends ui.modules.login.LoginUI {
   onEnable() {
