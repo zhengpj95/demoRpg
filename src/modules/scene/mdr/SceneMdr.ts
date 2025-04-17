@@ -13,7 +13,7 @@ import { SceneMonster } from "@base/entity/SceneMonster";
 import { SceneEntity } from "@base/entity/SceneEntity";
 import { CompType } from "@base/comps/CompsConst";
 import { SceneEvent } from "@def/scene";
-import { TimerMgr } from "@base/TimerMgr";
+import { UpdateMgr } from "@base/UpdateMgr";
 import { DebugMgr } from "@base/DebugMgr";
 import PoolMgr from "@base/core/PoolMgr";
 import Sprite = Laya.Sprite;
@@ -119,7 +119,7 @@ export class SceneMdr extends Laya.Scene {
     monster.init(monsterVo);
     monster.addPath({ x: 150, y: 100 });
     this._player.battle = monster;
-    TimerMgr.ins().addTimer(this, this.update);
+    UpdateMgr.ins().addTimer(this, this.update);
   }
 
   private onAddEntity(e: GEvent<SceneEntity>): void {

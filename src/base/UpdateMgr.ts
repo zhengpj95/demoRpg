@@ -4,8 +4,8 @@ import SingletonClass from "@base/core/SingletonClass";
  * @author zpj
  * @date 2025/4/16
  */
-export class TimerMgr extends SingletonClass {
-  public static ins: () => TimerMgr;
+export class UpdateMgr extends SingletonClass {
+  public static ins: () => UpdateMgr;
   private _timerList: { thisObj: any; func: (elapsed: number) => void }[] = [];
   private _lastLoop: number = 0;
 

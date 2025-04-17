@@ -3,6 +3,7 @@ import { initFacade } from "@base/mvc/Facade";
 import { LayerMgr } from "@base/LayerMgr";
 import { initEmitter } from "@base/MessageMgr";
 import { DebugMgr } from "@base/DebugMgr";
+import { UpdateMgr } from "@base/UpdateMgr";
 import Event = Laya.Event;
 
 /**
@@ -25,6 +26,14 @@ export default class App {
 
   public static get layerMgr(): LayerMgr {
     return LayerMgr.ins();
+  }
+
+  public static get updateMgr(): UpdateMgr {
+    return UpdateMgr.ins();
+  }
+
+  public static get debugMgr(): DebugMgr {
+    return DebugMgr.ins();
   }
 
   /**==============================================================*/

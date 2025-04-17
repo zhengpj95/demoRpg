@@ -7,8 +7,8 @@ import { emitter } from "@base/MessageMgr";
 import { BaseEvent } from "@base/BaseConst";
 import { initConfig } from "@base/cfg/GameCfg";
 import { loopTween } from "@base/tween/TweenManager";
-import { TimerMgr } from "@base/TimerMgr";
-import { HitMoleViewType } from "@def/hit_mole";
+import { SceneViewType } from "@def/scene";
+import { UpdateMgr } from "@base/UpdateMgr";
 import Event = Laya.Event;
 
 class Main {
@@ -88,8 +88,8 @@ class Main {
     // Laya.stage.addChild(mdr);
 
     emitter.emit(CommonEvent.OPEN_VIEW, <IOpenCloseData>{
-      module: ModuleType.HIT_MOLE,
-      view: HitMoleViewType.START,
+      module: ModuleType.SCENE,
+      view: SceneViewType.SCENE,
     });
 
     Laya.stage.on(Event.CLICK, this, this.onClick);
@@ -127,7 +127,7 @@ function _loop(): boolean {
     console.log(e);
   }
   loopTween();
-  TimerMgr.ins().update();
+  UpdateMgr.ins().update();
   return true;
 }
 
