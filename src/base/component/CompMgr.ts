@@ -1,13 +1,13 @@
-import { BaseComp } from "./BaseComp";
+import { BaseComponent } from "./BaseComponent";
 import { DebugMgr } from "@base/DebugMgr";
 
 /**
  * 实体管理器
  */
 export class CompMgr {
-  private static _compMap: Record<number, BaseComp[]> = {};
+  private static _compMap: Record<number, BaseComponent[]> = {};
 
-  public static addComp(comp: BaseComp): void {
+  public static addComp(comp: BaseComponent): void {
     if (!comp) {
       return;
     }
@@ -17,7 +17,7 @@ export class CompMgr {
     this._compMap[comp.type].push(comp);
   }
 
-  public static removeComp(comp: BaseComp): void {
+  public static removeComp(comp: BaseComponent): void {
     if (
       !comp ||
       !this._compMap[comp.type] ||

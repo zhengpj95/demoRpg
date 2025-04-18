@@ -1,4 +1,4 @@
-import { BaseComp } from "@base/comps/BaseComp";
+import { BaseComponent } from "@base/component/BaseComponent";
 import { Action } from "@base/entity/EntityConst";
 
 const ATTACK_DIS = 50;
@@ -6,7 +6,7 @@ const ATTACK_DIS = 50;
 /**
  * @date 2024/6/26
  */
-export class BattleComp extends BaseComp {
+export class BattleComponent extends BaseComponent {
   private _isAttack = false;
   private _lastAttackTime = 0;
 

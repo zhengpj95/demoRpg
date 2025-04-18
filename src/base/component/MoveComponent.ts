@@ -1,10 +1,10 @@
-import { BaseComp } from "@base/comps/BaseComp";
-import { CompType } from "@base/comps/CompsConst";
-import { AvatarComp } from "@base/comps/AvatarComp";
+import { BaseComponent } from "@base/component/BaseComponent";
+import { CompType } from "@base/component/CompsConst";
+import { AvatarComponent } from "@base/component/AvatarComponent";
 import { Action } from "@base/entity/EntityConst";
 import { PathNode } from "@base/BaseConst";
 
-export class MoveComp extends BaseComp {
+export class MoveComponent extends BaseComponent {
   private _moveInterval = 1; //间隔，毫秒
   private _lastMoveTime = 0;
   private _pathList: PathNode[] = [];
@@ -42,7 +42,7 @@ export class MoveComp extends BaseComp {
 
     const entity = this.entity;
     const vo = entity.vo;
-    const avatar = <AvatarComp>entity.getComp(CompType.AVATAR);
+    const avatar = <AvatarComponent>entity.getComp(CompType.AVATAR);
     const dis = Laya.timer.currTimer - this._lastMoveTime;
     if (vo.point.x > this._targetNode.x) {
       if (dis > this._moveInterval) {

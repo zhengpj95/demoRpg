@@ -1,5 +1,5 @@
 import { ScenePlayerVO } from "@base/entity/SceneEntityVO";
-import { CompType } from "@base/comps/CompsConst";
+import { CompType } from "@base/component/CompsConst";
 import { SceneEntity } from "@base/entity/SceneEntity";
 
 /**

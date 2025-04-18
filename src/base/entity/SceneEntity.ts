@@ -1,12 +1,16 @@
 import { ISceneUpdate } from "@base/BaseConst";
 import { SceneEntityVO } from "./SceneEntityVO";
-import { BaseComp } from "@base/comps/BaseComp";
-import { CompType, CompTypeMap, ICompTypeMap } from "@base/comps/CompsConst";
+import { BaseComponent } from "@base/component/BaseComponent";
+import {
+  CompType,
+  CompTypeMap,
+  ICompTypeMap,
+} from "@base/component/CompsConst";
 import PoolMgr from "@base/core/PoolMgr";
 
 /**场景实体*/
 export class SceneEntity implements ISceneUpdate {
-  private _comps: Record<number, BaseComp> = {};
+  private _comps: Record<number, BaseComponent> = {};
 
   private _vo: SceneEntityVO;
   get vo(): SceneEntityVO {
@@ -75,10 +79,10 @@ export class SceneEntity implements ISceneUpdate {
   public update(elapsed: number): void {
     if (!this.vo) return;
 
-    const delTmp: BaseComp[] = [];
+    const delTmp: BaseComponent[] = [];
     const keys = Object.keys(this._comps);
     for (const key of keys) {
-      const comp = <BaseComp>this._comps[key];
+      const comp = <BaseComponent>this._comps[key];
       if (comp && comp.isRun) {
         comp.tick(elapsed);
       } else {

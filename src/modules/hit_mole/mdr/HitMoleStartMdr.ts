@@ -4,7 +4,8 @@
 import { ui } from "@ui/layaMaxUI";
 import { HitMoleViewType } from "@def/hit_mole";
 import { ModuleType } from "@def/ModuleConst";
-import App from "../../../App";
+import { emitter } from "@base/MessageMgr";
+import { CommonEvent, IOpenCloseData } from "@def/misc";
 import Handler = Laya.Handler;
 
 export class HitMoleStartMdr extends ui.modules.hit_mole.HitMoleStartUI {
@@ -20,12 +21,21 @@ export class HitMoleStartMdr extends ui.modules.hit_mole.HitMoleStartUI {
 
   // 通过 ClickScale 绑定，皮肤中设定
   public onClickRule(): void {
-    App.openView(ModuleType.HIT_MOLE, HitMoleViewType.RULE);
+    emitter.emit(CommonEvent.OPEN_VIEW, <IOpenCloseData>{
+      module: ModuleType.HIT_MOLE,
+      view: HitMoleViewType.RULE,
+    });
   }
 
   // 通过button绑定
   private onBtnStar(): void {
-    App.closeView(ModuleType.HIT_MOLE, HitMoleViewType.START);
-    App.openView(ModuleType.HIT_MOLE, HitMoleViewType.MAIN);
+    emitter.emit(CommonEvent.CLOSE_VIEW, <IOpenCloseData>{
+      module: ModuleType.HIT_MOLE,
+      view: HitMoleViewType.START,
+    });
+    emitter.emit(CommonEvent.OPEN_VIEW, <IOpenCloseData>{
+      module: ModuleType.HIT_MOLE,
+      view: HitMoleViewType.MAIN,
+    });
   }
 }

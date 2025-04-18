@@ -1,4 +1,4 @@
-import { BaseComp } from "./BaseComp";
+import { BaseComponent } from "./BaseComponent";
 import { CompType } from "./CompsConst";
 import { emitter } from "@base/MessageMgr";
 import { Action, Direction } from "@base/entity/EntityConst";
@@ -20,7 +20,7 @@ function getDirectionScale(dir: number): { x: number; y: number } {
 /**
  * 场景模型
  */
-export class AvatarComp extends BaseComp {
+export class AvatarComponent extends BaseComponent {
   private _display: Sprite;
   private _curAction: Action;
   private _isLoadAtlas = false;

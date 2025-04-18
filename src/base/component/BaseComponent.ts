@@ -5,7 +5,7 @@ import { IPoolObject } from "@base/BaseConst";
 /**
  * 实体组件基类
  */
-export class BaseComp implements IPoolObject {
+export class BaseComponent implements IPoolObject {
   /** 组件所属类型  */
   private _type: CompType;
   /** 组件在运行否 */

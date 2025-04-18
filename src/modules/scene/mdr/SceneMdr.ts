@@ -11,7 +11,7 @@ import { emitter } from "@base/MessageMgr";
 import { GEvent } from "@base/core/GEvent";
 import { SceneMonster } from "@base/entity/SceneMonster";
 import { SceneEntity } from "@base/entity/SceneEntity";
-import { CompType } from "@base/comps/CompsConst";
+import { CompType } from "@base/component/CompsConst";
 import { SceneEvent } from "@def/scene";
 import { UpdateMgr } from "@base/UpdateMgr";
 import { DebugMgr } from "@base/DebugMgr";
