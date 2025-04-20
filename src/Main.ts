@@ -1,5 +1,5 @@
 import GameConfig from "./GameConfig";
-import App from "./App";
+import { setApp } from "./App";
 import { ModuleType } from "@def/ModuleConst";
 import { CommonEvent, IOpenCloseData } from "@def/misc";
 import "@base/FixLaya"; // 引入兼容一些laya内容
@@ -81,7 +81,7 @@ class Main {
     // 这种方式加载scene的，如果不设置runtime，scene对应的代码文件不会执行到。
     // GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
 
-    App.init();
+    setApp();
 
     // 分离模式处理，把scene对应的代码文件加到舞台上即可，代码中自动绑定对应的scene了
     // const mdr = new HpSingle();

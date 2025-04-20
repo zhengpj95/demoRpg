@@ -11,37 +11,37 @@ import Event = Laya.Event;
 /**
  * @date 2024/4/10
  */
-export default class App {
-  public static init(): void {
+class App {
+  public init(): void {
     initEmitter();
     initFacade();
 
     // 注册所有模块
     initModules();
 
-    App.layerMgr.onResize();
+    this.layerMgr.onResize();
     Laya.stage.on(Event.RESIZE, this.layerMgr, this.layerMgr.onResize);
   }
 
   //region getter
   /**==============================================================*/
 
-  public static get layerMgr(): LayerMgr {
+  public get layerMgr(): LayerMgr {
     return LayerMgr.ins();
   }
 
-  public static get updateMgr(): UpdateMgr {
+  public get updateMgr(): UpdateMgr {
     return UpdateMgr.ins();
   }
 
-  public static get debugMgr(): DebugMgr {
+  public get debugMgr(): DebugMgr {
     return DebugMgr.ins();
   }
 
   /**==============================================================*/
   //endregion getter
 
-  public static openView(m: ModuleType, v: number | string, param?: any): void {
+  public openView(m: ModuleType, v: number | string, param?: any): void {
     emitter.emit(CommonEvent.OPEN_VIEW, <IOpenCloseData>{
       module: m,
       view: v,
@@ -49,11 +49,21 @@ export default class App {
     });
   }
 
-  public static closeView(m: ModuleType, v: number | string): void {
+  public closeView(m: ModuleType, v: number | string): void {
     emitter.emit(CommonEvent.CLOSE_VIEW, <IOpenCloseData>{
       module: m,
       view: v,
     });
   }
 }
-DebugMgr.ins().debug("App", App);
+
+export let app: App;
+
+export function setApp(): void {
+  app = new App();
+  app.init();
+
+  if (window) {
+    window["app"] = app;
+  }
+}
