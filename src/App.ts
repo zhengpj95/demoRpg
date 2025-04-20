@@ -1,11 +1,9 @@
 import { initModules } from "./modules/InitModules";
 import { initFacade } from "@base/mvc/Facade";
 import { LayerMgr } from "@base/LayerMgr";
-import { emitter, initEmitter } from "@base/MessageMgr";
+import { initEmitter } from "@base/MessageMgr";
 import { DebugMgr } from "@base/DebugMgr";
 import { UpdateMgr } from "@base/UpdateMgr";
-import { ModuleType } from "@def/ModuleConst";
-import { CommonEvent, IOpenCloseData } from "@def/misc";
 import Event = Laya.Event;
 
 /**
@@ -40,21 +38,6 @@ class App {
 
   /**==============================================================*/
   //endregion getter
-
-  public openView(m: ModuleType, v: number | string, param?: any): void {
-    emitter.emit(CommonEvent.OPEN_VIEW, <IOpenCloseData>{
-      module: m,
-      view: v,
-      param: param,
-    });
-  }
-
-  public closeView(m: ModuleType, v: number | string): void {
-    emitter.emit(CommonEvent.CLOSE_VIEW, <IOpenCloseData>{
-      module: m,
-      view: v,
-    });
-  }
 }
 
 export let app: App;
