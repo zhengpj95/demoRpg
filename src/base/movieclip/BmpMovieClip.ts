@@ -19,6 +19,7 @@ export class BmpMovieClip extends BitmapBase implements IPoolObject {
   private _playCnt: number = 1;
   private _interval: number = 1000 / INIT_FPS;
   private _remove = false;
+  private _removeParent = false;
   private _container?: Sprite;
 
   public center = true;
@@ -29,11 +30,13 @@ export class BmpMovieClip extends BitmapBase implements IPoolObject {
     container?: Sprite,
     callBack?: CallBack,
     remove?: boolean,
+    removeParent?: boolean,
   ): void {
     this._playCnt = cnt;
+    this._container = container;
     this._callBack = callBack;
     this._remove = remove;
-    this._container = container;
+    this._removeParent = removeParent;
     MergedBitmap.onLoad(url, CallBack.alloc(this, this.onLoadedMergedBitmap));
   }
 
@@ -41,7 +44,6 @@ export class BmpMovieClip extends BitmapBase implements IPoolObject {
     if (!bitmap) {
       throw new Error(`BmpMovieClip load alta fail`);
     }
-    console.log(bitmap);
     this._mergedBitmap = bitmap;
     this._total = bitmap.getTextureList().length;
     this._current = 0;
@@ -55,7 +57,6 @@ export class BmpMovieClip extends BitmapBase implements IPoolObject {
     this._current++;
     if (this._current <= this._total) {
       this.source = this._mergedBitmap.getTextureList()[this._current - 1];
-      console.log(11111, this.texture.sourceWidth, this.texture.sourceHeight);
       return;
     }
     if (this._playCnt < 0) {
@@ -80,6 +81,9 @@ export class BmpMovieClip extends BitmapBase implements IPoolObject {
     }
     if (this._remove) {
       this.removeSelf();
+    }
+    if (this._removeParent && this._container) {
+      this._container.removeSelf();
     }
   }
 

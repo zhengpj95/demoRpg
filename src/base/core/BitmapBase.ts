@@ -27,7 +27,7 @@ export function resetDisplay(dis: Sprite): void {
   dis.rotation = 0;
   dis.width = dis.height = NaN;
   dis.pivot(0, 0);
-  dis.visible = false;
+  dis.visible = true;
   dis.filters = <any>null;
 }
 
