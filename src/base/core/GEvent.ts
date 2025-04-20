@@ -32,11 +32,11 @@ export class GEvent<T = any> implements IPoolObject {
     return e;
   }
 
-  onAlloc(): void {
+  public onAlloc(): void {
     //
   }
 
-  onRelease(): void {
+  public onRelease(): void {
     this.type = "";
     this.data = undefined;
   }

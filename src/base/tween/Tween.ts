@@ -85,6 +85,7 @@ export class TweenImpl implements Tween {
   // 更新缓动
   public update(currentTime: number): boolean {
     if (this.startTime === null) return false;
+    if (!this.target) return true;
 
     const elapsed = currentTime - this.startTime;
     let t = (elapsed * this.timeScale) / this.duration;

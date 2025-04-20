@@ -142,11 +142,11 @@ export class BitmapBase extends Sprite implements IPoolObject {
     // 子类重写
   }
 
-  onAlloc(): void {
+  public onAlloc(): void {
     this.loadPri = LoadPriority.UI;
   }
 
-  onRelease(): void {
+  public onRelease(): void {
     this.center = false;
     this.removeSelf();
     resetDisplay(this);

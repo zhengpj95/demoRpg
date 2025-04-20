@@ -14,12 +14,3 @@ export default class SingletonClass {
     return this._instance;
   }
 }
-
-// export class TestSingleton extends SingletonClass {
-//   public static ins: () => TestSingleton;
-//
-//   // 调用：TestSingleton.ins().update();
-//   public update(): void {
-//     console.log("test11111");
-//   }
-// }
