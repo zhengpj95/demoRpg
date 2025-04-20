@@ -42,7 +42,7 @@ export class MoveComponent extends BaseComponent {
 
     const entity = this.entity;
     const vo = entity.vo;
-    const avatar = <AvatarComponent>entity.getComp(CompType.AVATAR);
+    const avatar = <AvatarComponent>entity.getComponent(CompType.AVATAR);
     const dis = Laya.timer.currTimer - this._lastMoveTime;
     if (vo.point.x > this._targetNode.x) {
       if (dis > this._moveInterval) {

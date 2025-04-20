@@ -9,14 +9,14 @@ import { PathNode } from "@base/BaseConst";
 export class SceneMonster extends SceneEntity {
   public init(vo: SceneMonsterVo): void {
     super.init(vo);
-    this.addComp(CompType.AVATAR);
-    this.addComp(CompType.MOVE);
-    this.addComp(CompType.BATTLE);
+    this.addComponent(CompType.AVATAR);
+    this.addComponent(CompType.MOVE);
+    this.addComponent(CompType.BATTLE);
   }
 
   /**添加路径*/
   public addPath(node: PathNode): void {
-    const comp = this.getComp(CompType.MOVE);
+    const comp = this.getComponent(CompType.MOVE);
     if (comp) {
       comp.addPath(node);
     }

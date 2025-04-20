@@ -125,7 +125,7 @@ export class SceneMdr extends Laya.Scene {
   private onAddEntity(e: GEvent<SceneEntity>): void {
     const entity = e.data;
     if (!entity) return;
-    const avatar = entity.getComp(CompType.AVATAR);
+    const avatar = entity.getComponent(CompType.AVATAR);
     if (avatar) {
       this._entitySprite.addChild(avatar.display);
     }
@@ -138,7 +138,7 @@ export class SceneMdr extends Laya.Scene {
     const entity = e.data;
     if (!entity) return;
     const idx = this._entityList.indexOf(entity);
-    const avatar = entity.getComp(CompType.AVATAR);
+    const avatar = entity.getComponent(CompType.AVATAR);
     if (avatar && avatar.display) {
       avatar.display.removeSelf();
     }

@@ -8,11 +8,47 @@ import { SceneEntity } from "@base/entity/SceneEntity";
 export class ScenePlayer extends SceneEntity {
   public init(vo: ScenePlayerVO): void {
     super.init(vo);
-    this.addComp(CompType.AVATAR);
-    this.addComp(CompType.BATTLE);
+    if (!vo.skills) {
+      vo.skills = [];
+    }
+    this.addComponent(CompType.AVATAR);
+    this.addComponent(CompType.BATTLE);
   }
 
   public update(elapsed: number): void {
     super.update(elapsed);
+
+    this.addSkillId();
+
+    if (this.canAddSkill()) {
+      this.addSkill();
+    }
+  }
+
+  private addSkillId(): void {
+    if (
+      this.vo &&
+      this.battle &&
+      !this.getComponent(CompType.SKILL) &&
+      this.battle.vo.hp < (this.battle.vo.maxHp / 2) >> 0
+    ) {
+      if (!(this.vo as ScenePlayerVO).skills) {
+        (this.vo as ScenePlayerVO).skills = [];
+      }
+      (this.vo as ScenePlayerVO).skills.push(10001);
+    }
+  }
+
+  private canAddSkill(): boolean {
+    if (!this.battle || !this.vo) return false;
+    const skills = (this.vo as ScenePlayerVO).skills || [];
+    if (!skills || !skills.length) return false;
+    return skills.length && !this.getComponent(CompType.SKILL);
+  }
+
+  private addSkill(): void {
+    if (!this.getComponent(CompType.SKILL)) {
+      this.addComponent(CompType.SKILL);
+    }
   }
 }

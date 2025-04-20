@@ -79,8 +79,8 @@ export class BattleComponent extends BaseComponent {
     let randomHp = (Math.random() * 1000) >> 0;
     if (randomHp < 100) randomHp += 100;
     this.entity.battle.vo.hp -= randomHp;
-    console.log(
-      `11111 BattleComp continueAttack ${this.entity.battle.vo.hp} ${randomHp}`,
-    );
+    // console.log(
+    //   `11111 BattleComp continueAttack ${this.entity.battle.vo.hp} ${randomHp}`,
+    // );
   }
 }

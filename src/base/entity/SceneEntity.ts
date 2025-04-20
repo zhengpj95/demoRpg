@@ -10,7 +10,7 @@ import PoolMgr from "@base/core/PoolMgr";
 
 /**场景实体*/
 export class SceneEntity implements ISceneUpdate {
-  private _comps: Record<number, BaseComponent> = {};
+  private _components: Record<number, BaseComponent> = {};
 
   private _vo: SceneEntityVO;
   get vo(): SceneEntityVO {
@@ -43,36 +43,36 @@ export class SceneEntity implements ISceneUpdate {
     this.vo = vo;
   }
 
-  public addComp<K extends keyof ICompTypeMap>(type: K): ICompTypeMap[K] {
-    if (this._comps[type]) {
-      return <ICompTypeMap[K]>this._comps[type];
+  public addComponent<K extends keyof ICompTypeMap>(type: K): ICompTypeMap[K] {
+    if (this._components[type]) {
+      return <ICompTypeMap[K]>this._components[type];
     }
     const comp = CompTypeMap[type];
     const compIns = new comp();
     compIns.type = type;
     compIns.entity = this;
-    this._comps[type] = compIns;
+    this._components[type] = compIns;
     compIns.start();
     // CompMgr.addComp(compIns);
     return <ICompTypeMap[K]>compIns;
   }
 
-  public getComp<K extends keyof ICompTypeMap>(type: K): ICompTypeMap[K] {
-    return <ICompTypeMap[K]>this._comps[type];
+  public getComponent<K extends keyof ICompTypeMap>(type: K): ICompTypeMap[K] {
+    return <ICompTypeMap[K]>this._components[type];
   }
 
-  public removeComp(type: CompType | number): boolean;
-  public removeComp<K extends keyof ICompTypeMap>(type: K): boolean {
-    if (!this._comps[type]) {
+  public removeComponent(type: CompType | number): boolean;
+  public removeComponent<K extends keyof ICompTypeMap>(type: K): boolean {
+    if (!this._components[type]) {
       return false;
     }
-    const compIns = <ICompTypeMap[K]>this._comps[type];
+    const compIns = <ICompTypeMap[K]>this._components[type];
     compIns.stop();
     compIns.entity = null;
     // CompMgr.removeComp(compIns);
     compIns.type = CompType.NONE;
-    this._comps[type] = null;
-    delete this._comps[type];
+    this._components[type] = null;
+    delete this._components[type];
     return true;
   }
 
@@ -80,9 +80,9 @@ export class SceneEntity implements ISceneUpdate {
     if (!this.vo) return;
 
     const delTmp: BaseComponent[] = [];
-    const keys = Object.keys(this._comps);
+    const keys = Object.keys(this._components);
     for (const key of keys) {
-      const comp = <BaseComponent>this._comps[key];
+      const comp = <BaseComponent>this._components[key];
       if (comp && comp.isRun) {
         comp.tick(elapsed);
       } else {
@@ -91,7 +91,7 @@ export class SceneEntity implements ISceneUpdate {
     }
     if (delTmp.length) {
       for (const tmp of delTmp) {
-        if (tmp) this.removeComp(tmp.type);
+        if (tmp) this.removeComponent(tmp.type);
       }
       delTmp.length = 0;
     }
@@ -103,17 +103,17 @@ export class SceneEntity implements ISceneUpdate {
   }
 
   public onAlloc(): void {
-    this._comps = {};
+    this._components = {};
     this.vo = <any>undefined;
     this.battle = <any>undefined;
   }
 
   public onRelease(): void {
-    const keys = Object.keys(this._comps);
+    const keys = Object.keys(this._components);
     for (const key of keys) {
-      this.removeComp(+key);
+      this.removeComponent(+key);
     }
-    this._comps = {};
+    this._components = {};
     this._isDone = false;
     this._vo = <any>undefined;
   }

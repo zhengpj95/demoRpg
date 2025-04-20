@@ -98,10 +98,10 @@ export class AvatarComponent extends BaseComponent {
   private onLoadRpg(): void {
     this._isLoadAtlas = true;
 
-    const img = new Laya.Image("comp/img_blank.png");
-    img.width = 128;
-    img.height = 128;
-    this._rpg.addChild(img);
+    // const img = new Laya.Image("comp/img_blank.png");
+    // img.width = 128;
+    // img.height = 128;
+    // this._rpg.addChild(img);
   }
 
   private playEnd(): void {

@@ -7,14 +7,15 @@ export interface SceneEntityVO {
   maxHp: number;
   power: number;
   type: SceneEntityType;
-  point?: { x: number; y: number };
-  action?: Action;
+  point: { x: number; y: number };
+  action: Action;
   avatarName: string;
   dir: Direction;
 }
 
 export interface ScenePlayerVO extends SceneEntityVO {
   vip: number;
+  skills?: number[];
 }
 
 export interface SceneMonsterVo extends SceneEntityVO {
