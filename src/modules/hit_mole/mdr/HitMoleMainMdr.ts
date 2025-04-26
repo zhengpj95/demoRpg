@@ -1,15 +1,18 @@
 /**
  * @date 2024/11/16
  */
-import { ui } from "@ui/layaMaxUI";
 import { emitter } from "@base/MessageMgr";
 import { BaseEvent } from "@base/BaseConst";
 import { GEvent } from "@base/core/GEvent";
+import { BaseMediator } from "@base/mvc/BaseMediator";
+import { ui } from "@ui/layaMaxUI";
+import { LayerIndex } from "@base/LayerMgr";
 import Box = Laya.Box;
 import Image = Laya.Image;
 import Tween = Laya.Tween;
 import Handler = Laya.Handler;
 import Point = Laya.Point;
+import HitMoleMainUI = ui.modules.hit_mole.HitMoleMainUI;
 
 type BoxHole = Box & {
   imgBg: Image;
@@ -17,7 +20,7 @@ type BoxHole = Box & {
 };
 const FUN_TIME = 90;
 
-export class HitMoleMainMdr extends ui.modules.hit_mole.HitMoleMainUI {
+export class HitMoleMainMdr extends BaseMediator<HitMoleMainUI> {
   private _boxList: BoxHole[] = [];
   private _preIdx = -1;
   private _animalTweenTime = 300;
@@ -25,24 +28,35 @@ export class HitMoleMainMdr extends ui.modules.hit_mole.HitMoleMainUI {
   private _timeSec = FUN_TIME;
   private _setTimeMap = {};
 
-  onEnable() {
-    super.onEnable();
+  constructor() {
+    super("modules/hit_mole/HitMoleMain.scene", LayerIndex.WIN);
+  }
+
+  protected addEvents(): void {}
+
+  protected initUI(): void {}
+
+  protected onClose(): void {}
+
+  protected removeEvents(): void {}
+
+  protected onOpen(): void {
     this._animalTweenTime = 300;
-    this.boxOver.visible = false;
+    this.ui.boxOver.visible = false;
 
     for (let i = 1; i <= 9; i++) {
-      const box = <BoxHole>this.getChildByName("boxHole" + i);
+      const box = <BoxHole>this.ui.getChildByName("boxHole" + i);
       this._boxList.push(box);
     }
 
     this._boxList.forEach((item) => this.initHole(item));
 
-    this.timerLoop(1200, this, this.startTick);
-    this.timerLoop(1000, this, this.updateTime);
+    this.ui.timerLoop(1200, this, this.startTick);
+    this.ui.timerLoop(1000, this, this.updateTime);
     this.updateTime();
 
     emitter.on(BaseEvent.STAGE_CLICK, this.onClickStage, this);
-    this.boxHammer.visible = false;
+    this.ui.boxHammer.visible = false;
   }
 
   private initHole(box: BoxHole): void {
@@ -58,29 +72,29 @@ export class HitMoleMainMdr extends ui.modules.hit_mole.HitMoleMainUI {
     if (this._timeSec <= FUN_TIME / 3) {
       this._animalTweenTime = 150;
       if (!this._setTimeMap[3]) {
-        this.timerLoop(800, this, this.startTick);
+        this.ui.timerLoop(800, this, this.startTick);
         this._setTimeMap[3] = 1;
       }
     } else if (this._timeSec <= FUN_TIME / 2) {
       this._animalTweenTime = 200;
       if (!this._setTimeMap[2]) {
-        this.timerLoop(1000, this, this.startTick);
+        this.ui.timerLoop(1000, this, this.startTick);
         this._setTimeMap[2] = 1;
       }
     }
 
     this._timeSec--;
-    this.timeBar.value = Math.max(0, this._timeSec / FUN_TIME);
+    this.ui.timeBar.value = Math.max(0, this._timeSec / FUN_TIME);
 
     if (this._timeSec < 0) {
-      this.timer.clearAll(this);
+      this.ui.timer.clearAll(this);
       this.showOverBox();
     }
   }
 
   private showOverBox(): void {
-    this.boxOver.visible = true;
-    this.labOverValue.text = this._score + "";
+    this.ui.boxOver.visible = true;
+    this.ui.labOverValue.text = this._score + "";
   }
 
   private getRandomIdx(): number {
@@ -138,11 +152,11 @@ export class HitMoleMainMdr extends ui.modules.hit_mole.HitMoleMainUI {
     }
     const pos = e.data;
     const point = new Point(pos[0], pos[1]);
-    const localPos = this.globalToLocal(point);
-    this.boxHammer.x = localPos.x + this.boxHammer.width / 2;
-    this.boxHammer.y = localPos.y + this.boxHammer.height / 2;
-    this.boxHammer.rotation = 0;
-    this.boxHammer.visible = true;
+    const localPos = this.ui.globalToLocal(point);
+    this.ui.boxHammer.x = localPos.x + this.ui.boxHammer.width / 2;
+    this.ui.boxHammer.y = localPos.y + this.ui.boxHammer.height / 2;
+    this.ui.boxHammer.rotation = 0;
+    this.ui.boxHammer.visible = true;
     const hit = this.checkHit(localPos);
     if (hit[0]) {
       // console.log(`11111 ${this._preIdx}, ${hit}`);
@@ -152,7 +166,7 @@ export class HitMoleMainMdr extends ui.modules.hit_mole.HitMoleMainUI {
       }
     }
     Tween.to(
-      this.boxHammer,
+      this.ui.boxHammer,
       { rotation: 45 },
       100,
       undefined,
@@ -162,12 +176,12 @@ export class HitMoleMainMdr extends ui.modules.hit_mole.HitMoleMainUI {
 
   private clickEnd(): void {
     Tween.to(
-      this.boxHammer,
+      this.ui.boxHammer,
       { rotation: 0 },
       100,
       undefined,
       Handler.create(this, () => {
-        this.boxHammer.visible = false;
+        this.ui.boxHammer.visible = false;
       }),
     );
   }
@@ -198,7 +212,7 @@ export class HitMoleMainMdr extends ui.modules.hit_mole.HitMoleMainUI {
     img.visible = true;
     img.centerX = 0;
     img.centerY = 0;
-    this.boxTips.addChild(img);
+    this.ui.boxTips.addChild(img);
     Tween.to(
       img,
       { y: -200 },
@@ -216,19 +230,19 @@ export class HitMoleMainMdr extends ui.modules.hit_mole.HitMoleMainUI {
   }
 
   private btnRestartFunc(): void {
-    this.boxOver.visible = false;
+    this.ui.boxOver.visible = false;
     this._animalTweenTime = 300;
     this._score = 0;
     this._setTimeMap = {};
     this._preIdx = -1;
     this._boxList.forEach((item) => this.initHole(item));
-    this.timerOnce(500, this, this.restartFunc);
+    this.ui.timerOnce(500, this, this.restartFunc);
   }
 
   private restartFunc(): void {
     this._timeSec = FUN_TIME;
-    this.timerLoop(1200, this, this.startTick);
-    this.timerLoop(1000, this, this.updateTime);
+    this.ui.timerLoop(1200, this, this.startTick);
+    this.ui.timerLoop(1000, this, this.updateTime);
     this.updateTime();
   }
 }
