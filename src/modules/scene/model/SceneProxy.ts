@@ -6,6 +6,6 @@ import { BaseProxy } from "@base/mvc/BaseProxy";
  */
 export class SceneProxy extends BaseProxy {
   public init(): void {
-    super.init();
+    //
   }
 }

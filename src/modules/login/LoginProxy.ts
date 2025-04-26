@@ -6,6 +6,6 @@ import { ILoginProxy } from "@def/login";
  */
 export class LoginProxy extends BaseProxy implements ILoginProxy {
   public init(): void {
-    super.init();
+    //
   }
 }
