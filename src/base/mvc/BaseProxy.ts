@@ -3,10 +3,9 @@ import { emitter } from "@base/MessageMgr";
 /**
  * @date 2024/4/10
  */
-export class BaseProxy {
-  public init(): void {
-    //
-  }
+export abstract class BaseProxy {
+  // 子类重写
+  public abstract init(): void;
 
   public emit(event: string, args?: any): void {
     emitter.emit(event, args);
