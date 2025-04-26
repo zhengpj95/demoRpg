@@ -3,6 +3,7 @@ import Handler = Laya.Handler;
 import UIComponent = Laya.UIComponent;
 import Event = Laya.Event;
 import Tween = Laya.Tween;
+import { BaseMediator } from "@base/mvc/BaseMediator";
 
 export function findMediator<T extends Laya.Scene>(
   comp: Laya.Node,
@@ -16,7 +17,10 @@ export function findMediator<T extends Laya.Scene>(
   let mdr: T | undefined;
   while (comp && !mdr) {
     comp = comp.parent;
-    if (comp instanceof Laya.Scene) {
+    if (comp["_mediator_"] && comp["_mediator_"] instanceof BaseMediator) {
+      mdr = comp["_mediator_"] as unknown as T; // todo
+    }
+    if (!mdr && comp instanceof Laya.Scene) {
       mdr = <T>comp;
     }
   }

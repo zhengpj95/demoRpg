@@ -19,6 +19,6 @@ export class LoginModule extends BaseModule {
   }
 
   protected initMdr(): void {
-    this.regMdr(LoginViewType.LOGIN, LoginMdr);
+    this.regMdr2(LoginViewType.LOGIN, LoginMdr);
   }
 }

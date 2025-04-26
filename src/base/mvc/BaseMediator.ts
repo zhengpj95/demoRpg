@@ -35,6 +35,7 @@ export abstract class BaseMediator<T extends Laya.Sprite = Laya.Sprite> {
         Handler.create(this, (scene: Laya.Scene) => {
           this.ui = scene as unknown as T;
           this.ui.name = this.__name__;
+          this.ui["_mediator_"] = this; // 需要在添加到场景前处理
           this.parent.addChild(this.ui);
           this.onUILoaded();
         }),

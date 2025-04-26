@@ -1,17 +1,23 @@
 /**
  * @date 2024/4/13
  */
+import { BaseMediator } from "@base/mvc/BaseMediator";
 import { ui } from "@ui/layaMaxUI";
-import { CommonEvent, IOpenCloseData } from "@def/misc";
-import { ModuleType } from "@def/ModuleConst";
-import { emitter } from "@base/MessageMgr";
-import { SceneViewType } from "@def/scene";
-import { LoginViewType } from "@def/login";
+import { LayerIndex } from "@base/LayerMgr";
+import LoginUI = ui.modules.login.LoginUI;
 
-export class LoginMdr extends ui.modules.login.LoginUI {
-  onEnable() {
-    super.onEnable();
+export class LoginMdr extends BaseMediator<LoginUI> {
+  constructor() {
+    super("modules/login/Login.scene", LayerIndex.WIN);
+  }
 
+  protected addEvents(): void {}
+
+  protected initUI(): void {}
+
+  protected onClose(): void {}
+
+  protected onOpen(): void {
     // this.btnLogin.clickHandler = Handler.create(
     //   this,
     //   this.onClick,
@@ -20,23 +26,18 @@ export class LoginMdr extends ui.modules.login.LoginUI {
     // );
   }
 
-  onOpened(param: any) {
-    super.onOpened(param);
-  }
-
-  close(type?: string) {
-    super.close(type);
-  }
+  protected removeEvents(): void {}
 
   private onClick(): void {
-    emitter.emit(CommonEvent.OPEN_VIEW, <IOpenCloseData>{
-      module: ModuleType.SCENE,
-      view: SceneViewType.SCENE,
-    });
-    emitter.emit(CommonEvent.CLOSE_VIEW, <IOpenCloseData>{
-      module: ModuleType.LOGIN,
-      view: LoginViewType.LOGIN,
-    });
+    console.log(`11111 onClick...`);
+    // emitter.emit(CommonEvent.OPEN_VIEW, <IOpenCloseData>{
+    //   module: ModuleType.SCENE,
+    //   view: SceneViewType.SCENE,
+    // });
+    // emitter.emit(CommonEvent.CLOSE_VIEW, <IOpenCloseData>{
+    //   module: ModuleType.LOGIN,
+    //   view: LoginViewType.LOGIN,
+    // });
   }
 
   // noinspection JSUnusedGlobalSymbols 皮肤中ClickScale调用到

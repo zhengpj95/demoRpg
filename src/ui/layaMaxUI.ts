@@ -7,11 +7,11 @@ export module ui.modules.hit_mole {
     export class HitMoleMainUI extends View {
 		public boxHammer:Laya.Box;
 		public boxTips:Laya.Box;
+		public labTime:Laya.Label;
+		public timeBar:Laya.ProgressBar;
 		public boxOver:Laya.Box;
 		public labOverValue:Laya.Label;
 		public btnRestart:Laya.Button;
-		public labTime:Laya.Label;
-		public timeBar:Laya.ProgressBar;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
