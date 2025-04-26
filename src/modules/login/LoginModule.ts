@@ -12,17 +12,13 @@ export class LoginModule extends BaseModule {
     super(ModuleType.LOGIN);
   }
 
-  initCmd(): void {
-    super.initCmd();
-  }
+  protected initCmd(): void {}
 
-  initProxy(): void {
-    super.initProxy();
+  protected initProxy(): void {
     this.regProxy(ProxyType.LOGIN, LoginProxy);
   }
 
-  initMdr(): void {
-    super.initMdr();
+  protected initMdr(): void {
     this.regMdr(LoginViewType.LOGIN, LoginMdr);
   }
 }

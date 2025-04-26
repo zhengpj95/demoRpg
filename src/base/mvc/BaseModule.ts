@@ -12,7 +12,7 @@ import { BaseMediator } from "@base/mvc/BaseMediator";
 type MdrCls = new () => Laya.Scene;
 type CmdCls = new () => BaseCommand;
 
-export class BaseModule {
+export abstract class BaseModule {
   public name: ModuleType;
   private _proxyMap: { [type: number]: BaseProxy } = {};
   private _mdrMap: { [type: number]: MdrCls } = {};
@@ -20,7 +20,7 @@ export class BaseModule {
   private _cmdMap: { [type: number]: CmdCls } = {};
   private _mdrLayerIdxMap: { [type: number]: LayerIndex } = {}; // 所属层级
 
-  public constructor(module: ModuleType) {
+  protected constructor(module: ModuleType) {
     this.name = module;
   }
 
@@ -30,17 +30,14 @@ export class BaseModule {
     this.initMdr();
   }
 
-  public initCmd(): void {
-    //
-  }
+  // 子类继承
+  protected abstract initCmd(): void;
 
-  public initProxy(): void {
-    //
-  }
+  // 子类继承
+  protected abstract initProxy(): void;
 
-  public initMdr(): void {
-    //
-  }
+  // 子类继承
+  protected abstract initMdr(): void;
 
   public regCmd(event: string, cls: CmdCls): void {
     emitter.on(event, this.exeCmd, this, [event]);

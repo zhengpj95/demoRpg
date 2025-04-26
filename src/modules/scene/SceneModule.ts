@@ -13,13 +13,13 @@ export class SceneModule extends BaseModule {
     super(ModuleType.SCENE);
   }
 
+  protected initCmd(): void {}
+
   public initProxy(): void {
-    super.initProxy();
     this.regProxy(ProxyType.SCENE, SceneProxy);
   }
 
   public initMdr(): void {
-    super.initMdr();
     this.regMdr(SceneViewType.SCENE, SceneMdr, LayerIndex.MAP);
   }
 }

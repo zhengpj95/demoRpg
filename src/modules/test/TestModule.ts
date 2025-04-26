@@ -16,17 +16,13 @@ export class TestModule extends BaseModule {
     super(ModuleType.TEST);
   }
 
-  initProxy(): void {
-    super.initProxy();
+  protected initCmd(): void {}
+
+  protected initProxy(): void {
     this.regProxy(ProxyType.TEST, TestProxy);
   }
 
-  initCmd(): void {
-    super.initCmd();
-  }
-
-  initMdr(): void {
-    super.initMdr();
+  protected initMdr(): void {
     this.regMdr(TestViewType.HP_SINGLE, HpSingleMdr);
     this.regMdr(TestViewType.HP_MAIN, MainHpMdr);
     this.regMdr(TestViewType.TEST_PANEL, TestPanelMdr);

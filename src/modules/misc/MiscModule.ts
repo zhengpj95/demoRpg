@@ -13,13 +13,14 @@ export class MiscModule extends BaseModule {
     super(ModuleType.MISC);
   }
 
-  initCmd() {
-    super.initCmd();
+  protected initProxy(): void {}
+
+  protected initCmd(): void {
     this.regCmd(CommonEvent.OPEN_VIEW, OpenViewCmd);
     this.regCmd(CommonEvent.CLOSE_VIEW, CloseViewCmd);
   }
 
-  initMdr() {
+  protected initMdr(): void {
     this.regMdr2(MiscViewType.RULE, RuleMdr);
   }
 }
