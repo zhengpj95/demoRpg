@@ -80,10 +80,6 @@ class Main {
     // 这种方式加载scene的，如果不设置runtime，scene对应的代码文件不会执行到。
     // GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
 
-    // 分离模式处理，把scene对应的代码文件加到舞台上即可，代码中自动绑定对应的scene了
-    // const mdr = new HpSingleMdr();
-    // Laya.stage.addChild(mdr);
-
     setApp();
 
     // emitter.emit(CommonEvent.OPEN_VIEW, <IOpenCloseData>{

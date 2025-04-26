@@ -38,30 +38,6 @@ export module ui.modules.hit_mole {
     }
     REG("ui.modules.hit_mole.HitMoleStartUI",HitMoleStartUI);
 }
-export module ui.modules.hp {
-    export class HpSingleUI extends Scene {
-		public boxVal:Laya.Box;
-		public imgHp:Laya.Image;
-        constructor(){ super()}
-        createChildren():void {
-            super.createChildren();
-            this.loadScene("modules/hp/HpSingle");
-        }
-    }
-    REG("ui.modules.hp.HpSingleUI",HpSingleUI);
-    export class MainHpUI extends Scene {
-		public imgHpNext:Laya.Image;
-		public imgHpTween:Laya.Image;
-		public imgHp:Laya.Image;
-		public labHp:Laya.Label;
-        constructor(){ super()}
-        createChildren():void {
-            super.createChildren();
-            this.loadScene("modules/hp/MainHp");
-        }
-    }
-    REG("ui.modules.hp.MainHpUI",MainHpUI);
-}
 export module ui.modules.login {
     export class LoginUI extends Scene {
         constructor(){ super()}
@@ -82,35 +58,4 @@ export module ui.modules.misc {
         }
     }
     REG("ui.modules.misc.RuleUI",RuleUI);
-}
-export module ui.modules.test {
-    export class TestPanelUI extends View {
-		public panel:Laya.Panel;
-        constructor(){ super()}
-        createChildren():void {
-            super.createChildren();
-            this.loadScene("modules/test/TestPanel");
-        }
-    }
-    REG("ui.modules.test.TestPanelUI",TestPanelUI);
-    export class TestPanelCloudUI extends Scene {
-		public panel:Laya.Panel;
-		public list:Laya.List;
-        constructor(){ super()}
-        createChildren():void {
-            super.createChildren();
-            this.loadScene("modules/test/TestPanelCloud");
-        }
-    }
-    REG("ui.modules.test.TestPanelCloudUI",TestPanelCloudUI);
-    export class TestSceneUI extends Scene {
-		public scoreLbl:Laya.Label;
-		public tipLbll:Laya.Label;
-        constructor(){ super()}
-        createChildren():void {
-            super.createChildren();
-            this.loadScene("modules/test/TestScene");
-        }
-    }
-    REG("ui.modules.test.TestSceneUI",TestSceneUI);
 }

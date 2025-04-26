@@ -18,7 +18,7 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image",
-            "props":{"y":310,"skin":"comp/image.png","centerX":0},
+            "props":{"y":310,"width":500,"skin":"modules/common/img_modal_bg.png","sizeGrid":"69,50,52,65","height":500,"centerX":0},
             "nodeParent":2,
             "label":"Image",
             "isOpen":false,
@@ -28,6 +28,7 @@
             "compId":3,
             "child":[
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label",
                     "props":{"y":276,"width":500,"valign":"middle","text":"WELCOME TO MY GAME!","height":50,"fontSize":35,"font":"FZLANTY_JW","color":"#ff0000","centerX":0,"bgColor":"#4bde4b","align":"center"},
