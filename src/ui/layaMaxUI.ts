@@ -72,6 +72,17 @@ export module ui.modules.login {
     }
     REG("ui.modules.login.LoginUI",LoginUI);
 }
+export module ui.modules.misc {
+    export class RuleUI extends View {
+		public labDesc:Laya.Label;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("modules/misc/Rule");
+        }
+    }
+    REG("ui.modules.misc.RuleUI",RuleUI);
+}
 export module ui.modules.test {
     export class TestPanelUI extends View {
 		public panel:Laya.Panel;

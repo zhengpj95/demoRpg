@@ -6,8 +6,9 @@ import { LayerMgr } from "../LayerMgr";
  * @date 2025/4/26
  */
 export abstract class BaseMediator<T extends Laya.Sprite = Laya.Sprite> {
-  public ui: T | null = null;
+  public ui: T | undefined = undefined;
   public params: any;
+  public __name__: string;
 
   protected isOpened: boolean = false;
   protected parent: Sprite;
@@ -33,6 +34,7 @@ export abstract class BaseMediator<T extends Laya.Sprite = Laya.Sprite> {
         this.uiUrl,
         Handler.create(this, (scene: Laya.Scene) => {
           this.ui = scene as unknown as T;
+          this.ui.name = this.__name__;
           this.parent.addChild(this.ui);
           this.onUILoaded();
         }),

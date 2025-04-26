@@ -7,6 +7,7 @@ import { BaseCommand } from "./BaseCommand";
 import { emitter } from "../MessageMgr";
 import { LayerIndex } from "@base/LayerMgr";
 import { DebugMgr } from "@base/DebugMgr";
+import { BaseMediator } from "@base/mvc/BaseMediator";
 
 type MdrCls = new () => Laya.Scene;
 type CmdCls = new () => BaseCommand;
@@ -15,6 +16,7 @@ export class BaseModule {
   public name: ModuleType;
   private _proxyMap: { [type: number]: BaseProxy } = {};
   private _mdrMap: { [type: number]: MdrCls } = {};
+  private _mdrMap2: { [type: number]: new () => BaseMediator } = {};
   private _cmdMap: { [type: number]: CmdCls } = {};
   private _mdrLayerIdxMap: { [type: number]: LayerIndex } = {}; // 所属层级
 
@@ -85,5 +87,16 @@ export class BaseModule {
 
   public retMdrIdx(viewType: number): LayerIndex {
     return this._mdrLayerIdxMap[viewType];
+  }
+
+  public regMdr2(viewType: number, mdr: new () => BaseMediator): void {
+    if (this._mdrMap2[viewType]) {
+      return;
+    }
+    this._mdrMap2[viewType] = mdr;
+  }
+
+  public retMdr2(viewType: number): new () => BaseMediator {
+    return this._mdrMap2[viewType];
   }
 }

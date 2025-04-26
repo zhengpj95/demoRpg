@@ -3,6 +3,9 @@ import { IOpenCloseData } from "@def/misc";
 import { facade } from "@base/mvc/Facade";
 import { LayerIndex, LayerMgr } from "@base/LayerMgr";
 import { GEvent } from "@base/core/GEvent";
+import { DebugMgr } from "@base/DebugMgr";
+import { ModuleType } from "@def/ModuleConst";
+import { BaseMediator } from "@base/mvc/BaseMediator";
 import Handler = Laya.Handler;
 import ClassUtils = Laya.ClassUtils;
 import View = Laya.View;
@@ -78,3 +81,38 @@ function onLoaded(url: string, obj: any): void {
     scene.onOpened(null); // todo 对应的mdr的方法没有执行到。因为这里scene是Scene或View的实例，不是mdr的实例
   }
 }
+
+const mdrInsObj = {};
+
+export function showView2(
+  moduleName: ModuleType,
+  viewType: number,
+  args?: any,
+): void {
+  const module = facade.retModule(moduleName);
+  if (!module) {
+    console.error(`App.showView error, module:${moduleName}`);
+    return;
+  }
+  const mdrCls = module.retMdr2(viewType);
+  if (!mdrCls) {
+    console.error(
+      `App.showView error, module:${moduleName}, viewType:${viewType}`,
+    );
+    return;
+  }
+  const mdrIns = new mdrCls();
+  mdrIns["__name__"] = `${mdrCls.name} m:${moduleName},v:${viewType}`;
+  mdrIns.open(args);
+  mdrInsObj[`_${moduleName}_${viewType}_`] = mdrIns;
+}
+
+export function hideView2(moduleName: ModuleType, viewType: number): void {
+  const mdrKey = `_${moduleName}_${viewType}_`;
+  if (mdrInsObj[mdrKey]) {
+    (mdrInsObj[mdrKey] as BaseMediator).close();
+  }
+}
+
+DebugMgr.ins().debug("showView2", showView2);
+DebugMgr.ins().debug("hideView2", hideView2);

@@ -16,3 +16,7 @@ export interface IOpenCloseData {
   view: number;
   param?: any;
 }
+
+export const enum MiscViewType {
+  RULE = 1,
+}
