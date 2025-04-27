@@ -7,7 +7,7 @@ import { GEvent } from "@base/core/GEvent";
  * @date 2024/4/17
  */
 export class CloseViewCmd extends BaseCommand {
-  exec(e: GEvent<IOpenCloseData>): void {
+  public exec(e: GEvent<IOpenCloseData>): void {
     const data = e.data;
     const module = facade.retModule(data.module);
     if (!module) {

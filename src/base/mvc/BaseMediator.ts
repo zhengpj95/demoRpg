@@ -3,6 +3,7 @@ import Handler = Laya.Handler;
 import { LayerMgr } from "../LayerMgr";
 import { BaseModule } from "@base/mvc/BaseModule";
 import { ModuleType } from "@def/ModuleConst";
+import { emitter } from "@base/MessageMgr";
 
 const MdrName = "__name__";
 const MdrKey = "_mediator_";
@@ -131,5 +132,18 @@ export abstract class BaseMediator<T extends Laya.Sprite = Laya.Sprite> {
     }
     this.parent = <any>undefined;
     this.uiUrl = <any>undefined;
+  }
+
+  public emit(event: string, args?: any): void {
+    emitter.emit(event, args);
+  }
+
+  public on(
+    event: string,
+    method: (...args: any) => void,
+    caller: any,
+    args?: any,
+  ): void {
+    emitter.on(event, method, caller, args);
   }
 }

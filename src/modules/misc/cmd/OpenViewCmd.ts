@@ -9,7 +9,7 @@ export const mdrInsObj = {};
  * @date 2024/4/17
  */
 export class OpenViewCmd extends BaseCommand {
-  exec(e: GEvent<IOpenCloseData>): void {
+  public exec(e: GEvent<IOpenCloseData>): void {
     const data = e.data;
     const module = facade.retModule(data.module);
     if (!module) {
