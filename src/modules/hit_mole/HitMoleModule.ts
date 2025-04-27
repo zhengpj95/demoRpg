@@ -18,8 +18,8 @@ export class HitMoleModule extends BaseModule {
   protected initProxy(): void {}
 
   protected initMdr(): void {
-    this.regMdr2(HitMoleViewType.START, HitMoleStartMdr);
-    this.regMdr2(HitMoleViewType.RULE, HitMoleRuleMdr);
-    this.regMdr2(HitMoleViewType.MAIN, HitMoleMainMdr);
+    this.regMdr(HitMoleViewType.START, HitMoleStartMdr);
+    this.regMdr(HitMoleViewType.RULE, HitMoleRuleMdr);
+    this.regMdr(HitMoleViewType.MAIN, HitMoleMainMdr);
   }
 }

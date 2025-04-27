@@ -5,20 +5,19 @@ import { ModuleType, ProxyType } from "@def/ModuleConst";
 import { BaseProxy } from "./BaseProxy";
 import { BaseCommand } from "./BaseCommand";
 import { emitter } from "../MessageMgr";
-import { LayerIndex } from "@base/LayerMgr";
 import { DebugMgr } from "@base/DebugMgr";
 import { BaseMediator } from "@base/mvc/BaseMediator";
 
-type MdrCls = new () => Laya.Scene;
+type MdrCls = new () => BaseMediator;
 type CmdCls = new () => BaseCommand;
 
 export abstract class BaseModule {
   public name: ModuleType;
-  private _proxyMap: { [type: number]: BaseProxy } = {};
-  private _mdrMap: { [type: number]: MdrCls } = {};
-  private _mdrMap2: { [type: number]: new () => BaseMediator } = {};
+
   private _cmdMap: { [type: number]: CmdCls } = {};
-  private _mdrLayerIdxMap: { [type: number]: LayerIndex } = {}; // 所属层级
+  private _proxyInsMap: { [type: number]: BaseProxy } = {};
+  private _mdrMap: { [type: number]: MdrCls } = {};
+  private _mdrInsMap: { [view: number]: BaseMediator } = {};
 
   protected constructor(module: ModuleType) {
     this.name = module;
@@ -53,47 +52,47 @@ export abstract class BaseModule {
   }
 
   public regProxy(type: ProxyType, proxy: new () => BaseProxy): void {
-    if (this._proxyMap[type]) {
+    if (this._proxyInsMap[type]) {
       return;
     }
     const cls = new proxy(); // 单例模式，实例化保存
     cls.init();
-    this._proxyMap[type] = cls;
+    this._proxyInsMap[type] = cls;
     DebugMgr.ins().debugProxy(cls);
   }
 
   public retProxy<T extends BaseProxy>(type: ProxyType): T {
-    return <T>this._proxyMap[type];
+    return <T>this._proxyInsMap[type];
   }
 
-  public regMdr(
-    viewType: number,
-    mdr: MdrCls,
-    layerIdx = LayerIndex.WIN,
-  ): void {
+  public regMdr(viewType: number, mdr: MdrCls): void {
     if (this._mdrMap[viewType]) {
       return;
     }
     this._mdrMap[viewType] = mdr;
-    this._mdrLayerIdxMap[viewType] = layerIdx;
   }
 
   public retMdr(viewType: number): MdrCls {
     return this._mdrMap[viewType];
   }
 
-  public retMdrIdx(viewType: number): LayerIndex {
-    return this._mdrLayerIdxMap[viewType];
-  }
-
-  public regMdr2(viewType: number, mdr: new () => BaseMediator): void {
-    if (this._mdrMap2[viewType]) {
+  public regMdrIns(mdr: BaseMediator): void {
+    if (this._mdrInsMap[mdr.getViewType()]) {
       return;
     }
-    this._mdrMap2[viewType] = mdr;
+    this._mdrInsMap[mdr.getViewType()] = mdr;
   }
 
-  public retMdr2(viewType: number): new () => BaseMediator {
-    return this._mdrMap2[viewType];
+  public retMdrIns(viewType: number): BaseMediator {
+    return this._mdrInsMap[viewType];
+  }
+
+  public removeMdrIns(viewType: number): void {
+    const mdrIns = this.retMdrIns(viewType);
+    if (mdrIns) {
+      mdrIns.close();
+      this._mdrInsMap[viewType] = undefined;
+      delete this._mdrInsMap[viewType];
+    }
   }
 }

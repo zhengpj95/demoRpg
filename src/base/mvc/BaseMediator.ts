@@ -1,6 +1,8 @@
 import Sprite = Laya.Sprite;
 import Handler = Laya.Handler;
 import { LayerMgr } from "../LayerMgr";
+import { BaseModule } from "@base/mvc/BaseModule";
+import { ModuleType } from "@def/ModuleConst";
 
 const MdrName = "__name__";
 const MdrKey = "_mediator_";
@@ -16,6 +18,10 @@ export abstract class BaseMediator<T extends Laya.Sprite = Laya.Sprite> {
   protected parent: Sprite;
   protected uiUrl: string;
 
+  protected _module: BaseModule;
+  protected _moduleName: ModuleType;
+  protected _viewType: number;
+
   protected constructor(url: string, parent: any) {
     this.uiUrl = url;
     if (typeof parent === "number") {
@@ -25,6 +31,19 @@ export abstract class BaseMediator<T extends Laya.Sprite = Laya.Sprite> {
     }
   }
 
+  public setModule(module: BaseModule): void {
+    this._module = module;
+    this._moduleName = module.name;
+  }
+
+  public setViewType(view: number): void {
+    this._viewType = view;
+  }
+
+  public getViewType(): number {
+    return this._viewType;
+  }
+
   public setName(name: string): void {
     Object.defineProperty(this, MdrName, {
       value: name,
@@ -32,6 +51,10 @@ export abstract class BaseMediator<T extends Laya.Sprite = Laya.Sprite> {
       enumerable: false,
       writable: true,
     });
+  }
+
+  public getName(): string {
+    return this[MdrName];
   }
 
   // 打开界面（传入参数）

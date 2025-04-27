@@ -19,6 +19,6 @@ export class SceneModule extends BaseModule {
   }
 
   public initMdr(): void {
-    this.regMdr2(SceneViewType.SCENE, SceneMdr);
+    this.regMdr(SceneViewType.SCENE, SceneMdr);
   }
 }

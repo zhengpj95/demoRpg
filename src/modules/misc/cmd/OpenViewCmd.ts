@@ -16,7 +16,7 @@ export class OpenViewCmd extends BaseCommand {
       console.error(`App.showView error, module:${data.module}`);
       return;
     }
-    const mdrCls = module.retMdr2(data.view);
+    const mdrCls = module.retMdr(data.view);
     if (!mdrCls) {
       console.error(
         `App.showView error, module:${data.module}, viewType:${data.view}`,
@@ -25,8 +25,10 @@ export class OpenViewCmd extends BaseCommand {
     }
     const mdrIns = new mdrCls();
     mdrIns.setName(`${mdrCls.name} m:${data.module},v:${data.view}`);
+    mdrIns.setModule(module);
+    mdrIns.setViewType(data.view);
     mdrIns.open(data.param);
-    mdrInsObj[`_${data.module}_${data.view}_`] = mdrIns;
+    module.regMdrIns(mdrIns);
     console.log(`OpenViewCmd 打开界面 m:${data.module},v:${data.view}`);
   }
 }

@@ -21,6 +21,6 @@ export class MiscModule extends BaseModule {
   }
 
   protected initMdr(): void {
-    this.regMdr2(MiscViewType.RULE, RuleMdr);
+    this.regMdr(MiscViewType.RULE, RuleMdr);
   }
 }
