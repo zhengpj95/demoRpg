@@ -90,6 +90,7 @@ export abstract class BaseModule {
   public removeMdrIns(viewType: number): void {
     const mdrIns = this.retMdrIns(viewType);
     if (mdrIns) {
+      console.log(`关闭界面 m:${this.name},v:${viewType}`);
       mdrIns.close();
       this._mdrInsMap[viewType] = undefined;
       delete this._mdrInsMap[viewType];

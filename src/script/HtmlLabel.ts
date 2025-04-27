@@ -5,20 +5,20 @@
 import Script = Laya.Script;
 import UIComponent = Laya.UIComponent;
 import HTMLDivElement = Laya.HTMLDivElement;
-import { findMediator } from "./ClickScale";
+import { BaseMediator, findMediator } from "@base/mvc/BaseMediator";
 
 export default class HtmlLabel extends Script {
   /** @prop {name:defaultText,tips:"默认文本",type:String,default=""} */
   public defaultText: string = "";
 
   private _comp: UIComponent;
-  private _mdr: Laya.Scene | undefined;
+  private _mdr: BaseMediator | undefined;
   private _div: HTMLDivElement;
 
   public onAwake() {
     super.onAwake();
     this._comp = <UIComponent>this.owner;
-    this._mdr = findMediator<Laya.Scene>(this._comp);
+    this._mdr = findMediator(this._comp);
     this._div = new HTMLDivElement();
     this._div.style.color = "#ffffff";
     this._div.style.fontSize = 22;

@@ -36,7 +36,9 @@ export class HitMoleMainMdr extends BaseMediator<HitMoleMainUI> {
 
   protected initUI(): void {}
 
-  protected onClose(): void {}
+  protected onClose(): void {
+    this.ui.timer.clearAll(this);
+  }
 
   protected removeEvents(): void {}
 

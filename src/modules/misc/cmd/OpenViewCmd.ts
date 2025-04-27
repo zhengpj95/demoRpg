@@ -29,6 +29,6 @@ export class OpenViewCmd extends BaseCommand {
     mdrIns.setViewType(data.view);
     mdrIns.open(data.param);
     module.regMdrIns(mdrIns);
-    console.log(`OpenViewCmd 打开界面 m:${data.module},v:${data.view}`);
+    console.log(`打开界面 m:${data.module},v:${data.view}`);
   }
 }

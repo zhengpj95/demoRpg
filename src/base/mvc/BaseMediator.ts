@@ -8,6 +8,20 @@ import { emitter } from "@base/MessageMgr";
 const MdrName = "__name__";
 const MdrKey = "_mediator_";
 
+export function findMediator<T extends BaseMediator<any>>(
+  comp: Laya.Node & { [MdrKey]?: T },
+): T | undefined {
+  if (!comp) return undefined;
+  let mdr: T | undefined = comp[MdrKey];
+  while (comp && !mdr) {
+    comp = comp.parent;
+    if (comp[MdrKey] && comp[MdrKey] instanceof BaseMediator) {
+      mdr = comp[MdrKey];
+    }
+  }
+  return <T>mdr;
+}
+
 /**
  * @date 2025/4/26
  */
