@@ -1,6 +1,7 @@
 import { ModuleType } from "@def/ModuleConst";
 import { emitter } from "@base/MessageMgr";
 import { CommonEvent, IOpenCloseData } from "@def/misc";
+import { DebugMgr } from "@base/DebugMgr";
 
 export interface ISceneUpdate extends IPoolObject {
   update: (elapsed: number) => void;
@@ -34,3 +35,6 @@ export function closeView(m: ModuleType, v: number | string): void {
     view: v,
   });
 }
+
+DebugMgr.ins().debug("openView", openView);
+DebugMgr.ins().debug("closeView", closeView);

@@ -6,7 +6,7 @@ import { HitMoleViewType } from "@def/hit_mole";
 import { ModuleType } from "@def/ModuleConst";
 import { BaseMediator } from "@base/mvc/BaseMediator";
 import { LayerIndex } from "@base/LayerMgr";
-import { hideView2, showView2 } from "../../misc/cmd/OpenViewCmd";
+import { closeView, openView } from "@base/BaseConst";
 import Handler = Laya.Handler;
 import HitMoleStartUI = ui.modules.hit_mole.HitMoleStartUI;
 
@@ -34,12 +34,12 @@ export class HitMoleStartMdr extends BaseMediator<HitMoleStartUI> {
 
   // 通过 ClickScale 绑定，皮肤中设定
   public onClickRule(): void {
-    showView2(ModuleType.HIT_MOLE, HitMoleViewType.RULE);
+    openView(ModuleType.HIT_MOLE, HitMoleViewType.RULE);
   }
 
   // 通过button绑定
   private onBtnStar(): void {
-    hideView2(ModuleType.HIT_MOLE, HitMoleViewType.START);
-    showView2(ModuleType.HIT_MOLE, HitMoleViewType.MAIN);
+    closeView(ModuleType.HIT_MOLE, HitMoleViewType.START);
+    openView(ModuleType.HIT_MOLE, HitMoleViewType.MAIN);
   }
 }
