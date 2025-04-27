@@ -16,6 +16,8 @@ import { SceneEvent } from "@def/scene";
 import { UpdateMgr } from "@base/UpdateMgr";
 import { DebugMgr } from "@base/DebugMgr";
 import PoolMgr from "@base/core/PoolMgr";
+import { LayerIndex } from "@base/LayerMgr";
+import { BaseMediator } from "@base/mvc/BaseMediator";
 import Sprite = Laya.Sprite;
 
 function createMonster(): SceneMonsterVo {
@@ -38,7 +40,7 @@ function createMonster(): SceneMonsterVo {
  * 场景
  * @date 2024/6/16
  */
-export class SceneMdr extends Laya.Scene {
+export class SceneMdr extends BaseMediator {
   private _map: SceneMap;
   private _entitySprite: Sprite;
   private _singleMap: Sprite;
@@ -46,14 +48,28 @@ export class SceneMdr extends Laya.Scene {
   private _entityList: SceneEntity[] = [];
 
   constructor() {
-    super();
+    super("", LayerIndex.MAP);
     DebugMgr.ins().debug("SceneMdr", this);
   }
 
-  public onEnable(): void {
-    super.onEnable();
+  protected addEvents(): void {
     emitter.on(SceneEvent.ADD_TO_SCENE, this.onAddEntity, this);
     emitter.on(SceneEvent.REMOVE_FROM_SCENE, this.onDelEntity, this);
+  }
+
+  protected initUI(): void {}
+
+  protected initView(handler: Laya.Handler) {
+    const sprite = new Sprite();
+    sprite.size(Laya.stage.width, Laya.stage.height);
+    handler.runWith(sprite);
+  }
+
+  protected onClose(): void {}
+
+  protected removeEvents(): void {
+    emitter.off(SceneEvent.ADD_TO_SCENE, this.onAddEntity, this);
+    emitter.off(SceneEvent.REMOVE_FROM_SCENE, this.onDelEntity, this);
   }
 
   private createEntitySprite(): Sprite {
@@ -66,11 +82,9 @@ export class SceneMdr extends Laya.Scene {
     return sprite;
   }
 
-  public open(closeOther?: boolean, param?: any): void {
-    super.open(closeOther, param);
-
+  public onOpen(): void {
     this._singleMap = new Sprite();
-    this.addChild(this._singleMap);
+    this.ui.addChild(this._singleMap);
     this._singleMap.loadImage("map/single_map/s320_s.jpg");
 
     // this._map = new SceneMap();
@@ -79,7 +93,7 @@ export class SceneMdr extends Laya.Scene {
 
     if (!this._entitySprite) {
       this._entitySprite = this.createEntitySprite();
-      this.addChild(this._entitySprite);
+      this.ui.addChild(this._entitySprite);
     }
 
     // const img = new Image("modules/hit_mole/overBg.png");

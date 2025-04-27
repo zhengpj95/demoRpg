@@ -2,7 +2,6 @@ import { BaseModule } from "@base/mvc/BaseModule";
 import { ModuleType, ProxyType } from "@def/ModuleConst";
 import { SceneViewType } from "@def/scene";
 import { SceneMdr } from "./mdr/SceneMdr";
-import { LayerIndex } from "@base/LayerMgr";
 import { SceneProxy } from "./model/SceneProxy";
 
 /**
@@ -20,6 +19,6 @@ export class SceneModule extends BaseModule {
   }
 
   public initMdr(): void {
-    this.regMdr(SceneViewType.SCENE, SceneMdr, LayerIndex.MAP);
+    this.regMdr2(SceneViewType.SCENE, SceneMdr);
   }
 }

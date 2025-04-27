@@ -102,7 +102,7 @@ export function showView2(
     return;
   }
   const mdrIns = new mdrCls();
-  mdrIns["__name__"] = `${mdrCls.name} m:${moduleName},v:${viewType}`;
+  mdrIns.setName(`${mdrCls.name} m:${moduleName},v:${viewType}`);
   mdrIns.open(args);
   mdrInsObj[`_${moduleName}_${viewType}_`] = mdrIns;
 }

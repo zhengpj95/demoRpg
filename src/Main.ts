@@ -2,12 +2,13 @@ import GameConfig from "./GameConfig";
 import { setApp } from "./App";
 import "@base/FixLaya"; // 引入兼容一些laya内容
 import { emitter } from "@base/MessageMgr";
-import { BaseEvent, openView } from "@base/BaseConst";
+import { BaseEvent } from "@base/BaseConst";
 import { initConfig } from "@base/cfg/GameCfg";
 import { loopTween } from "@base/tween/TweenManager";
 import { UpdateMgr } from "@base/UpdateMgr";
 import { ModuleType } from "@def/ModuleConst";
 import { SceneViewType } from "@def/scene";
+import { showView2 } from "./modules/misc/cmd/OpenViewCmd";
 import Event = Laya.Event;
 
 class Main {
@@ -82,11 +83,7 @@ class Main {
 
     setApp();
 
-    // emitter.emit(CommonEvent.OPEN_VIEW, <IOpenCloseData>{
-    //   module: ModuleType.SCENE,
-    //   view: SceneViewType.SCENE,
-    // });
-    openView(ModuleType.SCENE, SceneViewType.SCENE);
+    showView2(ModuleType.SCENE, SceneViewType.SCENE);
 
     Laya.stage.on(Event.CLICK, this, this.onClick);
   }

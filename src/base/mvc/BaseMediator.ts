@@ -2,13 +2,15 @@ import Sprite = Laya.Sprite;
 import Handler = Laya.Handler;
 import { LayerMgr } from "../LayerMgr";
 
+const MdrName = "__name__";
+const MdrKey = "_mediator_";
+
 /**
  * @date 2025/4/26
  */
 export abstract class BaseMediator<T extends Laya.Sprite = Laya.Sprite> {
-  public ui: T | undefined = undefined;
-  public params: any;
-  public __name__: string;
+  protected ui: T | undefined = undefined;
+  protected params: any;
 
   protected isOpened: boolean = false;
   protected parent: Sprite;
@@ -23,25 +25,28 @@ export abstract class BaseMediator<T extends Laya.Sprite = Laya.Sprite> {
     }
   }
 
+  public setName(name: string): void {
+    Object.defineProperty(this, MdrName, {
+      value: name,
+      configurable: false,
+      enumerable: false,
+      writable: true,
+    });
+  }
+
   // 打开界面（传入参数）
   public open(params?: any): void {
-    if (!this.uiUrl) {
-      throw new Error("BaseMediator uiUrl error!!!");
-    }
     this.params = params;
-    if (!this.ui) {
+    if (!this.ui && this.uiUrl) {
       Laya.Scene.load(
         this.uiUrl,
         Handler.create(this, (scene: Laya.Scene) => {
-          this.ui = scene as unknown as T;
-          this.ui.name = this.__name__;
-          this.ui["_mediator_"] = this; // 需要在添加到场景前处理
-          this.parent.addChild(this.ui);
-          this.onUILoaded();
+          this.onUILoaded(scene as unknown as T);
         }),
       );
     } else {
-      this.onUILoaded();
+      // 没有皮肤情况下，自己重写initView，创建ui
+      this.initView(Handler.create(this, this.onUILoaded));
     }
   }
 
@@ -56,8 +61,23 @@ export abstract class BaseMediator<T extends Laya.Sprite = Laya.Sprite> {
     this.destroyUI();
   }
 
+  // 没有皮肤情况下，自己重写initView，创建ui（子类重写）
+  protected initView(handler: Handler): void {
+    //
+  }
+
   // 加载完界面资源后
-  private onUILoaded(): void {
+  private onUILoaded(view: T): void {
+    this.ui = view as unknown as T;
+    this.ui.name = this[MdrName];
+    Object.defineProperty(this.ui, MdrKey, {
+      value: this,
+      configurable: false,
+      enumerable: false,
+      writable: true,
+    }); // 需要在添加到场景前处理
+    this.parent.addChild(this.ui);
+
     this.initUI();
     this.addEvents();
     this.isOpened = true;
