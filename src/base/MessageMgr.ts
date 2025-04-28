@@ -4,7 +4,7 @@ import { GEvent } from "@base/core/GEvent";
 import PoolMgr from "@base/core/PoolMgr";
 import Handler = Laya.Handler;
 
-type func = (...args: any) => void;
+type VoidFunc = (...args: any) => void;
 
 // 全局事件管理器
 export let emitter: MessageMgr;
@@ -24,7 +24,7 @@ class MessageMgr extends SingletonClass {
 
   public static ins: () => MessageMgr;
 
-  private createListener(caller: any, method: func, args?: any): Handler {
+  private createListener(caller: any, method: VoidFunc, args?: any): Handler {
     return Handler.create(caller, method, args, false);
   }
 
@@ -35,7 +35,7 @@ class MessageMgr extends SingletonClass {
    * @param caller 回调函数对象
    * @param args 携带的参数
    */
-  public on(event: string, method: func, caller: any, args?: any): void {
+  public on(event: string, method: VoidFunc, caller: any, args?: any): void {
     if (!this._messages[event]) {
       this._messages[event] = [];
     }
@@ -54,7 +54,7 @@ class MessageMgr extends SingletonClass {
    * @param method 移除的回调函数
    * @param caller 移除的回调函数对象
    */
-  public off(event: string, method: func, caller: any): void {
+  public off(event: string, method: VoidFunc, caller: any): void {
     const list = this._messages[event];
     if (!list || !list.length) {
       return;
@@ -100,10 +100,10 @@ class MessageMgr extends SingletonClass {
 
   /**
    * 移除订阅信息列表
-   * @param key 唯一key
+   * @param event 事件类型
    */
-  public offList(key: string): void {
-    const list = this._messages[key];
+  public offListEvent(event: string): void {
+    const list = this._messages[event];
     if (!list || !list.length) {
       return;
     }
@@ -112,7 +112,21 @@ class MessageMgr extends SingletonClass {
         handler.recover();
       }
     }
-    delete this._messages[key];
+    delete this._messages[event];
+  }
+
+  public offListCaller(event: string, caller: any): void {
+    const list = this._messages[event];
+    if (!list || !list.length) {
+      return;
+    }
+    for (let i = 0; i < list.length; i++) {
+      const handler = list[i];
+      if (handler && handler.caller === caller) {
+        handler.recover();
+        list[i] = undefined;
+      }
+    }
   }
 
   /**
@@ -120,7 +134,7 @@ class MessageMgr extends SingletonClass {
    */
   public offAll(): void {
     for (const event in this._messages) {
-      this.offList(event);
+      this.offListEvent(event);
     }
     this._messages = {};
   }

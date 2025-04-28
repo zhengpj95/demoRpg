@@ -3,7 +3,7 @@ import Handler = Laya.Handler;
 import { LayerMgr } from "../LayerMgr";
 import { BaseModule } from "@base/mvc/BaseModule";
 import { ModuleType } from "@def/ModuleConst";
-import { emitter } from "@base/MessageMgr";
+import { BaseEmitter } from "@base/mvc/BaseEmitter";
 
 const MdrName = "__name__";
 const MdrKey = "_mediator_";
@@ -25,7 +25,9 @@ export function findMediator<T extends BaseMediator<any>>(
 /**
  * @date 2025/4/26
  */
-export abstract class BaseMediator<T extends Laya.Sprite = Laya.Sprite> {
+export abstract class BaseMediator<
+  T extends Laya.Sprite = Laya.Sprite,
+> extends BaseEmitter {
   protected ui: T | undefined = undefined;
   protected params: any;
 
@@ -38,6 +40,7 @@ export abstract class BaseMediator<T extends Laya.Sprite = Laya.Sprite> {
   protected _viewType: number;
 
   protected constructor(url: string, parent: any) {
+    super();
     this.uiUrl = url;
     if (typeof parent === "number") {
       this.parent = LayerMgr.ins().getLayer(parent);
@@ -146,18 +149,5 @@ export abstract class BaseMediator<T extends Laya.Sprite = Laya.Sprite> {
     }
     this.parent = <any>undefined;
     this.uiUrl = <any>undefined;
-  }
-
-  public emit(event: string, args?: any): void {
-    emitter.emit(event, args);
-  }
-
-  public on(
-    event: string,
-    method: (...args: any) => void,
-    caller: any,
-    args?: any,
-  ): void {
-    emitter.on(event, method, caller, args);
   }
 }

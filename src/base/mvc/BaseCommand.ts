@@ -1,12 +1,8 @@
-import { emitter } from "@base/MessageMgr";
+import { BaseEmitter } from "@base/mvc/BaseEmitter";
 
 /**
  * @date 2024.4.13
  */
-export abstract class BaseCommand {
+export abstract class BaseCommand extends BaseEmitter {
   public abstract exec(args: any): void;
-
-  public emit(event: string, args?: any): void {
-    emitter.emit(event, args);
-  }
 }
