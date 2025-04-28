@@ -1,5 +1,5 @@
 import { BaseComponent } from "@base/component/BaseComponent";
-import { CompType } from "@base/component/CompsConst";
+import { ComponentType } from "@base/component/ComponentConst";
 import { AvatarComponent } from "@base/component/AvatarComponent";
 import { Action } from "@base/entity/EntityConst";
 import { PathNode } from "@base/BaseConst";
@@ -42,7 +42,7 @@ export class MoveComponent extends BaseComponent {
 
     const entity = this.entity;
     const vo = entity.vo;
-    const avatar = <AvatarComponent>entity.getComponent(CompType.AVATAR);
+    const avatar = <AvatarComponent>entity.getComponent(ComponentType.AVATAR);
     const dis = Laya.timer.currTimer - this._lastMoveTime;
     if (vo.point.x > this._targetNode.x) {
       if (dis > this._moveInterval) {

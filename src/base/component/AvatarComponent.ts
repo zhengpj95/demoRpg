@@ -1,5 +1,5 @@
 import { BaseComponent } from "./BaseComponent";
-import { CompType } from "./CompsConst";
+import { ComponentType } from "./ComponentConst";
 import { emitter } from "@base/MessageMgr";
 import { Action, Direction } from "@base/entity/EntityConst";
 import { RpgMovieClip } from "@base/movieclip/RpgMovieClip";
@@ -38,7 +38,7 @@ export class AvatarComponent extends BaseComponent {
 
   constructor() {
     super();
-    this.type = CompType.AVATAR;
+    this.type = ComponentType.AVATAR;
   }
 
   public start(): void {

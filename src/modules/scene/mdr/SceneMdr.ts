@@ -11,7 +11,7 @@ import { emitter } from "@base/MessageMgr";
 import { GEvent } from "@base/core/GEvent";
 import { SceneMonster } from "@base/entity/SceneMonster";
 import { SceneEntity } from "@base/entity/SceneEntity";
-import { CompType } from "@base/component/CompsConst";
+import { ComponentType } from "@base/component/ComponentConst";
 import { SceneEvent } from "@def/scene";
 import { UpdateMgr } from "@base/UpdateMgr";
 import { DebugMgr } from "@base/DebugMgr";
@@ -143,7 +143,7 @@ export class SceneMdr extends BaseMediator {
   private onAddEntity(e: GEvent<SceneEntity>): void {
     const entity = e.data;
     if (!entity) return;
-    const avatar = entity.getComponent(CompType.AVATAR);
+    const avatar = entity.getComponent(ComponentType.AVATAR);
     if (avatar) {
       this._entitySprite.addChild(avatar.display);
     }
@@ -156,7 +156,7 @@ export class SceneMdr extends BaseMediator {
     const entity = e.data;
     if (!entity) return;
     const idx = this._entityList.indexOf(entity);
-    const avatar = entity.getComponent(CompType.AVATAR);
+    const avatar = entity.getComponent(ComponentType.AVATAR);
     if (avatar && avatar.display) {
       avatar.display.removeSelf();
     }

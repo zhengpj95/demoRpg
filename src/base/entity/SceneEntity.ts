@@ -2,10 +2,10 @@ import { ISceneUpdate } from "@base/BaseConst";
 import { SceneEntityVO } from "./SceneEntityVO";
 import { BaseComponent } from "@base/component/BaseComponent";
 import {
-  CompType,
-  CompTypeMap,
-  ICompTypeMap,
-} from "@base/component/CompsConst";
+  ComponentType,
+  ComponentTypeMap,
+  IComponentTypeMap,
+} from "@base/component/ComponentConst";
 import PoolMgr from "@base/core/PoolMgr";
 
 /**场景实体*/
@@ -43,34 +43,38 @@ export class SceneEntity implements ISceneUpdate {
     this.vo = vo;
   }
 
-  public addComponent<K extends keyof ICompTypeMap>(type: K): ICompTypeMap[K] {
+  public addComponent<K extends keyof IComponentTypeMap>(
+    type: K,
+  ): IComponentTypeMap[K] {
     if (this._components[type]) {
-      return <ICompTypeMap[K]>this._components[type];
+      return <IComponentTypeMap[K]>this._components[type];
     }
-    const comp = CompTypeMap[type];
+    const comp = ComponentTypeMap[type];
     const compIns = new comp();
     compIns.type = type;
     compIns.entity = this;
     this._components[type] = compIns;
     compIns.start();
     // CompMgr.addComp(compIns);
-    return <ICompTypeMap[K]>compIns;
+    return <IComponentTypeMap[K]>compIns;
   }
 
-  public getComponent<K extends keyof ICompTypeMap>(type: K): ICompTypeMap[K] {
-    return <ICompTypeMap[K]>this._components[type];
+  public getComponent<K extends keyof IComponentTypeMap>(
+    type: K,
+  ): IComponentTypeMap[K] {
+    return <IComponentTypeMap[K]>this._components[type];
   }
 
-  public removeComponent(type: CompType | number): boolean;
-  public removeComponent<K extends keyof ICompTypeMap>(type: K): boolean {
+  public removeComponent(type: ComponentType | number): boolean;
+  public removeComponent<K extends keyof IComponentTypeMap>(type: K): boolean {
     if (!this._components[type]) {
       return false;
     }
-    const compIns = <ICompTypeMap[K]>this._components[type];
+    const compIns = <IComponentTypeMap[K]>this._components[type];
     compIns.stop();
     compIns.entity = null;
     // CompMgr.removeComp(compIns);
-    compIns.type = CompType.NONE;
+    compIns.type = ComponentType.NONE;
     this._components[type] = null;
     delete this._components[type];
     return true;

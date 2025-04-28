@@ -1,7 +1,7 @@
 import { BaseComponent } from "@base/component/BaseComponent";
 import { BmpMovieClip } from "@base/movieclip/BmpMovieClip";
 import { ScenePlayerVO } from "@base/entity/SceneEntityVO";
-import { CompType } from "@base/component/CompsConst";
+import { ComponentType } from "@base/component/ComponentConst";
 import { CallBack } from "@base/CallBack";
 import PoolMgr from "@base/core/PoolMgr";
 import Sprite = Laya.Sprite;
@@ -42,7 +42,7 @@ export class SkillComponent extends BaseComponent {
         const sprite = createContainer();
         const vo = this.entity.battle.vo;
         this.entity.battle
-          .getComponent(CompType.AVATAR)
+          .getComponent(ComponentType.AVATAR)
           .display.addChildAt(sprite, 0);
         this._mc.play(
           this._skillEffect,

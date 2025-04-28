@@ -1,5 +1,5 @@
 import { ScenePlayerVO } from "@base/entity/SceneEntityVO";
-import { CompType } from "@base/component/CompsConst";
+import { ComponentType } from "@base/component/ComponentConst";
 import { SceneEntity } from "@base/entity/SceneEntity";
 
 /**
@@ -11,8 +11,8 @@ export class ScenePlayer extends SceneEntity {
     if (!vo.skills) {
       vo.skills = [];
     }
-    this.addComponent(CompType.AVATAR);
-    this.addComponent(CompType.BATTLE);
+    this.addComponent(ComponentType.AVATAR);
+    this.addComponent(ComponentType.BATTLE);
   }
 
   public update(elapsed: number): void {
@@ -29,7 +29,7 @@ export class ScenePlayer extends SceneEntity {
     if (
       this.vo &&
       this.battle &&
-      !this.getComponent(CompType.SKILL) &&
+      !this.getComponent(ComponentType.SKILL) &&
       this.battle.vo.hp < (this.battle.vo.maxHp / 2) >> 0
     ) {
       if (!(this.vo as ScenePlayerVO).skills) {
@@ -43,12 +43,12 @@ export class ScenePlayer extends SceneEntity {
     if (!this.battle || !this.vo) return false;
     const skills = (this.vo as ScenePlayerVO).skills || [];
     if (!skills || !skills.length) return false;
-    return skills.length && !this.getComponent(CompType.SKILL);
+    return skills.length && !this.getComponent(ComponentType.SKILL);
   }
 
   private addSkill(): void {
-    if (!this.getComponent(CompType.SKILL)) {
-      this.addComponent(CompType.SKILL);
+    if (!this.getComponent(ComponentType.SKILL)) {
+      this.addComponent(ComponentType.SKILL);
     }
   }
 }

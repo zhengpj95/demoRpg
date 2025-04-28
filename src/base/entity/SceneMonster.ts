@@ -1,5 +1,5 @@
 import { SceneMonsterVo } from "@base/entity/SceneEntityVO";
-import { CompType } from "@base/component/CompsConst";
+import { ComponentType } from "@base/component/ComponentConst";
 import { SceneEntity } from "@base/entity/SceneEntity";
 import { PathNode } from "@base/BaseConst";
 
@@ -9,14 +9,14 @@ import { PathNode } from "@base/BaseConst";
 export class SceneMonster extends SceneEntity {
   public init(vo: SceneMonsterVo): void {
     super.init(vo);
-    this.addComponent(CompType.AVATAR);
-    this.addComponent(CompType.MOVE);
-    this.addComponent(CompType.BATTLE);
+    this.addComponent(ComponentType.AVATAR);
+    this.addComponent(ComponentType.MOVE);
+    this.addComponent(ComponentType.BATTLE);
   }
 
   /**添加路径*/
   public addPath(node: PathNode): void {
-    const comp = this.getComponent(CompType.MOVE);
+    const comp = this.getComponent(ComponentType.MOVE);
     if (comp) {
       comp.addPath(node);
     }
