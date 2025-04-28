@@ -19,6 +19,7 @@ import PoolMgr from "@base/core/PoolMgr";
 import { LayerIndex } from "@base/LayerMgr";
 import { BaseMediator } from "@base/mvc/BaseMediator";
 import Sprite = Laya.Sprite;
+import Handler = Laya.Handler;
 
 function createMonster(): SceneMonsterVo {
   return {
@@ -89,7 +90,14 @@ export class SceneMdr extends BaseMediator {
   public onOpen(): void {
     this._singleMap = new Sprite();
     this.ui.addChild(this._singleMap);
-    this._singleMap.loadImage("map/single_map/s320_s.jpg");
+    this._singleMap.loadImage(
+      "map/single_map/s320_s.jpg",
+      Handler.create(this, () => {
+        const offsetX = (this._singleMap.width - Laya.stage.width) / 2;
+        const offsetY = (this._singleMap.height - Laya.stage.height) / 2;
+        this._singleMap.pos(-offsetX, -offsetY);
+      }),
+    );
 
     // this._map = new SceneMap();
     // this._map.init(1001);
