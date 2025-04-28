@@ -1,5 +1,4 @@
 import SingletonClass from "./core/SingletonClass";
-import { DebugMgr } from "@base/DebugMgr";
 import { GEvent } from "@base/core/GEvent";
 import PoolMgr from "@base/core/PoolMgr";
 import Handler = Laya.Handler;
@@ -11,7 +10,6 @@ export let emitter: MessageMgr;
 
 export function initEmitter(): void {
   emitter = MessageMgr.ins();
-  DebugMgr.ins().debug("emitter", emitter);
 }
 
 /**

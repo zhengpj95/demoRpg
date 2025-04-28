@@ -1,5 +1,4 @@
 import { BaseComponent } from "./BaseComponent";
-import { DebugMgr } from "@base/DebugMgr";
 
 /**
  * 实体管理器
@@ -56,5 +55,3 @@ export class CompMgr {
     }
   }
 }
-
-DebugMgr.ins().debug("CompMgr", CompMgr);
