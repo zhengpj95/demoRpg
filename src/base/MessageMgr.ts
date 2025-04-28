@@ -24,7 +24,7 @@ class MessageMgr extends SingletonClass {
 
   public static ins: () => MessageMgr;
 
-  private createListener(caller: any, method: VoidFunc, args?: any): Handler {
+  private createListener(caller: any, method: VoidFunc, args?: any[]): Handler {
     return Handler.create(caller, method, args, false);
   }
 
@@ -35,7 +35,7 @@ class MessageMgr extends SingletonClass {
    * @param caller 回调函数对象
    * @param args 携带的参数
    */
-  public on(event: string, method: VoidFunc, caller: any, args?: any): void {
+  public on(event: string, method: VoidFunc, caller: any, args?: any[]): void {
     if (!this._messages[event]) {
       this._messages[event] = [];
     }
@@ -46,6 +46,26 @@ class MessageMgr extends SingletonClass {
       }
     }
     this._messages[event].push(this.createListener(caller, method, args));
+  }
+
+  /**
+   * 订阅一次信息
+   * @param event
+   * @param method
+   * @param caller
+   * @param args
+   */
+  public once(
+    event: string,
+    method: VoidFunc,
+    caller: any,
+    args?: any[],
+  ): void {
+    const wrapper = (...args: any[]): void => {
+      this.off(event, wrapper, caller);
+      method.apply(caller, args);
+    };
+    this.on(event, wrapper, caller, args);
   }
 
   /**
@@ -124,7 +144,7 @@ class MessageMgr extends SingletonClass {
       const handler = list[i];
       if (handler && handler.caller === caller) {
         handler.recover();
-        list[i] = undefined;
+        list[i] = null;
       }
     }
   }

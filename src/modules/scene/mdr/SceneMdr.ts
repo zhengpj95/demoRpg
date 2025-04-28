@@ -57,15 +57,19 @@ export class SceneMdr extends BaseMediator {
     emitter.on(SceneEvent.REMOVE_FROM_SCENE, this.onDelEntity, this);
   }
 
-  protected initUI(): void {}
+  protected initUI(): void {
+    //
+  }
 
-  protected initView(handler: Laya.Handler) {
+  protected initView(handler: Laya.Handler): void {
     const sprite = new Sprite();
     sprite.size(Laya.stage.width, Laya.stage.height);
     handler.runWith(sprite);
   }
 
-  protected onClose(): void {}
+  protected onClose(): void {
+    //
+  }
 
   protected removeEvents(): void {
     emitter.off(SceneEvent.ADD_TO_SCENE, this.onAddEntity, this);
