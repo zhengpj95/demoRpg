@@ -124,6 +124,9 @@ function _loop(): boolean {
 }
 
 // 在切后台或页签时，requestAnimationFrame执行频率会降低到1fps或更低，甚至完全暂停。所以这里特殊处理下
+// 当页面不可见（比如用户切到其他Tab），浏览器应该降低定时器频率来减少资源消耗。所以 setInterval 依旧会被挂起。
+// 这是因为 Page Visibility API 和 节流机制（Throttle Timers）规定的。
+// 所以还需要加上socket的处理的ping和pong处理，在pong时候调用 _bgLoop。
 setInterval(_bgLoop, 1);
 
 function _bgLoop(): void {
