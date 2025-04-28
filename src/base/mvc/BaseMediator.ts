@@ -145,7 +145,7 @@ export abstract class BaseMediator<
     if (this.ui) {
       this.ui.removeSelf();
       this.ui.destroy(true);
-      this.ui = null;
+      this.ui = undefined;
     }
     this.parent = <any>undefined;
     this.uiUrl = <any>undefined;
