@@ -1,4 +1,4 @@
-import UIComponent = Laya.UIComponent;
+import Sprite = Laya.Sprite;
 import SingletonClass from "@base/core/SingletonClass";
 
 // 层级
@@ -9,7 +9,7 @@ export const enum LayerIndex {
   TIPS = 3,
 }
 
-class BaseLayer extends UIComponent {
+class BaseLayer extends Sprite {
   public idx: number;
 
   constructor(idx: number) {
@@ -54,7 +54,7 @@ class TipsLayer extends BaseLayer {
  * 单例模式，使用LayerMgr.ins()调用，业务逻辑可通过App.layerMgr调用
  */
 export class LayerMgr extends SingletonClass {
-  private readonly _layers: { [idx: number]: BaseLayer } = {};
+  private readonly _layers: { [idx: number]: BaseLayer } = Object.create(null);
   public static ins: () => LayerMgr;
 
   constructor() {
