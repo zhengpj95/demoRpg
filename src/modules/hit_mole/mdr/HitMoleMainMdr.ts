@@ -29,7 +29,7 @@ export class HitMoleMainMdr extends BaseMediator<HitMoleMainUI> {
   private _setTimeMap = {};
 
   constructor() {
-    super("modules/hit_mole/HitMoleMain.scene", LayerIndex.WIN);
+    super("modules/hit_mole/HitMoleMain.scene", LayerIndex.MAIN);
   }
 
   protected addEvents(): void {}

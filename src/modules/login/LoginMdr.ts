@@ -8,7 +8,7 @@ import LoginUI = ui.modules.login.LoginUI;
 
 export class LoginMdr extends BaseMediator<LoginUI> {
   constructor() {
-    super("modules/login/Login.scene", LayerIndex.WIN);
+    super("modules/login/Login.scene", LayerIndex.MAIN);
   }
 
   protected addEvents(): void {}

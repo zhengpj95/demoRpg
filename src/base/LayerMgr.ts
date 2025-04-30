@@ -4,21 +4,19 @@ import SingletonClass from "@base/core/SingletonClass";
 // 层级
 export const enum LayerIndex {
   MAP = 0,
-  WIN = 1,
+  MAIN = 1,
   MODAL = 2,
   TIPS = 3,
 }
 
 class BaseLayer extends UIComponent {
   public idx: number;
-  public mdrMap: { [view: number]: Laya.Scene };
 
   constructor(idx: number) {
     super();
     this.idx = idx;
     this.name = "layer_" + idx;
     this.mouseThrough = true;
-    this.mdrMap = {};
   }
 
   public onResize(): void {
@@ -33,9 +31,9 @@ class MapLayer extends BaseLayer {
   }
 }
 
-class WinLayer extends BaseLayer {
+class MainLayer extends BaseLayer {
   constructor() {
-    super(LayerIndex.WIN);
+    super(LayerIndex.MAIN);
   }
 }
 
@@ -63,7 +61,7 @@ export class LayerMgr extends SingletonClass {
     super();
     this._layers = {};
     this.setLayer(new MapLayer());
-    this.setLayer(new WinLayer());
+    this.setLayer(new MainLayer());
     this.setLayer(new ModalLayer());
     this.setLayer(new TipsLayer());
   }

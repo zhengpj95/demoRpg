@@ -12,7 +12,7 @@ import HitMoleStartUI = ui.modules.hit_mole.HitMoleStartUI;
 
 export class HitMoleStartMdr extends BaseMediator<HitMoleStartUI> {
   constructor() {
-    super("modules/hit_mole/HitMoleStart.scene", LayerIndex.WIN);
+    super("modules/hit_mole/HitMoleStart.scene", LayerIndex.MAIN);
   }
 
   protected addEvents(): void {}
