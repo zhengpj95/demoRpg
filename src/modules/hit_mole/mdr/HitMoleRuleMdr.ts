@@ -3,7 +3,7 @@
  */
 import { emitter } from "@base/MessageMgr";
 import { CommonEvent, IOpenCloseData } from "@def/misc";
-import { ModuleType } from "@def/ModuleConst";
+import { ModuleName } from "@def/ModuleConst";
 import { HitMoleViewType } from "@def/hit_mole";
 import { BaseMediator } from "@base/mvc/BaseMediator";
 import { ui } from "@ui/layaMaxUI";
@@ -14,7 +14,7 @@ export class HitMoleRuleMdr extends BaseMediator<HitMoleRuleUI> {
   // 皮肤中绑定
   public onHide(): void {
     emitter.emit(CommonEvent.CLOSE_VIEW, <IOpenCloseData>{
-      module: ModuleType.HIT_MOLE,
+      module: ModuleName.HIT_MOLE,
       view: HitMoleViewType.RULE,
     });
   }

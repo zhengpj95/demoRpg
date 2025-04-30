@@ -3,7 +3,7 @@
  */
 import { ui } from "@ui/layaMaxUI";
 import { HitMoleViewType } from "@def/hit_mole";
-import { ModuleType } from "@def/ModuleConst";
+import { ModuleName } from "@def/ModuleConst";
 import { BaseMediator } from "@base/mvc/BaseMediator";
 import { LayerIndex } from "@base/LayerMgr";
 import { closeView, openView } from "@base/BaseConst";
@@ -34,12 +34,12 @@ export class HitMoleStartMdr extends BaseMediator<HitMoleStartUI> {
 
   // 通过 ClickScale 绑定，皮肤中设定
   public onClickRule(): void {
-    openView(ModuleType.HIT_MOLE, HitMoleViewType.RULE);
+    openView(ModuleName.HIT_MOLE, HitMoleViewType.RULE);
   }
 
   // 通过button绑定
   private onBtnStar(): void {
-    closeView(ModuleType.HIT_MOLE, HitMoleViewType.START);
-    openView(ModuleType.HIT_MOLE, HitMoleViewType.MAIN);
+    closeView(ModuleName.HIT_MOLE, HitMoleViewType.START);
+    openView(ModuleName.HIT_MOLE, HitMoleViewType.MAIN);
   }
 }

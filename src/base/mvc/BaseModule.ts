@@ -1,7 +1,7 @@
 /**
  * @date 2024/4/10
  */
-import { ModuleType, ProxyType } from "@def/ModuleConst";
+import { ModuleName, ProxyType } from "@def/ModuleConst";
 import { BaseProxy } from "./BaseProxy";
 import { BaseCommand } from "./BaseCommand";
 import { emitter } from "../MessageMgr";
@@ -12,14 +12,14 @@ type MdrCls = new () => BaseMediator;
 type CmdCls = new () => BaseCommand;
 
 export abstract class BaseModule {
-  public name: ModuleType;
+  public name: ModuleName;
 
   private _cmdMap: { [type: number]: CmdCls } = {};
   private _proxyInsMap: { [type: number]: BaseProxy } = {};
   private _mdrMap: { [type: number]: MdrCls } = {};
   private _mdrInsMap: { [view: number]: BaseMediator } = {};
 
-  protected constructor(module: ModuleType) {
+  protected constructor(module: ModuleName) {
     this.name = module;
   }
 
@@ -90,7 +90,6 @@ export abstract class BaseModule {
   public removeMdrIns(viewType: number): void {
     const mdrIns = this.retMdrIns(viewType);
     if (mdrIns) {
-      console.log(`关闭界面 m:${this.name},v:${viewType}`);
       mdrIns.close();
       this._mdrInsMap[viewType] = undefined;
       delete this._mdrInsMap[viewType];

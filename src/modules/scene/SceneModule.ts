@@ -1,5 +1,5 @@
 import { BaseModule } from "@base/mvc/BaseModule";
-import { ModuleType, ProxyType } from "@def/ModuleConst";
+import { ModuleName, ProxyType } from "@def/ModuleConst";
 import { SceneViewType } from "@def/scene";
 import { SceneMdr } from "./mdr/SceneMdr";
 import { SceneProxy } from "./model/SceneProxy";
@@ -9,7 +9,7 @@ import { SceneProxy } from "./model/SceneProxy";
  */
 export class SceneModule extends BaseModule {
   constructor() {
-    super(ModuleType.SCENE);
+    super(ModuleName.SCENE);
   }
 
   protected initCmd(): void {}

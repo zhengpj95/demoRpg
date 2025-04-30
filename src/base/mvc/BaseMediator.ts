@@ -2,7 +2,7 @@ import Sprite = Laya.Sprite;
 import Handler = Laya.Handler;
 import { LayerMgr } from "../LayerMgr";
 import { BaseModule } from "@base/mvc/BaseModule";
-import { ModuleType } from "@def/ModuleConst";
+import { ModuleName } from "@def/ModuleConst";
 import { BaseEmitter } from "@base/mvc/BaseEmitter";
 
 const MdrName = "__name__";
@@ -36,7 +36,7 @@ export abstract class BaseMediator<
   protected uiUrl: string;
 
   protected _module: BaseModule;
-  protected _moduleName: ModuleType;
+  protected _moduleName: ModuleName;
   protected _viewType: number;
 
   protected constructor(url: string, parent: any) {
@@ -96,10 +96,12 @@ export abstract class BaseMediator<
     if (!this.isOpened) {
       return;
     }
+    console.log(`关闭界面 m:${this._moduleName},v:${this._viewType}`);
     this.isOpened = false;
     this.removeEvents();
     this.onClose();
     this.destroyUI();
+    this.removeMdr();
   }
 
   // 没有皮肤情况下，自己重写initView，创建ui（子类重写）
@@ -122,6 +124,8 @@ export abstract class BaseMediator<
     this.initUI();
     this.addEvents();
     this.isOpened = true;
+    console.log(`打开界面 m:${this._moduleName},v:${this._viewType}`);
+    this._module.regMdrIns(this);
     this.onOpen();
   }
 
@@ -149,5 +153,13 @@ export abstract class BaseMediator<
     }
     this.parent = <any>undefined;
     this.uiUrl = <any>undefined;
+  }
+
+  // 移除mdr实例
+  private removeMdr(): void {
+    this._module.removeMdrIns(this._viewType);
+    this._viewType = <any>undefined;
+    this._moduleName = <any>undefined;
+    this._module = <any>undefined;
   }
 }

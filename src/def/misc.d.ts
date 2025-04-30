@@ -2,7 +2,7 @@
  * @date 2024/4/17
  */
 
-import { ModuleType } from "@def/ModuleConst";
+import { ModuleName } from "@def/ModuleConst";
 
 /**公共事件*/
 export const enum CommonEvent {
@@ -12,7 +12,7 @@ export const enum CommonEvent {
 
 /**打开关闭界面接口*/
 export interface IOpenCloseData {
-  module: ModuleType;
+  module: ModuleName;
   view: number;
   param?: any;
 }

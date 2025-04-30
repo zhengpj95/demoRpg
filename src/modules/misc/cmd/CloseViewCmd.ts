@@ -14,6 +14,9 @@ export class CloseViewCmd extends BaseCommand {
       console.error(`App.showView error, module:${data.module}`);
       return;
     }
-    module.removeMdrIns(data.view);
+    const mdrIns = module.retMdrIns(data.view);
+    if (mdrIns) {
+      mdrIns.close();
+    }
   }
 }

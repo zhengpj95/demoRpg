@@ -6,7 +6,7 @@ import { BaseEvent, openView } from "@base/BaseConst";
 import { initConfig } from "@base/cfg/GameCfg";
 import { loopTween } from "@base/tween/TweenManager";
 import { UpdateMgr } from "@base/UpdateMgr";
-import { ModuleType } from "@def/ModuleConst";
+import { ModuleName } from "@def/ModuleConst";
 import { SceneViewType } from "@def/scene";
 import Event = Laya.Event;
 
@@ -82,7 +82,7 @@ class Main {
 
     setApp();
 
-    openView(ModuleType.SCENE, SceneViewType.SCENE);
+    openView(ModuleName.SCENE, SceneViewType.SCENE);
 
     Laya.stage.on(Event.CLICK, this, this.onClick);
   }

@@ -2,7 +2,7 @@
  * @date 2024/4/10
  */
 import { BaseModule } from "./BaseModule";
-import { ModuleType, ProxyType } from "@def/ModuleConst";
+import { ModuleName, ProxyType } from "@def/ModuleConst";
 import { DebugMgr } from "../DebugMgr";
 import { BaseProxy } from "@base/mvc/BaseProxy";
 
@@ -15,7 +15,7 @@ export function initFacade(): void {
 
 // 获取proxy
 export function getProxy<T extends BaseProxy>(
-  module: ModuleType,
+  module: ModuleName,
   proxy: ProxyType,
 ): T {
   const m = facade.retModule(module);
@@ -43,7 +43,7 @@ class Facade {
   }
 
   // 获取模块
-  public retModule(type: ModuleType): BaseModule {
+  public retModule(type: ModuleName): BaseModule {
     return this._moduleMap[type];
   }
 

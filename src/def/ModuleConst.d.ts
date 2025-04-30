@@ -3,7 +3,7 @@
  */
 
 /**模块枚举*/
-export const enum ModuleType {
+export const enum ModuleName {
   LOGIN = 1,
   MISC = 2,
   BAG = 3,

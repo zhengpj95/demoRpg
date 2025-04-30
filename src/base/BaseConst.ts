@@ -1,4 +1,4 @@
-import { ModuleType } from "@def/ModuleConst";
+import { ModuleName } from "@def/ModuleConst";
 import { emitter } from "@base/MessageMgr";
 import { CommonEvent, IOpenCloseData } from "@def/misc";
 import { DebugMgr } from "@base/DebugMgr";
@@ -21,7 +21,7 @@ export interface PathNode {
   y: number;
 }
 
-export function openView(m: ModuleType, v: number | string, param?: any): void {
+export function openView(m: ModuleName, v: number | string, param?: any): void {
   emitter.emit(CommonEvent.OPEN_VIEW, <IOpenCloseData>{
     module: m,
     view: v,
@@ -29,7 +29,7 @@ export function openView(m: ModuleType, v: number | string, param?: any): void {
   });
 }
 
-export function closeView(m: ModuleType, v: number | string): void {
+export function closeView(m: ModuleName, v: number | string): void {
   emitter.emit(CommonEvent.CLOSE_VIEW, <IOpenCloseData>{
     module: m,
     view: v,

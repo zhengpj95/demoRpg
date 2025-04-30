@@ -5,11 +5,11 @@ import { LoginProxy } from "./LoginProxy";
 import { LoginMdr } from "./LoginMdr";
 import { BaseModule } from "@base/mvc/BaseModule";
 import { LoginViewType } from "@def/login";
-import { ModuleType, ProxyType } from "@def/ModuleConst";
+import { ModuleName, ProxyType } from "@def/ModuleConst";
 
 export class LoginModule extends BaseModule {
   constructor() {
-    super(ModuleType.LOGIN);
+    super(ModuleName.LOGIN);
   }
 
   protected initCmd(): void {}
