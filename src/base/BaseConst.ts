@@ -3,20 +3,20 @@ import { emitter } from "@base/MessageMgr";
 import { CommonEvent, IOpenCloseData } from "@def/misc";
 import { DebugMgr } from "@base/DebugMgr";
 
-export interface ISceneUpdate extends IPoolObject {
-  update: (elapsed: number) => void;
-}
-
 export interface IPoolObject {
+  release?: () => void; // 回收自身
+
   onAlloc: () => void;
   onRelease: () => void;
 }
 
-export interface IComponent {
+export interface ISceneUpdate {
+  update: (elapsed: number) => void;
+}
+
+export interface IComponent extends ISceneUpdate {
   start: () => void;
   stop: () => void;
-
-  tick: (delta: number) => void;
 }
 
 export const enum BaseEvent {

@@ -110,7 +110,7 @@ export class AvatarComponent extends BaseComponent {
     }
   }
 
-  public tick(delta: number): void {
+  public update(elapsed: number): void {
     const vo = this.entity.vo;
     const point = this.entity.vo.point;
     if (this.display.x !== point.x) {

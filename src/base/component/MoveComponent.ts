@@ -25,7 +25,7 @@ export class MoveComponent extends BaseComponent {
     super.stop();
   }
 
-  public tick(delta: number): void {
+  public update(elapsed: number): void {
     if (!this._targetNode) {
       this._targetNode = this._pathList.shift();
     }

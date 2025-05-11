@@ -19,8 +19,8 @@ export class BattleComponent extends BaseComponent {
     this._isAttack = false;
   }
 
-  public tick(delta: number): void {
-    super.tick(delta);
+  public update(elapsed: number): void {
+    super.update(elapsed);
     const entity = this.entity;
     if (!entity || !entity.battle) {
       return;
@@ -34,7 +34,7 @@ export class BattleComponent extends BaseComponent {
       if (!this.canAttack()) {
         this.stopAttack();
       } else {
-        this.continueAttack(delta);
+        this.continueAttack(elapsed);
       }
     }
   }

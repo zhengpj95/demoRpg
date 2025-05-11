@@ -48,7 +48,7 @@ export class CompMgr {
       if (list.length) {
         list.forEach((comp) => {
           if (comp.isRunning) {
-            comp.tick(Laya.timer.delta);
+            comp.update(Laya.timer.delta);
           }
         });
       }

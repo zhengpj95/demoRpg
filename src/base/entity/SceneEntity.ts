@@ -1,4 +1,4 @@
-import { ISceneUpdate } from "@base/BaseConst";
+import { IPoolObject, ISceneUpdate } from "@base/BaseConst";
 import { SceneEntityVO } from "./SceneEntityVO";
 import { BaseComponent } from "@base/component/BaseComponent";
 import {
@@ -9,7 +9,7 @@ import {
 import PoolMgr from "@base/core/PoolMgr";
 
 /**场景实体*/
-export class SceneEntity implements ISceneUpdate {
+export class SceneEntity implements ISceneUpdate, IPoolObject {
   private _components: Record<number, BaseComponent> = {};
 
   private _vo: SceneEntityVO;
@@ -84,7 +84,7 @@ export class SceneEntity implements ISceneUpdate {
     for (const key of keys) {
       const comp = <BaseComponent>this._components[key];
       if (comp && comp.isRunning) {
-        comp.tick(elapsed);
+        comp.update(elapsed);
       } else {
         delTmp.push(comp);
       }

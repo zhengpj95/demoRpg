@@ -43,7 +43,7 @@ export class BaseComponent implements IComponent {
     this._entity = <any>undefined;
   }
 
-  public tick(delta: number): void {
+  public update(elapsed: number): void {
     //
   }
 }
