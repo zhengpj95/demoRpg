@@ -1,12 +1,14 @@
 import SingletonClass from "./SingletonClass";
 import { GameUtils } from "../utils/GameUtils";
 
+const MAX_SIZE = 50;
+
 /**
  * 对象池
  * 对于需要频繁创建实例的，使用对象池可以节省性能开销
  */
 export default class PoolMgr extends SingletonClass {
-  private static _poolMap: any = {};
+  private static _poolMap: { [key: string]: any[] } = {};
 
   public static ins: () => PoolMgr;
 
@@ -60,6 +62,13 @@ export default class PoolMgr extends SingletonClass {
       obj["onRelease"]();
     }
     this._poolMap[refKey].push(obj);
+    if (this._poolMap[refKey].length > MAX_SIZE) {
+      // 超出容量，销毁多余的（最旧的或未被频繁使用的）对象
+      const firstObj = this._poolMap[refKey].shift();
+      if (firstObj && firstObj["destroy"]) {
+        firstObj["destroy"]();
+      }
+    }
     return true;
   }
 
@@ -67,11 +76,7 @@ export default class PoolMgr extends SingletonClass {
     this._poolMap = {};
   }
 
-  public static getContent(): any {
-    return this._poolMap;
-  }
-
-  public static setCount(count = 5): void {
+  public static setCount(count = MAX_SIZE): void {
     for (const key in this._poolMap) {
       const list: any[] = this._poolMap[key];
       if (list.length > count) {

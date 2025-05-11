@@ -4,7 +4,8 @@ import { CommonEvent, IOpenCloseData } from "@def/misc";
 import { DebugMgr } from "@base/DebugMgr";
 
 export interface IPoolObject {
-  release?: () => void; // 回收自身
+  release?: () => void; // 内部自行清理并回收，放回对象池
+  destroy?: () => void; // 销毁时调用，onRelease时若超出容量则会销毁
 
   onAlloc: () => void;
   onRelease: () => void;
