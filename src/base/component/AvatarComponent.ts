@@ -23,17 +23,12 @@ function getDirectionScale(dir: number): { x: number; y: number } {
 export class AvatarComponent extends BaseComponent {
   private _display: Sprite;
   private _curAction: Action;
-  private _isLoadAtlas = false;
   private _rpg: RpgMovieClip;
   private _headUI: HeadUI;
   private _headHp: HeadHp;
 
   public get display(): Sprite {
     return this._display;
-  }
-
-  public set display(value: Laya.Sprite) {
-    this._display = value;
   }
 
   constructor() {
@@ -44,11 +39,11 @@ export class AvatarComponent extends BaseComponent {
   public start(): void {
     super.start();
     if (!this.display) {
-      this.display = new Sprite();
-      this.display.name = "avatarComp";
+      this._display = new Sprite();
+      this._display.name = "sprite_avatarComponent";
       const point = this.entity.vo.point;
-      this.display.x = point ? point.x : 0;
-      this.display.y = point ? point.y : 0;
+      this._display.x = point ? point.x : 0;
+      this._display.y = point ? point.y : 0;
     }
     if (!this._rpg) {
       this._rpg = new RpgMovieClip();
@@ -56,7 +51,7 @@ export class AvatarComponent extends BaseComponent {
         this.entity.vo.avatarName,
         -1,
         this.display,
-        CallBack.alloc(this, this.onLoadRpg),
+        undefined,
         CallBack.alloc(this, this.playEnd),
       );
     }
@@ -83,7 +78,6 @@ export class AvatarComponent extends BaseComponent {
 
   public stop(): void {
     super.stop();
-    this._isLoadAtlas = false;
     emitter.emit(SceneEvent.REMOVE_FROM_SCENE, this.entity);
     if (this._headUI) {
       PoolMgr.release(this._headUI);
@@ -93,15 +87,6 @@ export class AvatarComponent extends BaseComponent {
       PoolMgr.release(this._headHp);
       this._headHp = <any>undefined;
     }
-  }
-
-  private onLoadRpg(): void {
-    this._isLoadAtlas = true;
-
-    // const img = new Laya.Image("comp/img_blank.png");
-    // img.width = 128;
-    // img.height = 128;
-    // this._rpg.addChild(img);
   }
 
   private playEnd(): void {

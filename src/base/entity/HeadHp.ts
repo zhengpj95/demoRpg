@@ -43,7 +43,8 @@ export class HeadHp extends Sprite implements IPoolObject {
   }
 
   public onRelease(): void {
-    //
+    if (this._lab) this._lab.text = "";
+    if (this._imgBar) this._imgBar.width = 0;
   }
 
   private getImgWidth(): number {
@@ -57,6 +58,7 @@ export class HeadHp extends Sprite implements IPoolObject {
   }
 
   public setHp(hp: number, maxHp: number): void {
+    if (!this.displayedInStage) return;
     const ratio = hp / maxHp;
     this._imgBar.width = (ratio * this.getImgWidth()) >> 0;
     this._lab.text = (ratio * 100).toFixed(2) + "%";
