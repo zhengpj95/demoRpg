@@ -6,7 +6,6 @@ import {
   ComponentTypeMap,
   IComponentTypeMap,
 } from "@base/component/ComponentConst";
-import PoolMgr from "@base/core/PoolMgr";
 
 /**场景实体*/
 export class SceneEntity implements ISceneUpdate, IPoolObject {
@@ -98,7 +97,6 @@ export class SceneEntity implements ISceneUpdate, IPoolObject {
   }
 
   public destroy(): void {
-    PoolMgr.release(this);
     this.onRelease();
   }
 
