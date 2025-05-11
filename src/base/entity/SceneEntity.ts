@@ -55,7 +55,6 @@ export class SceneEntity implements ISceneUpdate {
     compIns.entity = this;
     this._components[type] = compIns;
     compIns.start();
-    // CompMgr.addComp(compIns);
     return <IComponentTypeMap[K]>compIns;
   }
 
@@ -72,9 +71,6 @@ export class SceneEntity implements ISceneUpdate {
     }
     const compIns = <IComponentTypeMap[K]>this._components[type];
     compIns.stop();
-    compIns.entity = null;
-    // CompMgr.removeComp(compIns);
-    compIns.type = ComponentType.NONE;
     this._components[type] = null;
     delete this._components[type];
     return true;
@@ -87,7 +83,7 @@ export class SceneEntity implements ISceneUpdate {
     const keys = Object.keys(this._components);
     for (const key of keys) {
       const comp = <BaseComponent>this._components[key];
-      if (comp && comp.isRun) {
+      if (comp && comp.isRunning) {
         comp.tick(elapsed);
       } else {
         delTmp.push(comp);

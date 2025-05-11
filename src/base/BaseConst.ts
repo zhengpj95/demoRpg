@@ -12,6 +12,13 @@ export interface IPoolObject {
   onRelease: () => void;
 }
 
+export interface IComponent {
+  start: () => void;
+  stop: () => void;
+
+  tick: (delta: number) => void;
+}
+
 export const enum BaseEvent {
   STAGE_CLICK = "base_stage_click", // 点击舞台
 }

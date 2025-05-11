@@ -63,12 +63,4 @@ export class SkillComponent extends BaseComponent {
   public stop(): void {
     super.stop();
   }
-
-  public onAlloc(): void {
-    super.onAlloc();
-  }
-
-  public onRelease(): void {
-    super.onRelease();
-  }
 }

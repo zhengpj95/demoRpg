@@ -25,13 +25,6 @@ export class MoveComponent extends BaseComponent {
     super.stop();
   }
 
-  public onAlloc(): void {
-    super.onAlloc();
-    this._lastMoveTime = 0;
-    this._pathList.length = 0;
-    this._targetNode = <any>undefined;
-  }
-
   public tick(delta: number): void {
     if (!this._targetNode) {
       this._targetNode = this._pathList.shift();

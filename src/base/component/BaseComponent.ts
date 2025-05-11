@@ -1,15 +1,15 @@
 import { SceneEntity } from "../entity/SceneEntity";
 import { ComponentType } from "./ComponentConst";
-import { IPoolObject } from "@base/BaseConst";
+import { IComponent } from "@base/BaseConst";
 
 /**
  * 实体组件基类
  */
-export class BaseComponent implements IPoolObject {
+export class BaseComponent implements IComponent {
   /** 组件所属类型  */
   private _type: ComponentType;
   /** 组件在运行否 */
-  private _isRun: boolean;
+  private _isRunning: boolean;
   /** 组件所属场景实体 */
   private _entity: SceneEntity;
 
@@ -21,12 +21,8 @@ export class BaseComponent implements IPoolObject {
     this._entity = value;
   }
 
-  get isRun(): boolean {
-    return this._isRun;
-  }
-
-  set isRun(value: boolean) {
-    this._isRun = value;
+  get isRunning(): boolean {
+    return this._isRunning;
   }
 
   get type(): ComponentType {
@@ -38,21 +34,11 @@ export class BaseComponent implements IPoolObject {
   }
 
   public start(): void {
-    this.isRun = true;
+    this._isRunning = true;
   }
 
   public stop(): void {
-    this.isRun = false;
-  }
-
-  public onAlloc(): void {
-    this._isRun = false;
-    this._type = ComponentType.NONE;
-    this._entity = <any>undefined;
-  }
-
-  public onRelease(): void {
-    this._isRun = false;
+    this._isRunning = false;
     this._type = ComponentType.NONE;
     this._entity = <any>undefined;
   }

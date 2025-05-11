@@ -47,7 +47,7 @@ export class CompMgr {
       const list = this._compMap[key];
       if (list.length) {
         list.forEach((comp) => {
-          if (comp.isRun) {
+          if (comp.isRunning) {
             comp.tick(Laya.timer.delta);
           }
         });
