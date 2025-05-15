@@ -1,5 +1,10 @@
 import { BaseComponent } from "@base/component/BaseComponent";
 import { Action } from "@base/entity/EntityConst";
+import PoolMgr from "@base/core/PoolMgr";
+import { DamageHurt } from "@base/entity/DamageHurt";
+import { ComponentType } from "@base/component/ComponentConst";
+import Tween = Laya.Tween;
+import Handler = Laya.Handler;
 
 const ATTACK_DIS = 50;
 
@@ -82,5 +87,24 @@ export class BattleComponent extends BaseComponent {
     // console.log(
     //   `11111 BattleComp continueAttack ${this.entity.battle.vo.hp} ${randomHp}`,
     // );
+
+    const damageItem = PoolMgr.alloc(DamageHurt);
+    const display = this.entity.battle.getComponent(
+      ComponentType.AVATAR,
+    ).display;
+    display.addChild(damageItem);
+    damageItem.damage = randomHp;
+    damageItem.pos(display.width / 2, 0);
+    damageItem.alpha = 1;
+    Tween.to(
+      damageItem,
+      { y: -100, alpha: 0.7 },
+      800,
+      null,
+      Handler.create(this, () => {
+        damageItem.release();
+        damageItem.removeSelf();
+      }),
+    );
   }
 }

@@ -77,8 +77,9 @@ export class AvatarComponent extends BaseComponent {
   }
 
   public stop(): void {
+    const e = this.entity;
     super.stop();
-    emitter.emit(SceneEvent.REMOVE_FROM_SCENE, this.entity);
+    emitter.emit(SceneEvent.REMOVE_FROM_SCENE, e);
     if (this._headUI) {
       PoolMgr.release(this._headUI);
       this._headUI = <any>undefined;
